@@ -1,8 +1,21 @@
 # BingoGame
 
+System used:
 
-# F.A.Q.
+```
+OS: Fedora release 30 (Thirty) x86_64
+Kernel: 5.0.9-301.fc30.x86_64 
+Shell: bash 5.0.2 
+Resolution: 1920x1080 
+CPU: AMD FX-8350 (8) @ 4.000GHz 
+GPU: NVIDIA GeForce GTX 980 Ti 
+Memory: 16064MiB 
+```
 
-- Why use `int` instead of `unsigned int` for credits?
-    - I prefer to have a simple clean code and avoid having conversions between different value types
-    - It's better to check if an `int` becomes negative and `throw` an exception the instant it happens instead of disallowing negative values using an `unsigned int`, worst case scenario is the `unsigned int` behind the scenes underflowing because of implicit conversions.
+Software used: 
+
+```
+CLion 2019.2
+g++ (GCC) 9.0.1 20190312 (Red Hat 9.0.1-0.10)
+```
+
