@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <random>
+#include <stdexcept>
 
 Drum::Drum(int numberOfBalls)
 {
@@ -18,6 +19,23 @@ Drum::Drum(int numberOfBalls)
 
 int Drum::Total() {
     return balls.size();
+}
+
+std::vector<int> Drum::Extract(const int N)
+{
+    if (N > balls.size())
+    {
+        throw std::invalid_argument("You can't extract more balls than the ones left in the drum!");
+    }
+
+    std::vector<int> results;
+    for (int i = 0; i < N; ++i)
+    {
+        results.push_back(balls.back());
+        balls.pop_back();
+    }
+
+    return results;
 }
 
 

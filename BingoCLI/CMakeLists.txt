@@ -8,7 +8,7 @@ project(BingoCLI)
 set(EXEC BingoCLI)
 
 # set the C++14 standard
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 # I../includes
 include_directories(Include)

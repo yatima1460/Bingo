@@ -12,9 +12,9 @@ public:
     Drum(int numberOfBalls);
 
     /**
-     *  Extracts a ball from the drum 
+     *  Extracts N balls from the drum
     */
-    int Extract();
+    std::vector<int> Extract(int N);
 
     /**
      * Total number of balls
