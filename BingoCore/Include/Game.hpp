@@ -23,7 +23,9 @@ public:
     /**
      * Collects all credits won, internal credits are reset to 0
      */
-    void Collect();
+    int Collect();
+
+    int CurrentCredits();
 
 };
 

@@ -2,9 +2,11 @@
 #include "Game.hpp"
 
 
-void Game::Collect()
+int Game::Collect()
 {
+    int win = credits;
     credits = 0;
+    return win;
 }
 
 void Game::PlayOneGame()
@@ -32,4 +34,14 @@ void Game::InsertCredits(int N)
     }
 
     credits += N;
+}
+
+int Game::CurrentCredits()
+{
+    return credits;
+}
+
+void Game::ChangeCards(int N)
+{
+
 }
