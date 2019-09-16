@@ -8,8 +8,8 @@ class Drum
     
 
 public:
-    
-    Drum(int numberOfBalls);
+
+    explicit Drum(int numberOfBalls);
 
     /**
      *  Extracts N balls from the drum
@@ -17,7 +17,7 @@ public:
     std::vector<int> Extract(int N);
 
     /**
-     * Total number of balls
+     * Total number of balls left
      * @return
      */
     int Total();
