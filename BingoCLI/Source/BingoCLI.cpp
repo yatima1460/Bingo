@@ -10,7 +10,9 @@ void ClearScreen()
     if (system("CLS")) system("clear");
 }
 
-Game game;
+
+Player player;
+Game game(player);
 
 void PrintMenu()
 {
@@ -23,7 +25,7 @@ void PrintMenu()
 
 
     std::cout << logo << std::endl << std::endl;
-    std::cout << "Current Credits: " << game.CurrentCredits() << std::endl << std::endl;
+    std::cout << "Current Credits: " << player.CreditsLeft() << std::endl << std::endl;
     std::cout << "1.Dynamic Bingo Settings" << std::endl;
     std::cout << "2.Insert Credits" << std::endl;
     std::cout << "3.Change number of Cards" << std::endl;
@@ -51,7 +53,7 @@ void PrintMenu()
             std::cout << std::endl << "How many credits? ";
             int credits = -1;
             std::cin >> credits;
-            game.InsertCredits(credits);
+            player.AddCredits(credits);
             break;
         }
             // Change number of Cards
@@ -82,7 +84,7 @@ void PrintMenu()
         // Collect
         case 6:
         {
-            int collected = game.Collect();
+            int collected = player.Collect();
             std::cout << "Collected " << collected << " credits." << std::endl;
             break;
         }

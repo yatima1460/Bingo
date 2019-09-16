@@ -1,17 +1,24 @@
 #include <stdexcept>
+#include <Drum.hpp>
 #include "Game.hpp"
 
 
-int Game::Collect()
+/*int Game::Collect()
 {
     int win = credits;
     credits = 0;
     return win;
-}
+}*/
 
 void Game::PlayOneGame()
 {
 
+
+    Drum drum(60);
+
+    std::vector<int> extracted = drum.Extract(30);
+
+    
 }
 
 void Game::PlayNGames(int N)
@@ -36,12 +43,19 @@ void Game::InsertCredits(int N)
     credits += N;
 }
 
+/*
 int Game::CurrentCredits()
 {
     return credits;
 }
+*/
 
 void Game::ChangeCards(int N)
+{
+
+}
+
+Game::Game(Player &player) : player(player)
 {
 
 }

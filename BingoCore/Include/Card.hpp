@@ -4,6 +4,9 @@
 class Card
 {
 
+public:
+
+    Card();
 
 
 };
