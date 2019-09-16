@@ -18,7 +18,7 @@ void Game::PlayOneGame()
 
     std::vector<int> extracted = drum.Extract(30);
 
-    
+
 }
 
 void Game::PlayNGames(int N)
