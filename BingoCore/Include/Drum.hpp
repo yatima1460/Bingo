@@ -4,21 +4,21 @@
 
 class Drum
 {
-    std::vector<int> balls;
+    std::vector<unsigned int> balls;
     
 
 public:
 
-    explicit Drum(int numberOfBalls);
+    explicit Drum(unsigned int numberOfBalls);
 
     /**
      *  Extracts N balls from the drum
     */
-    std::vector<int> Extract(int N);
+    std::vector<unsigned int> Extract(unsigned int N);
 
     /**
      * Total number of balls left
      * @return
      */
-    int Total();
+    unsigned int Total();
 };

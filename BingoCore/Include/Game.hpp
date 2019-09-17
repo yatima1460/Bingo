@@ -10,29 +10,38 @@ class Game
 private:
 
     int credits;
-    std::vector<Card> cards;
+    std::vector<Card *> cards;
     Player &player;
+
+    unsigned int drumSize;
+
+    std::vector<unsigned int> extracted;
+    unsigned int maxCards;
+
+    unsigned int width, height;
 
 
 public:
 
     explicit Game(Player &player);
 
-    void SetDrumSize(int N);
+    void SetDrumSize(unsigned int N);
 
-    void SetCardsNumber(int N);
+    void SetCardsNumber(unsigned int N);
 
     unsigned int GetCardsNumber();
 
-    void SetCardsSize(int Width, int Height);
+    void SetCardsSize(unsigned int Width, unsigned int Height);
 
-    void InsertCredits(int N);
+    void InsertCredits(unsigned int N);
 
     void PlayOneGame();
 
-    void PlayNGames(int N);
+    void PlayNGames(unsigned int N);
 
-    void ChangeCards(int N);
+    std::vector<Card *> GetCards();
+
+//    void ChangeCards(unsigned int N);
 
     /**
      * Collects all credits won, internal credits are reset to 0
@@ -40,6 +49,13 @@ public:
     //int Collect();
 
     //int CurrentCredits();
+
+    /**
+     * The latest balls extracted
+     * @return
+     */
+    std::vector<unsigned int> ExtractedBalls();
+
 
 };
 

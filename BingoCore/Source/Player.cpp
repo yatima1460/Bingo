@@ -1,6 +1,8 @@
 
 #include "Player.hpp"
 
+#include <stdexcept>
+
 unsigned int Player::CreditsLeft()
 {
     return credits;
@@ -23,5 +25,9 @@ unsigned int Player::Collect()
 
 void Player::AddCredits(unsigned int Value)
 {
+    if (Value == 0)
+    {
+        throw std::invalid_argument("Trying to add 0 credits to a Player!");
+    }
     credits += Value;
 }

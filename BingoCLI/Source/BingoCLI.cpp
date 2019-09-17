@@ -3,7 +3,9 @@
 
 #include <Game.hpp>
 #include <cstdlib>
-
+#include <OutOfCreditsException.hpp>
+#include <limits>
+#include <cassert>
 
 void ClearScreen()
 {
@@ -16,6 +18,8 @@ Game game(player);
 
 void PrintMenu()
 {
+
+
     const std::string logo = R"(______ _____ _   _ _____ _____
 | ___ \_   _| \ | |  __ \  _  |
 | |_/ / | | |  \| | |  \/ | | |
@@ -28,7 +32,7 @@ void PrintMenu()
     std::cout << "Current Credits: " << player.CreditsLeft() << std::endl << std::endl;
     std::cout << "1.Dynamic Bingo Settings" << std::endl;
     std::cout << "2.Insert Credits" << std::endl;
-    std::cout << "3.Change number of Cards" << std::endl;
+    std::cout << "3.Change number of Cards [Current: " << game.GetCardsNumber() << "]" << std::endl;
     std::cout << "4.Play 1 Game" << std::endl;
     std::cout << "5.Play X Games" << std::endl;
     std::cout << "6.Collect" << std::endl;
@@ -51,9 +55,16 @@ void PrintMenu()
         case 2:
         {
             std::cout << std::endl << "How many credits? ";
-            int credits = -1;
+            int credits = 0;
             std::cin >> credits;
+            if (credits <= 0)
+            {
+                std::cout << "ERROR: Invalid credits value" << std::endl;
+                std::cin.clear();
+                return;
+            }
             player.AddCredits(credits);
+            std::cout << std::endl << "New credits: " << player.CreditsLeft() << std::endl;
             break;
         }
             // Change number of Cards
@@ -62,13 +73,63 @@ void PrintMenu()
             std::cout << std::endl << "How many cards? ";
             int cards = -1;
             std::cin >> cards;
-            game.ChangeCards(cards);
+            game.SetCardsNumber(cards);
             break;
         }
         // Play 1 Game
         case 4:
         {
-            game.PlayOneGame();
+            try
+            {
+                game.PlayOneGame();
+            }
+            catch (OutOfCreditsException &e)
+            {
+
+                std::cout << "ERROR: You don't have enough credits for cards" << std::endl;
+                return;
+            }
+
+
+            auto balls = game.ExtractedBalls();
+
+            std::cout << std::endl << balls.size() << " extracted balls: " << std::endl;
+
+            for (size_t i = 0; i < balls.size(); i++)
+            {
+                if (balls[i] >= 10)
+                    std::cout << "(" << balls[i] << ")";
+                else
+                    std::cout << "(0" << balls[i] << ")";
+                if ((i + 1) % 10 == 0) std::cout << std::endl;
+            }
+            std::cout << std::endl << "Cards: " << std::endl;
+
+
+            auto cards = game.GetCards();
+            for (size_t i = 0; i < game.GetCardsNumber(); i++)
+            {
+                std::cout << std::endl << "Card #" << i + 1 << std::endl;
+                Card *card = cards[i];
+                assert(card != nullptr);
+                for (size_t j = 0; j < card->Width * card->Height; j++)
+                {
+                    unsigned int n = card->operator[](j); //FIXME
+
+                    if (n >= 10)
+                        std::cout << n << " ";
+                    else
+                        std::cout << "0" << n << " ";
+                    if ((j + 1) % card->Width == 0) std::cout << std::endl;
+                }
+
+            }
+
+            std::cout << std::endl;
+            std::cout << "Remaining credits: " << player.CreditsLeft() << std::endl;
+
+
+
             break;
         }
         // Play X Games
@@ -84,7 +145,7 @@ void PrintMenu()
         // Collect
         case 6:
         {
-            int collected = player.Collect();
+            unsigned int collected = player.Collect();
             std::cout << "Collected " << collected << " credits." << std::endl;
             break;
         }
@@ -104,9 +165,23 @@ void PrintMenu()
 
 int main(int argc, char *argv[])
 {
+    player.AddCredits(100);
+    game.SetCardsSize(5, 3);
+    game.SetDrumSize(60);
+    game.SetCardsNumber(4);
+
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
     while (true)
+    {
         PrintMenu();
+        std::cout << std::endl;
+        std::cout << "Press <Enter> to go back to the menu." << std::endl;
+        std::cin.ignore().get();
+
+
+    }
+
 #pragma clang diagnostic pop
 }
