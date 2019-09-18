@@ -2,7 +2,7 @@
 
 # TODO
 
-# CLI
+## CLI
 
 - Dynamic Bingo settings
   - Prize patterns config
@@ -24,7 +24,7 @@
 - Collect
 
 
-# UI
+## UI
 
 - Balls extracted
 - Cartons
