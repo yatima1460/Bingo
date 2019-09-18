@@ -106,7 +106,7 @@ void PrintMenu()
             std::cout << std::endl << "Cards: " << std::endl;
 
 
-            auto cards = game.GetCards();
+            auto cards = player.GetCards();
             for (size_t i = 0; i < game.GetCardsNumber(); i++)
             {
                 std::cout << std::endl << "Card #" << i + 1 << std::endl;

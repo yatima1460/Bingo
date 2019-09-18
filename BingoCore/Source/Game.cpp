@@ -68,7 +68,7 @@ int Game::CurrentCredits()
 
 
 
-void Game::SetCardsNumber(unsigned int N)
+/*void Game::SetCardsNumber(unsigned int N)
 {
     if (N == 0)
     {
@@ -76,7 +76,7 @@ void Game::SetCardsNumber(unsigned int N)
     }
     this->maxCards = N;
 
-    cards = std::vector<Card *>(N);
+     = std::vector<Card *>(N);
 
     // FIXME: delete old cards
 
@@ -84,7 +84,7 @@ void Game::SetCardsNumber(unsigned int N)
     {
         cards[i] = new Card(this->width, this->height, this->drumSize);
     }
-}
+}*/
 
 std::vector<unsigned int> Game::ExtractedBalls()
 {
@@ -107,7 +107,3 @@ void Game::SetCardsSize(unsigned int Width, unsigned int Height)
     this->height = Height;
 }
 
-std::vector<Card *> Game::GetCards()
-{
-    return cards;
-}

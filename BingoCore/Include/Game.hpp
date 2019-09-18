@@ -1,7 +1,6 @@
 
 
 
-#include "Card.hpp"
 #include "Player.hpp"
 #include <vector>
 
@@ -10,7 +9,7 @@ class Game
 private:
 
     int credits;
-    std::vector<Card *> cards;
+
     Player &player;
 
     unsigned int drumSize;
@@ -39,7 +38,7 @@ public:
 
     void PlayNGames(unsigned int N);
 
-    std::vector<Card *> GetCards();
+
 
 //    void ChangeCards(unsigned int N);
 

@@ -31,3 +31,8 @@ void Player::AddCredits(unsigned int Value)
     }
     credits += Value;
 }
+
+std::vector<Card *> Player::GetCards()
+{
+    return cards;
+}
