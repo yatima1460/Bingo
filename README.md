@@ -13,7 +13,7 @@
   - Percentage Game
   - Pattern frequency
   - Contribution patterns
-- Insert credits
+- ~Insert credits~
 - Change numbers
 - Play One Game
   - Show extracted balls
@@ -21,7 +21,7 @@
   - Show prizes
   - Remanining credits
 - Play X Games
-- Collect
+- ~Collect~
 
 
 ## UI
