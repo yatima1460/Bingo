@@ -11,5 +11,13 @@ jobs:
     - uses: actions/checkout@v1
     - name: CMake BingoCore
       run: cd BingoCore && cmake .
-    - name: G++ BingoCore
+    - name: g++ BingoCore
       run: cd BingoCore && make
+    - name: CMake BingoCLI
+      run: cd BingoCLI && cmake .
+    - name: g++ BingoCLI
+      run: cd BingoCLI && make
+    - name: CMake BingoUI
+      run: cd BingoUI && cmake .
+    - name: g++ BingoUI
+      run: cd BingoUI && make
