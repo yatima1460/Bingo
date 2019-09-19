@@ -32,6 +32,21 @@
 - ~Collect~
 - ~Exit game~
 
+## Build
+
+### Prerequisites
+
+#### Core and CLI
+
+- CMake
+- g++
+
+#### UI
+
+```
+apt install libsdl2-dev libsdl2-ttf-dev
+
+```
 
 ## UI
 
@@ -47,23 +62,31 @@
 - Current credits
 - ~Exit with ESC~
 
-# System used
+## System used:
 
 ```
-OS: Fedora release 30 (Thirty) x86_64
-Kernel: 5.0.9-301.fc30.x86_64 
-Shell: bash 5.0.2 
-Resolution: 1920x1080 
-CPU: AMD FX-8350 (8) @ 4.000GHz 
-GPU: NVIDIA GeForce GTX 980 Ti 
-Memory: 16064MiB 
-
+       _,met$$$$$gg.          yatima1460@debian-desktop
+    ,g$$$$$$$$$$$$$$$P.       -------------------------
+  ,g$$P"     """Y$$.".        OS: Debian GNU/Linux 10 (buster) x86_64
+ ,$$P'              `$$$.     Kernel: 4.19.0-6-amd64
+',$$P       ,ggs.     `$$b:   Uptime: 7 mins
+`d$$'     ,$P"'   .    $$$    Packages: 2086 (dpkg)
+ $$P      d$'     ,    $$P    Shell: bash 5.0.3
+ $$:      $$.   -    ,d$$'    Resolution: 1920x1080, 1366x768
+ $$;      Y$b._   _,d$P'      DE: GNOME 3.30.2
+ Y$$.    `.`"Y$$$$P"'         WM: GNOME Shell
+ `$$b      "-.__              WM Theme: Adwaita
+  `Y$$                        Theme: Adwaita [GTK2/3]
+   `Y$$.                      Icons: Adwaita [GTK2/3]
+     `$$b.                    Terminal: gnome-terminal
+       `Y$$b.                 CPU: AMD FX-8350 (8) @ 4.000GHz
+          `"Y$b._             GPU: NVIDIA GeForce GTX 980 Ti
+              `"""            Memory: 3211MiB / 16005MiB
 ```
 
-Software used: 
+## Software used:
 
 ```
 CLion 2019.2
-g++ (GCC) 9.0.1 20190312 (Red Hat 9.0.1-0.10)
+g++ (Debian 8.3.0-6) 8.3.0
 ```
-
