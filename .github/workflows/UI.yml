@@ -1,0 +1,16 @@
+name: UI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: CMake BingoUI
+      run: cd BingoUI && cmake .
+    - name: g++ BingoUI
+      run: cd BingoUI && make
+      
