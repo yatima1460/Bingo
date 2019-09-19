@@ -59,7 +59,7 @@ apt install libsdl2-dev libsdl2-ttf-dev
   - Collect money
   - Change Cardboard numbers
   - Play Game
-- Current credits
+- ~Current credits~
 - ~Exit with ESC~
 
 ## System used:
