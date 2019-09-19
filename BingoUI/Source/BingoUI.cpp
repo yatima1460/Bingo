@@ -25,13 +25,21 @@ bool init() {
     bool success = true;
 
     //Initialize SDL
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
         success = false;
     } else {
         //Create window
         gWindow = SDL_CreateWindow("Bingo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, -1, -1,
                                    SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP);
+
+        TTF_Init();
+        TTF_Font *font = TTF_OpenFont(font_path, 24);
+        if (font == NULL) {
+            fprintf(stderr, "error: font not found\n");
+            exit(EXIT_FAILURE);
+        }
+
         if (gWindow == nullptr) {
             printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
             success = false;
