@@ -83,14 +83,43 @@ int main(int argc, char *args[]) {
         if (!loadMedia()) {
             printf("Failed to load media!\n");
         } else {
-            //Apply the image
-            SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
 
-            //Update the surface
-            SDL_UpdateWindowSurface(gWindow);
 
-            //Wait two seconds
-            SDL_Delay(2000);
+            //Main loop flag
+            bool quit = false;
+
+            //Event handler
+            SDL_Event e;
+
+            //While application is running
+            while (!quit) {
+
+                //Handle events on queue
+                while (SDL_PollEvent(&e) != 0) {
+                    //User requests quit
+                    if (e.type == SDL_QUIT) {
+                        quit = true;
+                    }
+                        //User presses a key
+                    else if (e.type == SDL_KEYDOWN) {
+                        //Select surfaces based on key press
+                        switch (e.key.keysym.sym) {
+                            case SDLK_ESCAPE:
+                                quit = true;
+                                break;
+
+                        }
+
+                    }
+                }
+
+
+                //Apply the image
+                SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
+
+                //Update the surface
+                SDL_UpdateWindowSurface(gWindow);
+            }
         }
     }
 

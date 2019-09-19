@@ -45,7 +45,7 @@
   - Change Cardboard numbers
   - Play Game
 - Current credits
-- Exit with ESC
+- ~Exit with ESC~
 
 # System used
 
