@@ -18,8 +18,9 @@ public:
 
     const unsigned int Width;
     const unsigned int Height;
+    const unsigned int DrumMaxNumber;
 
-    unsigned int &operator[](int index)
+    unsigned int operator[](int index)
     {
         return card[index];
     }

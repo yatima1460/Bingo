@@ -13,6 +13,7 @@ private:
 
 public:
 
+    Player();
 
     unsigned int CreditsLeft();
 
@@ -23,6 +24,8 @@ public:
     unsigned int Collect();
 
     std::vector<Card *> GetCards();
+
+    void RerollCards();
 
 };
 

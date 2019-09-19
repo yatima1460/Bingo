@@ -14,18 +14,21 @@
   - Pattern frequency
   - Contribution patterns
 - ~Insert credits~
-- Change numbers
+- ~Change numbers~
+- ~Show current cards~
 - Play One Game
-  - Show extracted balls
+  - ~Show extracted balls~
   - Show cards status
   - Show prizes
-  - Remanining credits
+  - ~Remaining credits~
 - Play X Games
 - ~Collect~
+- ~Exit game~
 
 
 ## UI
 
+- Background
 - Balls extracted
 - Cartons
   - Marked

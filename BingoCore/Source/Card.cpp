@@ -5,7 +5,8 @@
 #include "Card.hpp"
 
 
-Card::Card(unsigned int Width, unsigned int Height, unsigned int DrumMaxNumber) : Width(Width), Height(Height)
+Card::Card(unsigned int Width, unsigned int Height, unsigned int DrumMaxNumber) : Width(Width), Height(Height),
+                                                                                  DrumMaxNumber(DrumMaxNumber)
 {
     Drum d(DrumMaxNumber);
     card = d.Extract(Width * Height);

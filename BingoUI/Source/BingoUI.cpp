@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
             SDL_WINDOWPOS_CENTERED,           // initial y position
             1920,                               // width, in pixels
             1080,                               // height, in pixels
-            SDL_WINDOW_OPENGL                  // flags - see below
+            SDL_WINDOW_OPENGL                 // flags - see below
     );
 
     // Check that the window was successfully created

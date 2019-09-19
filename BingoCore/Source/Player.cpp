@@ -2,6 +2,7 @@
 #include "Player.hpp"
 
 #include <stdexcept>
+#include <cassert>
 
 unsigned int Player::CreditsLeft()
 {
@@ -35,4 +36,26 @@ void Player::AddCredits(unsigned int Value)
 std::vector<Card *> Player::GetCards()
 {
     return cards;
+}
+
+Player::Player() : credits(0) {
+
+    cards = std::vector<Card *>(4);
+
+    for (int i = 0; i < 4; i++) {
+        cards[i] = new Card(5, 3, 60);
+    }
+}
+
+void Player::RerollCards() {
+    for (size_t i = 0; i < cards.size(); ++i) {
+        assert(cards[i] != nullptr);
+
+        auto newCard = new Card(cards[i]->Width, cards[i]->Height, cards[i]->DrumMaxNumber);
+
+        delete cards[i];
+
+        cards[i] = newCard;
+    }
+
 }

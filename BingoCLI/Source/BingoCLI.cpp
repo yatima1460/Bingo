@@ -6,6 +6,7 @@
 #include <OutOfCreditsException.hpp>
 #include <limits>
 #include <cassert>
+#include <ctime>
 
 void ClearScreen()
 {
@@ -13,8 +14,28 @@ void ClearScreen()
 }
 
 
-Player player;
-Game game(player);
+Player *player;
+Game *game;
+
+
+void PrintCards(Player &player) {
+    auto cards = player.GetCards();
+    for (size_t i = 0; i < cards.size(); i++) {
+        std::cout << std::endl << "Card #" << i + 1 << std::endl;
+        Card *card = cards[i];
+        assert(card != nullptr);
+        for (size_t j = 0; j < card->Width * card->Height; j++) {
+            unsigned int n = card->operator[](j); //FIXME
+
+            if (n >= 10)
+                std::cout << n << " ";
+            else
+                std::cout << "0" << n << " ";
+            if ((j + 1) % card->Width == 0) std::cout << std::endl;
+        }
+
+    }
+}
 
 void PrintMenu()
 {
@@ -29,14 +50,15 @@ void PrintMenu()
 
 
     std::cout << logo << std::endl << std::endl;
-    std::cout << "Current Credits: " << player.CreditsLeft() << std::endl << std::endl;
+    std::cout << "Current Credits: " << player->CreditsLeft() << "$" << std::endl << std::endl;
     std::cout << "1.Dynamic Bingo Settings" << std::endl;
     std::cout << "2.Insert Credits" << std::endl;
-    std::cout << "3.Change number of Cards [Current: " << game.GetCardsNumber() << "]" << std::endl;
-    std::cout << "4.Play 1 Game" << std::endl;
-    std::cout << "5.Play X Games" << std::endl;
-    std::cout << "6.Collect" << std::endl;
-    std::cout << "7.Exit game" << std::endl;
+    std::cout << "3.Change the Card numbers" << std::endl;
+    std::cout << "4.Show current Cards" << std::endl;
+    std::cout << "5.Play One Game [ Cost: " << player->GetCards().size() << "$ ]" << std::endl;
+    std::cout << "6.Play X Games" << std::endl;
+    std::cout << "7.Collect" << std::endl;
+    std::cout << "8.Exit game" << std::endl;
     std::cout << std::endl;
     std::cout << "Insert number: ";
     int command = -1;
@@ -63,25 +85,38 @@ void PrintMenu()
                 std::cin.clear();
                 return;
             }
-            player.AddCredits(credits);
-            std::cout << std::endl << "New credits: " << player.CreditsLeft() << std::endl;
+            player->AddCredits(credits);
+            std::cout << std::endl << "New credits: " << player->CreditsLeft() << std::endl;
             break;
         }
             // Change number of Cards
         case 3:
         {
-            std::cout << std::endl << "How many cards? ";
+            player->RerollCards();
+            std::cout << std::endl << "New cards: " << std::endl;
+            PrintCards(*player);
+            /*std::cout << std::endl << "How many cards? ";
             int cards = -1;
             std::cin >> cards;
-            game.SetCardsNumber(cards);
+            game.SetCardsNumber(cards);*/
+            break;
+        }
+            // Show Current Cards
+        case 4: {
+            assert(player != nullptr);
+            PrintCards(*player);
+            /*std::cout << std::endl << "How many cards? ";
+            int cards = -1;
+            std::cin >> cards;
+            game.SetCardsNumber(cards);*/
             break;
         }
         // Play 1 Game
-        case 4:
+        case 5:
         {
             try
             {
-                game.PlayOneGame();
+                game->PlayOneGame();
             }
             catch (OutOfCreditsException &e)
             {
@@ -91,7 +126,7 @@ void PrintMenu()
             }
 
 
-            auto balls = game.ExtractedBalls();
+            auto balls = game->ExtractedBalls();
 
             std::cout << std::endl << balls.size() << " extracted balls: " << std::endl;
 
@@ -106,51 +141,34 @@ void PrintMenu()
             std::cout << std::endl << "Cards: " << std::endl;
 
 
-            auto cards = player.GetCards();
-            for (size_t i = 0; i < game.GetCardsNumber(); i++)
-            {
-                std::cout << std::endl << "Card #" << i + 1 << std::endl;
-                Card *card = cards[i];
-                assert(card != nullptr);
-                for (size_t j = 0; j < card->Width * card->Height; j++)
-                {
-                    unsigned int n = card->operator[](j); //FIXME
 
-                    if (n >= 10)
-                        std::cout << n << " ";
-                    else
-                        std::cout << "0" << n << " ";
-                    if ((j + 1) % card->Width == 0) std::cout << std::endl;
-                }
-
-            }
 
             std::cout << std::endl;
-            std::cout << "Remaining credits: " << player.CreditsLeft() << std::endl;
+            std::cout << "Remaining credits: " << player->CreditsLeft() << std::endl;
 
 
 
             break;
         }
         // Play X Games
-        case 5:
+        case 6:
         {
 
             std::cout << std::endl << "How many games? ";
             int games = -1;
             std::cin >> games;
-            game.PlayNGames(games);
+            game->PlayNGames(games);
             break;
         }
         // Collect
-        case 6:
+        case 7:
         {
-            unsigned int collected = player.Collect();
+            unsigned int collected = player->Collect();
             std::cout << "Collected " << collected << " credits." << std::endl;
             break;
         }
             // Exit
-        case 7:
+        case 8:
         {
             std::exit(EXIT_SUCCESS);
         }
@@ -165,10 +183,13 @@ void PrintMenu()
 
 int main(int argc, char *argv[])
 {
-    player.AddCredits(100);
-    game.SetCardsSize(5, 3);
-    game.SetDrumSize(60);
-    game.SetCardsNumber(4);
+    player = new Player();
+    player->AddCredits(100);
+
+    game = new Game(*player);
+    game->SetCardsSize(5, 3);
+    game->SetDrumSize(60);
+    // game.SetCardsNumber(4);
 
 
 #pragma clang diagnostic push
