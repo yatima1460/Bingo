@@ -1,6 +1,10 @@
 #include <SDL.h>
 #include <cstdio>
-
+#include <SDL_ttf.h>
+#include <cassert>
+#include <Player.hpp>
+#include <string>
+#include <sstream>
 
 //Starts up SDL and creates window
 bool init();
@@ -17,8 +21,12 @@ SDL_Window *gWindow = NULL;
 //The surface contained by the window
 SDL_Surface *gScreenSurface = NULL;
 
-//The image we will load and show on the screen
-SDL_Surface *gHelloWorld = NULL;
+
+TTF_Font *font;
+
+SDL_Renderer *renderer;
+
+SDL_Texture *background;
 
 bool init() {
     //Initialization flag
@@ -33,9 +41,13 @@ bool init() {
         gWindow = SDL_CreateWindow("Bingo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, -1, -1,
                                    SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP);
 
+
+        renderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
+
         TTF_Init();
-        TTF_Font *font = TTF_OpenFont(font_path, 24);
-        if (font == NULL) {
+        font = TTF_OpenFont("Assets/Roboto-Regular.ttf", 32);
+        if (font == nullptr)
+        {
             fprintf(stderr, "error: font not found\n");
             exit(EXIT_FAILURE);
         }
@@ -52,25 +64,25 @@ bool init() {
     return success;
 }
 
-bool loadMedia() {
-    //Loading success flag
+bool loadMedia()
+{
     bool success = true;
 
     //Load splash image
-    gHelloWorld = SDL_LoadBMP("Assets/Fondo_Juego.bmp");
-    if (gHelloWorld == nullptr) {
-        printf("Unable to load image %s! SDL Error: %s\n", "02_getting_an_image_on_the_screen/hello_world.bmp",
-               SDL_GetError());
-        success = false;
-    }
+    SDL_Surface *background_surface = SDL_LoadBMP("Assets/Fondo_Juego.bmp");
+    assert(background_surface != nullptr);
 
+    background = SDL_CreateTextureFromSurface(renderer, background_surface);
+    assert(background != nullptr);
+
+    SDL_FreeSurface(background_surface);
     return success;
 }
 
 void close() {
     //Deallocate surface
-    SDL_FreeSurface(gHelloWorld);
-    gHelloWorld = nullptr;
+    SDL_DestroyTexture(background);
+    background = nullptr;
 
     //Destroy window
     SDL_DestroyWindow(gWindow);
@@ -82,7 +94,17 @@ void close() {
 
 #undef main
 
-int main(int argc, char *args[]) {
+int main(int argc, char *args[])
+{
+
+    Player player;
+
+#ifndef NDEBUG
+    player.AddCredits(100);
+#endif
+
+
+
     //Start up SDL and create window
     if (!init()) {
         printf("Failed to initialize!\n");
@@ -121,12 +143,33 @@ int main(int argc, char *args[]) {
                     }
                 }
 
+                std::stringstream player_credits;
+
+                player_credits << player.CreditsLeft();
+
+                SDL_Surface *surfaceMessage = TTF_RenderText_Solid(font, player_credits.str().c_str(), {255, 255, 255});
+
+
+                SDL_Texture *Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+
+
+
+
 
                 //Apply the image
-                SDL_BlitSurface(gHelloWorld, NULL, gScreenSurface, NULL);
+                SDL_RenderCopy(renderer, background, nullptr, nullptr);
+
+
+                SDL_Rect Message_rect; //create a rect
+                Message_rect.x = 1120 - surfaceMessage->w * 0.5f;  //controls the rect's x coordinate
+                Message_rect.y = 20; // controls the rect's y coordinte
+                Message_rect.w = surfaceMessage->w; // controls the width of the rect
+                Message_rect.h = surfaceMessage->h; // controls the height of the rect
+
+                SDL_RenderCopy(renderer, Message, nullptr, &Message_rect);
 
                 //Update the surface
-                SDL_UpdateWindowSurface(gWindow);
+                SDL_RenderPresent(renderer);
             }
         }
     }
