@@ -1,4 +1,4 @@
-
+#pragma once
 #include <stdexcept>
 
 class BingoException : std::runtime_error

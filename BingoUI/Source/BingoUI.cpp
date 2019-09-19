@@ -2,9 +2,11 @@
 #include <cstdio>
 #include <SDL_ttf.h>
 #include <cassert>
-#include <Player.hpp>
 #include <string>
 #include <sstream>
+
+#include <Player.hpp>
+#include <Game.hpp>
 
 SDL_Window *gWindow = nullptr;
 SDL_Surface *gScreenSurface = nullptr;
@@ -71,6 +73,11 @@ int main(int argc, char *args[])
 {
 
     Player player;
+
+    Game game(player);
+    game.SetDrumSize(60);
+    game.SetCardsSize(5, 3);
+
 
 #ifndef NDEBUG
     player.AddCredits(100);
