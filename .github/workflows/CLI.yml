@@ -12,5 +12,5 @@ jobs:
     - name: CMake BingoCLI
       run: cd BingoCLI && cmake .
     - name: g++ BingoCLI
-      run: cd BingoCLI && make
+      run: cd BingoCLI && make -j
       

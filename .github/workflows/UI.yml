@@ -9,10 +9,10 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: make build
-      run: mkdir build
+    - name: make BingoUI/build
+      run: mkdir BingoUI/build
     - name: CMake BingoUI
-      run: cd BingoUI && cmake .
+      run: cd BingoUI/build && cmake ..
     - name: g++ BingoUI
-      run: cd BingoUI && make
+      run: cd BingoUI/build && make -j
       

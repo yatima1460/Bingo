@@ -12,5 +12,5 @@ jobs:
     - name: CMake BingoCore
       run: cd BingoTest && cmake .
     - name: g++ BingoCore
-      run: cd BingoTest && make
+      run: cd BingoTest && make -j
       
