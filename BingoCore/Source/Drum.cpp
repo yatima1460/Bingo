@@ -6,10 +6,21 @@
 #include <stdexcept>
 #include <ctime>
 #include <chrono>
+#include <cassert>
+
 
 Drum::Drum(unsigned int numberOfBalls)
 {
-    static std::default_random_engine rng(std::random_device{}());
+
+    // obtain a random number from hardware
+    // seed the generator
+
+
+
+    // "random_device" seems to have a problem with MingGW
+    // entropy is 0 here, at least on my PC
+    // double d = rd.entropy();
+    //assert(d != 0.0f);
 
     for (size_t i = 0; i < numberOfBalls; i++)
     {
@@ -17,10 +28,12 @@ Drum::Drum(unsigned int numberOfBalls)
     }
 
 
+    static std::random_device rng;
+    static std::default_random_engine urng(rng());
+    std::shuffle(balls.begin(), balls.end(), urng);
     //std::random_device dev;
     //auto rng = std::default_random_engine(dev());
 
-    std::shuffle(std::begin(balls), std::end(balls), rng);
 }
 
 unsigned int Drum::Total()
