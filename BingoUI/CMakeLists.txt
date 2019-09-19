@@ -30,3 +30,5 @@ link_libraries(SDL2-static)
 
 # compiles the files defined by SOURCES to generante the executable defined by EXEC
 add_executable(${EXEC} ${SOURCES})
+
+file(COPY Assets DESTINATION ${CMAKE_BINARY_DIR})
