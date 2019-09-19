@@ -28,7 +28,7 @@
 
 ## UI
 
-- Background
+- ~Background~
 - Balls extracted
 - Cartons
   - Marked
@@ -38,7 +38,7 @@
   - Change Cardboard numbers
   - Play Game
 - Current credits
-
+- Exit with ESC
 
 # System used
 
