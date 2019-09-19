@@ -1,5 +1,14 @@
 # Bingo
 
+Build Core
+[![Actions Status](https://github.com/yatima1460/Bingo/workflows/Core/badge.svg)](https://github.com/yatima1460/Bingo/actions)
+
+Build CLI
+[![Actions Status](https://github.com/yatima1460/Bingo/workflows/CLI/badge.svg)](https://github.com/yatima1460/Bingo/actions)
+
+Build UI
+[![Actions Status](https://github.com/yatima1460/Bingo/workflows/UI/badge.svg)](https://github.com/yatima1460/Bingo/actions)
+
 # TODO
 
 ## CLI
