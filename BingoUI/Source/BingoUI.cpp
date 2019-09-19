@@ -128,8 +128,8 @@ int main(int argc, char *args[])
 
         // Draw credits
         std::stringstream player_credits;
-        player_credits << player.CreditsLeft();
-        SDL_Surface *creditsSurface = TTF_RenderText_Solid(font, player_credits.str().c_str(), {255, 255, 255});
+        player_credits << "$ " << player.CreditsLeft();
+        SDL_Surface *creditsSurface = TTF_RenderText_Blended(font, player_credits.str().c_str(), {255, 255, 255});
         SDL_Texture *creditsTexture = SDL_CreateTextureFromSurface(renderer, creditsSurface);
         SDL_FreeSurface(creditsSurface);
         SDL_Rect Message_rect; //create a rect
