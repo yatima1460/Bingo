@@ -9,6 +9,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
+    - name: prerequisites
+      run: sudo apt install -y libsdl2-dev libsdl2-ttf-dev
     - name: make BingoUI/build
       run: mkdir BingoUI/build
     - name: CMake BingoUI
