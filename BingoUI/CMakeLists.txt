@@ -28,6 +28,10 @@ add_subdirectory(Vendor/SDL2_ttf-2.0.15 ${CMAKE_CURRENT_BINARY_DIR}/SDL2_ttf-2.0
 
 link_libraries(BingoCore)
 add_executable(BingoUI ${SOURCES})
+
+# Fix because CMake is stupid
+string(STRIP ${SDL2_LIBRARIES} SDL2_LIBRARIES)
+
 target_link_libraries(BingoUI ${SDL2_LIBRARIES})
 target_link_libraries(BingoUI ${SDL2TTF_LIBRARY})
 #link_libraries(SDL2-static)
