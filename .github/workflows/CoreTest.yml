@@ -1,0 +1,16 @@
+name: CoreTest
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: CMake BingoCore
+      run: cd BingoTest && cmake .
+    - name: g++ BingoCore
+      run: cd BingoTest && make
+      
