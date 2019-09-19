@@ -1,0 +1,16 @@
+name: SDL2Test
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: CMake SDL2
+      run: cd BingoUI/Vendor/SDL2-2.0.10/test && cmake .
+    - name: gcc SDL2
+      run: cd BingoUI/Vendor/SDL2-2.0.10/test && make
+      
