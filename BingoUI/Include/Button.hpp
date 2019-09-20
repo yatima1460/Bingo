@@ -16,12 +16,16 @@ private:
     Texture *active;
     bool hovered;
 
+    SDL_Cursor* normalCursor;
+    SDL_Cursor* hoverCursor;
+    bool previousFrameHovered;
+
 
 public:
 
     Button(std::string text, Texture *normal, Texture *hovered);
 
-    Texture *GetTexture();
+    Texture* GetTexture();
 
     void SetPosition(SDL_Point location);
 
@@ -29,8 +33,5 @@ public:
 
     void Draw();
 
-    SDL_Cursor *normalCursor;
-    SDL_Cursor *hoverCursor;
-    bool previousFrameHovered;
 };
 
