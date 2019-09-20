@@ -41,7 +41,7 @@
 - Cartons
   - Marked
 - Buttons
-  - Enter money
+  - ~Enter money~
   - Collect money
   - Change Cardboard numbers
   - Play Game

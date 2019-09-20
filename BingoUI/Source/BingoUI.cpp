@@ -21,6 +21,12 @@ void Cobrar()
 
 
 #undef main
+
+void Monedas()
+{
+    player->Collect();
+}
+
 int main(int argc, char *args[])
 {
 
@@ -66,6 +72,7 @@ int main(int argc, char *args[])
     buttons.push_back(new Button("Monedas", buttonSmallNormal, buttonSmallHovered));
     buttons[3]->SetPosition({backgroundSize.w - buttonBigNormalSize.w - buttonSmallNormalSize.w,
                              backgroundSize.h - buttonSmallNormalSize.h});
+    buttons[3]->SetCallback(&Monedas);
 
     while (!quit)
     {
