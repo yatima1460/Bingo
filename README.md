@@ -32,6 +32,21 @@
 - ~Collect~
 - ~Exit game~
 
+## UI
+
+- ~Background~
+- Balls extracted
+- Cartons
+  - Marked
+- Buttons
+  - Enter money
+  - Collect money
+  - Change Cardboard numbers
+  - Play Game
+- ~Current credits~
+- ~Exit with ESC~
+
+
 ## Build
 
 ### Prerequisites
@@ -48,23 +63,10 @@ apt install libsdl2-dev libsdl2-ttf-dev
 
 ```
 
-## UI
-
-- ~Background~
-- Balls extracted
-- Cartons
-  - Marked
-- Buttons
-  - Enter money
-  - Collect money
-  - Change Cardboard numbers
-  - Play Game
-- ~Current credits~
-- ~Exit with ESC~
 
 ## System used:
 
-```
+```screenfetch
        _,met$$$$$gg.          yatima1460@debian-desktop
     ,g$$$$$$$$$$$$$$$P.       -------------------------
   ,g$$P"     """Y$$.".        OS: Debian GNU/Linux 10 (buster) x86_64

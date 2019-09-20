@@ -94,7 +94,7 @@ int main(int argc, char *args[])
         std::string creditsString = player_credits.str();
 
         SDL_Rect size = Graphics::MeasureText(creditsString);
-        Graphics::DrawText(creditsString, {static_cast<int>(1120 - size.w * 0.5f), 20}, {255, 255, 255});
+        Graphics::DrawText(creditsString, {static_cast<int>(1120 - size.w / 2), 20}, {255, 255, 255});
 
 
         Graphics::SwapBuffers();
