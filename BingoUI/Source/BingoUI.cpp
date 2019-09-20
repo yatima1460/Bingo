@@ -56,15 +56,24 @@ int main(int argc, char *args[])
 
     std::vector<Button *> buttons;
 
-    Texture *buttonBigNormal = new Texture("Assets/botongrande01.bmp");
-    Texture *buttonBigHovered = new Texture("Assets/botongrande02.bmp");
+    auto buttonBigNormal = new Texture("Assets/botongrande01.bmp");
+    auto buttonBigHovered = new Texture("Assets/botongrande02.bmp");
+
+    auto buttonSmallNormal = new Texture("Assets/botonpeque01.bmp");
+    auto buttonSmallHovered = new Texture("Assets/botonpeque02.bmp");
 
     buttons.push_back(new Button("Cobrar", buttonBigNormal, buttonBigHovered));
     buttons[0]->SetPosition({0, background->GetSDLRect().h - buttons[0]->GetTexture()->GetSDLRect().h});
-    buttons.push_back(new Button("Numeros", buttonBigNormal, buttonBigHovered));
+    buttons.push_back(new Button("Numeros", buttonSmallNormal, buttonSmallHovered));
+    buttons[1]->SetPosition({buttons[0]->GetTexture()->GetSDLRect().w,
+                             background->GetSDLRect().h - buttons[0]->GetTexture()->GetSDLRect().h});
+    buttons.push_back(new Button("JUGAR", buttonSmallNormal, buttonSmallHovered));
+    buttons[2]->SetPosition({background->GetSDLRect().w - buttons[2]->GetTexture()->GetSDLRect().w,
+                             background->GetSDLRect().h - buttons[2]->GetTexture()->GetSDLRect().h});
     buttons.push_back(new Button("Monedas", buttonBigNormal, buttonBigHovered));
-    buttons.push_back(new Button("JUGAR", buttonBigNormal, buttonBigHovered));
-
+    buttons[3]->SetPosition({background->GetSDLRect().w - buttons[3]->GetTexture()->GetSDLRect().w -
+                             buttons[2]->GetTexture()->GetSDLRect().w,
+                             background->GetSDLRect().h - buttons[0]->GetTexture()->GetSDLRect().h});
 
     while (!quit)
     {
