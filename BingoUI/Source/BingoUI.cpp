@@ -12,6 +12,8 @@
 #include "Texture.hpp"
 #include "Graphics.hpp"
 
+#include "Button.hpp"
+
 
 Texture *background;
 
@@ -52,6 +54,16 @@ int main(int argc, char *args[])
     // Enable VSync
     SDL_GL_SetSwapInterval(-1);
 
+    std::vector<Button *> buttons;
+
+    Texture *buttonBigNormal = new Texture("Assets/botongrande01.bmp");
+    Texture *buttonBigHovered = new Texture("Assets/botongrande02.bmp");
+
+    buttons.push_back(new Button("Cobrar", buttonBigNormal, buttonBigHovered));
+    buttons.push_back(new Button("Numeros", buttonBigNormal, buttonBigHovered));
+    buttons.push_back(new Button("Monedas", buttonBigNormal, buttonBigHovered));
+    buttons.push_back(new Button("JUGAR", buttonBigNormal, buttonBigHovered));
+
 
     while (!quit)
     {
@@ -83,10 +95,20 @@ int main(int argc, char *args[])
             }
         }
 
+        for (Button *button: buttons)
+        {
+            button->Update();
+        }
+
 
         // Draw background
         Graphics::DrawTexture(background);
         //SDL_RenderCopy(Graphics::GetSDLRenderer(), background, nullptr, nullptr);
+
+        for (Button *button: buttons)
+        {
+            button->Draw();
+        }
 
         // Draw credits
         std::stringstream player_credits;

@@ -45,7 +45,7 @@
   - Play Game
 - ~Current credits~
 - ~Exit with ESC~
-
+- SDL_Image support for .png
 
 ## Build
 

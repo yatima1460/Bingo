@@ -29,3 +29,13 @@ SDL_Texture *Texture::GetSDLTexture()
     return internal;
 }
 
+const SDL_Rect Texture::GetSDLRect()
+{
+
+    SDL_Rect size = {0, 0, 0, 0};
+    SDL_QueryTexture(internal, NULL, NULL, &size.w, &size.h);
+
+
+    return size;
+}
+

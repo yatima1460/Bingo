@@ -46,7 +46,8 @@ void Graphics::Init()
 
 void Graphics::DrawTexture(Texture *texture)
 {
-    SDL_RenderCopy(renderer, texture->GetSDLTexture(), nullptr, nullptr);
+    SDL_Rect r = texture->GetSDLRect();
+    SDL_RenderCopy(renderer, texture->GetSDLTexture(), nullptr, &r);
 }
 
 void Graphics::SwapBuffers()
@@ -87,5 +88,10 @@ void Graphics::Clean()
 
     //Quit SDL subsystems
     SDL_Quit();
+}
+
+void Graphics::DrawTexture(Texture *texture, SDL_Rect *dest)
+{
+    SDL_RenderCopy(renderer, texture->GetSDLTexture(), nullptr, dest);
 }
 
