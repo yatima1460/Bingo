@@ -11,6 +11,9 @@ Button::Button(std::string text, Texture *normal, Texture *hovered) : text(std::
     this->hover = hovered;
     this->location.y = 0;
     this->location.x = 0;
+
+    hoverCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
+    normalCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
 }
 
 Texture *Button::GetTexture()
@@ -25,14 +28,27 @@ void Button::Update()
     int y;
     SDL_GetMouseState(&x, &y);
 
+
     SDL_Rect size = active->GetSDLRect();
-    if (x > location.x && y > location.y && x < location.x + size.w && y < location.y + size.h)
+
+    hovered = x > location.x && y > location.y && x < location.x + size.w && y < location.y + size.h;
+
+    if (hovered)
     {
+        SDL_SetCursor(hoverCursor);
+
         active = hover;
-    } else
+
+    }
+
+    if (previousFrameHovered && !hovered)
     {
         active = normal;
+        SDL_SetCursor(normalCursor);
     }
+
+
+    previousFrameHovered = hovered;
 }
 
 void Button::Draw()

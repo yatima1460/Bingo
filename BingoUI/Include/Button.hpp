@@ -14,6 +14,7 @@ private:
     Texture *hover;
     std::string text;
     Texture *active;
+    bool hovered;
 
 
 public:
@@ -27,5 +28,9 @@ public:
     void Update();
 
     void Draw();
+
+    SDL_Cursor *normalCursor;
+    SDL_Cursor *hoverCursor;
+    bool previousFrameHovered;
 };
 
