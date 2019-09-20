@@ -26,7 +26,10 @@ void Button::Update()
 {
     int x;
     int y;
-    SDL_GetMouseState(&x, &y);
+    int bitmask = SDL_GetMouseState(&x, &y);
+
+    bool leftPressed = bitmask == 1;
+
 
 
     SDL_Rect size = active->GetSDLRect();
@@ -37,7 +40,14 @@ void Button::Update()
     {
         SDL_SetCursor(hoverCursor);
 
+
         active = hover;
+
+        if (leftPressed && !leftPressedPrevious && callback)
+        {
+            callback();
+        }
+
 
     }
 
@@ -47,7 +57,7 @@ void Button::Update()
         SDL_SetCursor(normalCursor);
     }
 
-
+    leftPressedPrevious = leftPressed;
     previousFrameHovered = hovered;
 }
 
@@ -67,4 +77,9 @@ void Button::Draw()
 void Button::SetPosition(SDL_Point loc)
 {
     this->location = loc;
+}
+
+void Button::SetCallback(void (* c)())
+{
+    this->callback = c;
 }

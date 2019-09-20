@@ -19,6 +19,9 @@ private:
     SDL_Cursor* normalCursor;
     SDL_Cursor* hoverCursor;
     bool previousFrameHovered;
+    bool leftPressedPrevious;
+
+    void (* callback)();
 
 
 public:
@@ -31,7 +34,10 @@ public:
 
     void Update();
 
+    void SetCallback(void (* callback)());
+
     void Draw();
+
 
 };
 

@@ -12,23 +12,26 @@
 #include "Graphics.hpp"
 #include "Button.hpp"
 
+Player* player;
 
+void Cobrar()
+{
+    player->AddCredits(100);
+}
 
 
 #undef main
 int main(int argc, char *args[])
 {
 
-    Player player;
+    player = new Player();
 
-    Game game(player);
+    Game game(*player);
     game.SetDrumSize(60);
     game.SetCardsSize(5, 3);
 
 
-#ifndef NDEBUG
-    player.AddCredits(100);
-#endif
+
 
     //Start up SDL
     Graphics::Init();
@@ -55,6 +58,7 @@ int main(int argc, char *args[])
 
     buttons.push_back(new Button("Cobrar", buttonBigNormal, buttonBigHovered));
     buttons[0]->SetPosition({0, backgroundSize.h - buttonBigNormalSize.h});
+    buttons[0]->SetCallback(&Cobrar);
     buttons.push_back(new Button("Numeros", buttonSmallNormal, buttonSmallHovered));
     buttons[1]->SetPosition({buttonBigNormalSize.w, backgroundSize.h - buttonSmallNormalSize.h});
     buttons.push_back(new Button("JUGAR", buttonBigNormal, buttonBigHovered));
@@ -110,7 +114,7 @@ int main(int argc, char *args[])
 
         // Draw credits
         std::stringstream player_credits;
-        player_credits << "$ " << player.CreditsLeft();
+        player_credits << "$ " << player->CreditsLeft();
         std::string creditsString = player_credits.str();
 
         SDL_Rect size = Graphics::MeasureText(creditsString);
