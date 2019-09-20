@@ -42,7 +42,7 @@
   - Marked
 - Buttons
   - ~Enter money~
-  - Collect money
+  - ~Collect money~
   - Change Cardboard numbers
   - Play Game
 - ~Current credits~
