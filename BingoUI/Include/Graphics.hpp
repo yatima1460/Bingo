@@ -43,7 +43,7 @@ public:
 #endif
 
 
-    static SDL_Rect MeasureText(std::string stringstream);
+    static SDL_Rect MeasureText(const std::string& stringstream);
 
     static void Clean();
 

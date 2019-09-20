@@ -4,13 +4,14 @@
 #include <Graphics.hpp>
 
 
-Button::Button(std::string text, Texture *normal, Texture *hovered) : text(std::move(text))
+Button::Button(std::string text, Texture* normal, Texture* hovered)
 {
     this->active = normal;
     this->normal = normal;
     this->hover = hovered;
     this->location.y = 0;
     this->location.x = 0;
+    this->text = std::move(text);
 
     hoverCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
     normalCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
@@ -71,6 +72,8 @@ void Button::Draw()
     SDL_Rect textSize = Graphics::MeasureText(text);
     centered.x -= textSize.w / 2;
     centered.y -= textSize.h / 2;
+
+
     Graphics::DrawText(text, centered, {255, 255, 255});
 }
 

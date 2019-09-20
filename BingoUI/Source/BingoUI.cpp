@@ -20,13 +20,21 @@ void Cobrar()
 }
 
 
-#undef main
+//Main loop flag
+bool quit = false;
 
 void Monedas()
 {
     player->Collect();
 }
 
+void Quit()
+{
+    quit = true;
+}
+
+
+#undef main
 int main(int argc, char *args[])
 {
 
@@ -48,9 +56,9 @@ int main(int argc, char *args[])
     auto buttonBigHovered = new Texture("Assets/botongrande02.bmp");
     auto buttonSmallNormal = new Texture("Assets/botonpeque01.bmp");
     auto buttonSmallHovered = new Texture("Assets/botonpeque02.bmp");
+    auto redX = new Texture("Assets/x.bmp");
 
-    //Main loop flag
-    bool quit = false;
+
 
     //Event handler
     SDL_Event e;
@@ -61,6 +69,7 @@ int main(int argc, char *args[])
     auto backgroundSize = background->GetSDLRect();
     auto buttonBigNormalSize = buttonBigNormal->GetSDLRect();
     auto buttonSmallNormalSize = buttonSmallNormal->GetSDLRect();
+    auto redXSize = redX->GetSDLRect();
 
     buttons.push_back(new Button("Cobrar", buttonBigNormal, buttonBigHovered));
     buttons[0]->SetPosition({0, backgroundSize.h - buttonBigNormalSize.h});
@@ -73,6 +82,12 @@ int main(int argc, char *args[])
     buttons[3]->SetPosition({backgroundSize.w - buttonBigNormalSize.w - buttonSmallNormalSize.w,
                              backgroundSize.h - buttonSmallNormalSize.h});
     buttons[3]->SetCallback(&Monedas);
+
+    buttons.push_back(new Button("", redX, redX));
+    buttons[4]->SetPosition({backgroundSize.w - redXSize.w, 0});
+    buttons[4]->SetCallback(&Quit);
+
+
 
     while (!quit)
     {

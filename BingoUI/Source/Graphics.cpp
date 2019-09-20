@@ -65,34 +65,48 @@ void Graphics::SwapBuffers()
 void Graphics::DrawText(std::string text, SDL_Point location, SDL_Color color)
 {
     SDL_Surface *creditsSurface = TTF_RenderText_Blended(font, text.c_str(), color);
-    assert(creditsSurface != nullptr);
 
-    SDL_Texture *creditsTexture = SDL_CreateTextureFromSurface(renderer, creditsSurface);
-    assert(creditsTexture != nullptr);
+    // is null if string has length zero
+    if (creditsSurface)
+    {
+        SDL_Texture* creditsTexture = SDL_CreateTextureFromSurface(renderer, creditsSurface);
+        assert(creditsTexture != nullptr);
 
-    SDL_Rect Message_rect; //create a rect
-    Message_rect.x = location.x;  //controls the rect's x coordinate
-    Message_rect.y = location.y; // controls the rect's y coordinte
-    Message_rect.w = creditsSurface->w; // controls the width of the rect
-    Message_rect.h = creditsSurface->h; // controls the height of the rect
+        SDL_Rect Message_rect; //create a rect
+        Message_rect.x = location.x;  //controls the rect's x coordinate
+        Message_rect.y = location.y; // controls the rect's y coordinte
+        Message_rect.w = creditsSurface->w; // controls the width of the rect
+        Message_rect.h = creditsSurface->h; // controls the height of the rect
 
-    SDL_FreeSurface(creditsSurface);
-    creditsSurface = nullptr;
+        SDL_FreeSurface(creditsSurface);
+        creditsSurface = nullptr;
 
-    assert(renderer != nullptr);
-    SDL_RenderCopy(renderer, creditsTexture, nullptr, &Message_rect);
-    SDL_DestroyTexture(creditsTexture);
-    creditsTexture = nullptr;
+        assert(renderer != nullptr);
+        SDL_RenderCopy(renderer, creditsTexture, nullptr, &Message_rect);
+        SDL_DestroyTexture(creditsTexture);
+        creditsTexture = nullptr;
+
+    }
+
+
 }
 
-SDL_Rect Graphics::MeasureText(std::string stringstream)
+SDL_Rect Graphics::MeasureText(const std::string& stringstream)
 {
+
+
     SDL_Surface *creditsSurface = TTF_RenderText_Blended(font, stringstream.c_str(), {255, 255, 255});
-    assert(creditsSurface != nullptr);
-    SDL_Rect r = creditsSurface->clip_rect;
-    SDL_FreeSurface(creditsSurface);
-    creditsSurface = nullptr;
-    return r;
+
+    // is null if string has length zero
+    if (creditsSurface)
+    {
+        SDL_Rect r = creditsSurface->clip_rect;
+        SDL_FreeSurface(creditsSurface);
+        creditsSurface = nullptr;
+        return r;
+    }
+    SDL_Rect empty = {0, 0, 0, 0};
+    return empty;
 }
 
 void Graphics::Clean()

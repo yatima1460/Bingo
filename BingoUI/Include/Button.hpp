@@ -34,6 +34,8 @@ public:
 
     void Update();
 
+    void SetSize(int width, int height);
+
     void SetCallback(void (* callback)());
 
     void Draw();
