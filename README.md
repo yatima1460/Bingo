@@ -7,6 +7,8 @@
 | CLI | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/CLI/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
 | UI | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/UI/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
 
+![](screenshot.png)
+
 # TODO
 
 ## CLI
@@ -46,8 +48,6 @@
 - ~Current credits~
 - ~Exit with ESC~
 - SDL_Image support for .png
-
-![](screenshot.png)
 
 ## Build
 
