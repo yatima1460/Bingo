@@ -47,7 +47,7 @@
 - ~Exit with ESC~
 - SDL_Image support for .png
 
-![screenshot.png]()
+![](screenshot.png)
 
 ## Build
 
