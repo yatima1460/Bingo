@@ -8,20 +8,11 @@
 #include <Player.hpp>
 #include <Game.hpp>
 
-
 #include "Texture.hpp"
 #include "Graphics.hpp"
-
 #include "Button.hpp"
 
 
-Texture *background;
-
-
-void loadMedia()
-{
-    background = new Texture("Assets/Fondo_Juego.bmp");
-}
 
 
 #undef main
@@ -43,7 +34,11 @@ int main(int argc, char *args[])
     Graphics::Init();
 
     //Load media
-    loadMedia();
+    auto background = new Texture("Assets/Fondo_Juego.bmp");
+    auto buttonBigNormal = new Texture("Assets/botongrande01.bmp");
+    auto buttonBigHovered = new Texture("Assets/botongrande02.bmp");
+    auto buttonSmallNormal = new Texture("Assets/botonpeque01.bmp");
+    auto buttonSmallHovered = new Texture("Assets/botonpeque02.bmp");
 
     //Main loop flag
     bool quit = false;
@@ -51,29 +46,22 @@ int main(int argc, char *args[])
     //Event handler
     SDL_Event e;
 
-    // Enable VSync
-    SDL_GL_SetSwapInterval(-1);
-
     std::vector<Button *> buttons;
 
-    auto buttonBigNormal = new Texture("Assets/botongrande01.bmp");
-    auto buttonBigHovered = new Texture("Assets/botongrande02.bmp");
 
-    auto buttonSmallNormal = new Texture("Assets/botonpeque01.bmp");
-    auto buttonSmallHovered = new Texture("Assets/botonpeque02.bmp");
+    auto backgroundSize = background->GetSDLRect();
+    auto buttonBigNormalSize = buttonBigNormal->GetSDLRect();
+    auto buttonSmallNormalSize = buttonSmallNormal->GetSDLRect();
 
     buttons.push_back(new Button("Cobrar", buttonBigNormal, buttonBigHovered));
-    buttons[0]->SetPosition({0, background->GetSDLRect().h - buttons[0]->GetTexture()->GetSDLRect().h});
+    buttons[0]->SetPosition({0, backgroundSize.h - buttonBigNormalSize.h});
     buttons.push_back(new Button("Numeros", buttonSmallNormal, buttonSmallHovered));
-    buttons[1]->SetPosition({buttons[0]->GetTexture()->GetSDLRect().w,
-                             background->GetSDLRect().h - buttons[0]->GetTexture()->GetSDLRect().h});
-    buttons.push_back(new Button("JUGAR", buttonSmallNormal, buttonSmallHovered));
-    buttons[2]->SetPosition({background->GetSDLRect().w - buttons[2]->GetTexture()->GetSDLRect().w,
-                             background->GetSDLRect().h - buttons[2]->GetTexture()->GetSDLRect().h});
-    buttons.push_back(new Button("Monedas", buttonBigNormal, buttonBigHovered));
-    buttons[3]->SetPosition({background->GetSDLRect().w - buttons[3]->GetTexture()->GetSDLRect().w -
-                             buttons[2]->GetTexture()->GetSDLRect().w,
-                             background->GetSDLRect().h - buttons[0]->GetTexture()->GetSDLRect().h});
+    buttons[1]->SetPosition({buttonBigNormalSize.w, backgroundSize.h - buttonSmallNormalSize.h});
+    buttons.push_back(new Button("JUGAR", buttonBigNormal, buttonBigHovered));
+    buttons[2]->SetPosition({backgroundSize.w - buttonBigNormalSize.w, backgroundSize.h - buttonBigNormalSize.h});
+    buttons.push_back(new Button("Monedas", buttonSmallNormal, buttonSmallHovered));
+    buttons[3]->SetPosition({backgroundSize.w - buttonBigNormalSize.w - buttonSmallNormalSize.w,
+                             backgroundSize.h - buttonSmallNormalSize.h});
 
     while (!quit)
     {
@@ -131,10 +119,6 @@ int main(int argc, char *args[])
 
         Graphics::SwapBuffers();
     }
-
-    //Free resources and close SDL
-
-    //Deallocate background
 
 
     Graphics::Clean();

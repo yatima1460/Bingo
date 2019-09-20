@@ -42,6 +42,9 @@ void Graphics::Init()
 
     //Get window surface
     screenSurface = SDL_GetWindowSurface(window);
+
+    // Enable VSync
+    SDL_GL_SetSwapInterval(-1);
 }
 
 void Graphics::DrawTexture(Texture *texture)
