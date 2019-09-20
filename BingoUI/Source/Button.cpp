@@ -6,9 +6,11 @@
 
 Button::Button(std::string text, Texture *normal, Texture *hovered) : text(std::move(text))
 {
-    active = normal;
-    location.y = 0;
-    location.x = 0;
+    this->active = normal;
+    this->normal = normal;
+    this->hover = hovered;
+    this->location.y = 0;
+    this->location.x = 0;
 }
 
 Texture *Button::GetTexture()
@@ -19,7 +21,18 @@ Texture *Button::GetTexture()
 
 void Button::Update()
 {
+    int x;
+    int y;
+    SDL_GetMouseState(&x, &y);
 
+    SDL_Rect size = active->GetSDLRect();
+    if (x > location.x && y > location.y && x < location.x + size.w && y < location.y + size.h)
+    {
+        active = hover;
+    } else
+    {
+        active = normal;
+    }
 }
 
 void Button::Draw()
