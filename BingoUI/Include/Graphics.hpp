@@ -26,6 +26,8 @@ public:
 
     static void DrawTexture(Texture *texture, SDL_Rect *dest);
 
+    static void DrawTexture(Texture *texture, SDL_Point *dest);
+
     static void DrawText(std::string text, SDL_Point location, SDL_Color color);
 
     static void SwapBuffers();
@@ -44,4 +46,6 @@ public:
     static SDL_Rect MeasureText(std::string stringstream);
 
     static void Clean();
+
+
 };

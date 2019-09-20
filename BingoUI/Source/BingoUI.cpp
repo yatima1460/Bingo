@@ -60,6 +60,7 @@ int main(int argc, char *args[])
     Texture *buttonBigHovered = new Texture("Assets/botongrande02.bmp");
 
     buttons.push_back(new Button("Cobrar", buttonBigNormal, buttonBigHovered));
+    buttons[0]->SetPosition({0, background->GetSDLRect().h - buttons[0]->GetTexture()->GetSDLRect().h});
     buttons.push_back(new Button("Numeros", buttonBigNormal, buttonBigHovered));
     buttons.push_back(new Button("Monedas", buttonBigNormal, buttonBigHovered));
     buttons.push_back(new Button("JUGAR", buttonBigNormal, buttonBigHovered));

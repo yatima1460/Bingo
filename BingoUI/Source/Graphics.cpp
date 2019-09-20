@@ -95,3 +95,12 @@ void Graphics::DrawTexture(Texture *texture, SDL_Rect *dest)
     SDL_RenderCopy(renderer, texture->GetSDLTexture(), nullptr, dest);
 }
 
+
+void Graphics::DrawTexture(Texture *texture, SDL_Point *dest)
+{
+    SDL_Rect rec = texture->GetSDLRect();
+    rec.x = dest->x;
+    rec.y = dest->y;
+    SDL_RenderCopy(renderer, texture->GetSDLTexture(), nullptr, &rec);
+}
+

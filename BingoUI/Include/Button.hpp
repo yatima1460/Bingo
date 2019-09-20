@@ -22,6 +22,8 @@ public:
 
     Texture *GetTexture();
 
+    void SetPosition(SDL_Point location);
+
     void Update();
 
     void Draw();

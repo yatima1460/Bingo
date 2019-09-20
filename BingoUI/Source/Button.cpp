@@ -24,7 +24,7 @@ void Button::Update()
 
 void Button::Draw()
 {
-    Graphics::DrawTexture(GetTexture());
+    Graphics::DrawTexture(GetTexture(), &location);
     SDL_Point centered = location;
     SDL_Rect buttonTextureSize = GetTexture()->GetSDLRect();
     centered.x += buttonTextureSize.w / 2;
@@ -33,4 +33,9 @@ void Button::Draw()
     centered.x -= textSize.w / 2;
     centered.y -= textSize.h / 2;
     Graphics::DrawText(text, centered, {255, 255, 255});
+}
+
+void Button::SetPosition(SDL_Point loc)
+{
+    this->location = loc;
 }
