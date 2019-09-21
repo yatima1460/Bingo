@@ -33,29 +33,36 @@ void Player::AddCredits(unsigned int Value)
     credits += Value;
 }
 
-std::vector<Card *> Player::GetCards()
+std::vector<Card*> Player::GetCards()
 {
     return cards;
 }
 
-Player::Player() : credits(0) {
+Player::Player() : credits(0)
+{
 
-    cards = std::vector<Card *>(4);
+    cards = std::vector<Card*>(4);
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++)
+    {
         cards[i] = new Card(5, 3, 60);
     }
 }
 
-void Player::RerollCards() {
-    for (size_t i = 0; i < cards.size(); ++i) {
-        assert(cards[i] != nullptr);
+void Player::RerollCards()
+{
 
-        auto newCard = new Card(cards[i]->Width, cards[i]->Height, cards[i]->DrumMaxNumber);
+    for (auto& card : cards)
+    {
+        assert(card != nullptr);
 
-        delete cards[i];
+        //auto newCard = new Card(card->Width, card->Height, card->DrumMaxNumber);
 
-        cards[i] = newCard;
+        //delete card;
+
+        //card = newCard;
+
+        card->ReRoll();
     }
 
 }

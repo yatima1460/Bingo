@@ -46,6 +46,12 @@ void Quit()
 
 
 #undef main
+
+void Numeros()
+{
+    player->RerollCards();
+}
+
 int main(int argc, char *args[])
 {
 
@@ -91,6 +97,7 @@ int main(int argc, char *args[])
 
     auto numeros = new Button("Numeros", buttonSmallNormal, buttonSmallHovered);
     numeros->SetPosition({buttonBigNormalSize.w, backgroundSize.h - buttonSmallNormalSize.h});
+    numeros->SetCallback(&Numeros);
     widgets.push_back(numeros);
 
     auto jugar = new Button("JUGAR", buttonBigNormal, buttonBigHovered);

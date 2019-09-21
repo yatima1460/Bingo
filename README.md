@@ -43,7 +43,7 @@
 - Buttons
   - ~Enter money~
   - ~Collect money~
-  - Change Cardboard numbers
+  - ~Change Cardboard numbers~
   - Play Game
 - ~Current credits~
 - ~Exit with ESC~

@@ -8,6 +8,11 @@
 Card::Card(unsigned int Width, unsigned int Height, unsigned int DrumMaxNumber) : Width(Width), Height(Height),
                                                                                   DrumMaxNumber(DrumMaxNumber)
 {
+    ReRoll();
+}
+
+void Card::ReRoll()
+{
     Drum d(DrumMaxNumber);
     card = d.Extract(Width * Height);
 }

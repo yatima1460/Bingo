@@ -15,6 +15,8 @@ public:
 
     Card(unsigned int Width, unsigned int Height, unsigned int DrumMaxNumber);
 
+    void ReRoll();
+
 
     const unsigned int Width;
     const unsigned int Height;
