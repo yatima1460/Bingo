@@ -1,7 +1,7 @@
 #include <Graphics.hpp>
 #include <cassert>
 #include <utility>
-#include "LabelWidget.hpp"
+#include "GUI/LabelWidget.hpp"
 
 
 LabelWidget::LabelWidget(std::string t)

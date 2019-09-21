@@ -1,4 +1,4 @@
-#include "ButtonWidget.hpp"
+#include "GUI/ButtonWidget.hpp"
 
 #include <utility>
 #include <Graphics.hpp>

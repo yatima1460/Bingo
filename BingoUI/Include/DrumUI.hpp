@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Widget.hpp"
+#include "GUI/Widget.hpp"
 
 class DrumUI : public Widget
 {

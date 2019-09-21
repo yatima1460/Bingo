@@ -1,7 +1,7 @@
 
 
 #include <SDL_rect.h>
-#include "Widget.hpp"
+#include "GUI/Widget.hpp"
 
 
 void Widget::SetPosition(SDL_Point location)

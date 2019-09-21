@@ -7,11 +7,14 @@
 
 #include <Player.hpp>
 #include <Game.hpp>
-#include <LabelWidget.hpp>
+
 
 #include "Texture.hpp"
 #include "Graphics.hpp"
-#include "ButtonWidget.hpp"
+
+#include "GUI/LabelWidget.hpp"
+#include "GUI/ButtonWidget.hpp"
+
 #include "CardUI.hpp"
 
 #define COBRAR_CHARGE 100

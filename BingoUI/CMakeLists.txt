@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(Include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../BingoCore/Include)
-file(GLOB SOURCES Source/*.cpp)
+file(GLOB_RECURSE SOURCES Source/*.cpp)
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../BingoCore ${CMAKE_CURRENT_BINARY_DIR}/BingoCore)
 

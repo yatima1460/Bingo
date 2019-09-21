@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Texture.hpp"
-#include "Widget.hpp"
+#include "GUI/Widget.hpp"
 
 class CardUI : public Widget
 {
