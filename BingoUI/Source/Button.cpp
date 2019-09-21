@@ -77,10 +77,6 @@ void Button::Draw()
     Graphics::DrawText(text, centered, {255, 255, 255});
 }
 
-void Button::SetPosition(SDL_Point loc)
-{
-    this->location = loc;
-}
 
 void Button::SetCallback(void (* c)())
 {

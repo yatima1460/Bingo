@@ -49,6 +49,7 @@
 - ~Exit with ESC~
 - SDL_Image support for .png
 - Resize using renderToTexture
+- Disabled button
 
 ## Build
 

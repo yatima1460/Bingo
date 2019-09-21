@@ -4,13 +4,13 @@
 
 #include <string>
 #include "Texture.hpp"
-#include "Drawable.hpp"
+#include "Widget.hpp"
 
-class Button : Drawable
+class Button : public Widget
 {
 private:
 
-    SDL_Point location;
+
     Texture *normal;
     Texture *hover;
     std::string text;
@@ -22,7 +22,7 @@ private:
     bool previousFrameHovered;
     bool leftPressedPrevious;
 
-    void (* callback)();
+    void (* callback)() = nullptr;
 
 
 public:
@@ -31,7 +31,6 @@ public:
 
     Texture* GetTexture();
 
-    void SetPosition(SDL_Point location);
 
     void Update();
 
