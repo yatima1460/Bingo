@@ -11,6 +11,7 @@
 #include "Texture.hpp"
 #include "Graphics.hpp"
 #include "Button.hpp"
+#include "CardUI.hpp"
 
 Player* player;
 

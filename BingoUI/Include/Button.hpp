@@ -4,8 +4,9 @@
 
 #include <string>
 #include "Texture.hpp"
+#include "Drawable.hpp"
 
-class Button
+class Button : Drawable
 {
 private:
 
@@ -38,7 +39,7 @@ public:
 
     void SetCallback(void (* callback)());
 
-    void Draw();
+    void Draw() override;
 
 
 };
