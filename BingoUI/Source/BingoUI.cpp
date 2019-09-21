@@ -7,7 +7,7 @@
 
 #include <Player.hpp>
 #include <Game.hpp>
-#include <DrumUI.hpp>
+#include <CustomWidgets/DrumUI.hpp>
 
 
 #include "Texture.hpp"
@@ -16,7 +16,7 @@
 #include "GUI/LabelWidget.hpp"
 #include "GUI/ButtonWidget.hpp"
 
-#include "CardUI.hpp"
+#include "CustomWidgets/CardUI.hpp"
 
 #define COBRAR_CHARGE 100
 

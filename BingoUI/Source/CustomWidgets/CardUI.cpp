@@ -2,7 +2,7 @@
 #include <Graphics.hpp>
 #include <Card.hpp>
 #include <sstream>
-#include "CardUI.hpp"
+#include "CustomWidgets/CardUI.hpp"
 
 #define DRAW_CELL_OFFSET_X 19
 #define DRAW_CELL_OFFSET_Y 44
