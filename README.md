@@ -52,6 +52,7 @@
 - ~Disabled button~
 - Font size
 - Sounds and effects
+- Assets loader with associative string->Texture map?
 
 ## Build
 
