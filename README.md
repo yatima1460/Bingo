@@ -50,6 +50,7 @@
 - SDL_Image support for .png
 - Resize using renderToTexture
 - Disabled button
+- Font size
 
 ## Build
 
