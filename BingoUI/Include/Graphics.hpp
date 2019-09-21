@@ -47,5 +47,7 @@ public:
 
     static void Clean();
 
+    static TTF_Font* GetDefaultFont();
+
 
 };

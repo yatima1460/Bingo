@@ -6,7 +6,7 @@
 #include "Texture.hpp"
 #include "Widget.hpp"
 
-class Button : public Widget
+class ButtonWidget : public Widget
 {
 private:
 
@@ -29,7 +29,7 @@ private:
 
 public:
 
-    Button(std::string text, Texture *normal, Texture *hovered);
+    ButtonWidget(std::string text, Texture* normal, Texture* hovered);
 
     Texture* GetTexture();
 

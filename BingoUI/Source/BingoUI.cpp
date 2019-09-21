@@ -7,10 +7,11 @@
 
 #include <Player.hpp>
 #include <Game.hpp>
+#include <LabelWidget.hpp>
 
 #include "Texture.hpp"
 #include "Graphics.hpp"
-#include "Button.hpp"
+#include "ButtonWidget.hpp"
 #include "CardUI.hpp"
 
 #define COBRAR_CHARGE 100
@@ -61,9 +62,6 @@ int main(int argc, char *args[])
     game.SetDrumSize(60);
     game.SetCardsSize(5, 3);
 
-
-
-
     //Start up SDL
     Graphics::Init();
 
@@ -77,44 +75,40 @@ int main(int argc, char *args[])
     auto cartonBackground = new Texture("Assets/carton.bmp");
     auto celdaBackground = new Texture("Assets/celda.bmp");
 
-
-
     //Event handler
     SDL_Event e;
 
     std::vector<Widget*> widgets;
-
 
     auto backgroundSize = background->GetSDLRect();
     auto buttonBigNormalSize = buttonBigNormal->GetSDLRect();
     auto buttonSmallNormalSize = buttonSmallNormal->GetSDLRect();
     auto redXSize = redX->GetSDLRect();
 
-    auto cobrar = new Button("Cobrar", buttonBigNormal, buttonBigHovered);
+    auto cobrar = new ButtonWidget("Cobrar", buttonBigNormal, buttonBigHovered);
     cobrar->SetPosition({0, backgroundSize.h - buttonBigNormalSize.h});
     cobrar->SetCallback(&Cobrar);
     widgets.push_back(cobrar);
 
-    auto numeros = new Button("Numeros", buttonSmallNormal, buttonSmallHovered);
+    auto numeros = new ButtonWidget("Numeros", buttonSmallNormal, buttonSmallHovered);
     numeros->SetPosition({buttonBigNormalSize.w, backgroundSize.h - buttonSmallNormalSize.h});
     numeros->SetCallback(&Numeros);
     widgets.push_back(numeros);
 
-    auto jugar = new Button("JUGAR", buttonBigNormal, buttonBigHovered);
+    auto jugar = new ButtonWidget("JUGAR", buttonBigNormal, buttonBigHovered);
     jugar->SetPosition({backgroundSize.w - buttonBigNormalSize.w, backgroundSize.h - buttonBigNormalSize.h});
     widgets.push_back(jugar);
 
-    auto monedas = new Button("Monedas", buttonSmallNormal, buttonSmallHovered);
+    auto monedas = new ButtonWidget("Monedas", buttonSmallNormal, buttonSmallHovered);
     monedas->SetPosition({backgroundSize.w - buttonBigNormalSize.w - buttonSmallNormalSize.w,
                           backgroundSize.h - buttonSmallNormalSize.h});
     monedas->SetCallback(&Monedas);
     widgets.push_back(monedas);
 
-    auto redXButton = new Button("", redX, redX);
+    auto redXButton = new ButtonWidget("", redX, redX);
     widgets.push_back(redXButton);
     redXButton->SetPosition({backgroundSize.w - redXSize.w, 0});
     redXButton->SetCallback(&Quit);
-
 
     auto card1 = new CardUI(cartonBackground, celdaBackground);
     SDL_Point card1Position{CARTON_COLUMN_0_X, CARTON_COLUMN_0_Y};
@@ -139,6 +133,9 @@ int main(int argc, char *args[])
     card4->SetPosition(card4Position);
     card4->SetCard(player->GetCards()[3]);
     widgets.push_back(card4);
+
+    auto creditos = new LabelWidget("$ 0");
+    widgets.push_back(creditos);
 
 
 
@@ -176,28 +173,19 @@ int main(int argc, char *args[])
         monedas->SetEnabled(player->CreditsLeft() != 0);
 
         for (Widget* button: widgets)
-        {
             button->Update();
-        }
 
-
-        // Draw background
-        Graphics::DrawTexture(background);
-        //SDL_RenderCopy(Graphics::GetSDLRenderer(), background, nullptr, nullptr);
-
-        for (Widget* w: widgets)
-        {
-            w->Draw();
-        }
-
-        // Draw credits
         std::stringstream player_credits;
         player_credits << "$ " << player->CreditsLeft();
         std::string creditsString = player_credits.str();
-
         SDL_Rect size = Graphics::MeasureText(creditsString);
-        Graphics::DrawText(creditsString, {static_cast<int>(1120 - size.w / 2), 20}, {255, 255, 255});
+        creditos->SetText(creditsString);
+        creditos->SetPosition({static_cast<int>(1120 - size.w / 2), 20});
 
+        Graphics::DrawTexture(background);
+
+        for (Widget* w: widgets)
+            w->Draw();
 
         Graphics::SwapBuffers();
     }

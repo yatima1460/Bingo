@@ -153,3 +153,8 @@ void Graphics::DrawTexture(Texture *texture, SDL_Point *dest)
     SDL_RenderCopy(renderer, sdlt, nullptr, &rec);
 }
 
+TTF_Font* Graphics::GetDefaultFont()
+{
+    return font;
+}
+

@@ -1,10 +1,10 @@
-#include "Button.hpp"
+#include "ButtonWidget.hpp"
 
 #include <utility>
 #include <Graphics.hpp>
 
 
-Button::Button(std::string text, Texture* normal, Texture* hovered)
+ButtonWidget::ButtonWidget(std::string text, Texture* normal, Texture* hovered)
 {
     this->active = normal;
     this->normal = normal;
@@ -18,7 +18,7 @@ Button::Button(std::string text, Texture* normal, Texture* hovered)
     disabledCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO);
 }
 
-Texture *Button::GetTexture()
+Texture* ButtonWidget::GetTexture()
 {
     if (enabled)
         return active;
@@ -27,7 +27,7 @@ Texture *Button::GetTexture()
 }
 
 
-void Button::Update()
+void ButtonWidget::Update()
 {
 
 
@@ -78,7 +78,7 @@ void Button::Update()
     previousFrameHovered = hovered;
 }
 
-void Button::Draw()
+void ButtonWidget::Draw()
 {
     Graphics::DrawTexture(GetTexture(), &location);
     SDL_Point centered = location;
@@ -94,12 +94,12 @@ void Button::Draw()
 }
 
 
-void Button::SetCallback(void (* c)())
+void ButtonWidget::SetCallback(void (* c)())
 {
     this->callback = c;
 }
 
-void Button::SetEnabled(bool enabled)
+void ButtonWidget::SetEnabled(bool enabled)
 {
     this->enabled = enabled;
 }

@@ -1,11 +1,13 @@
 
 #pragma once
 
+#include <SDL.h>
+
 class Widget
 {
 
 protected:
-    SDL_Point location;
+    SDL_Point location = {0, 0};
 
 public:
 
