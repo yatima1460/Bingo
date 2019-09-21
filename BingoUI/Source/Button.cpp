@@ -15,16 +15,22 @@ Button::Button(std::string text, Texture* normal, Texture* hovered)
 
     hoverCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
     normalCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+    disabledCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO);
 }
 
 Texture *Button::GetTexture()
 {
-    return active;
+    if (enabled)
+        return active;
+    else
+        return hover;
 }
 
 
 void Button::Update()
 {
+
+
     int x;
     int y;
     int bitmask = SDL_GetMouseState(&x, &y);
@@ -39,15 +45,25 @@ void Button::Update()
 
     if (hovered)
     {
-        SDL_SetCursor(hoverCursor);
+        if (enabled)
+        {
+            SDL_SetCursor(hoverCursor);
+
+
+            if (leftPressed && !leftPressedPrevious && callback)
+            {
+                callback();
+            }
+        } else
+        {
+            SDL_SetCursor(disabledCursor);
+
+        }
 
 
         active = hover;
 
-        if (leftPressed && !leftPressedPrevious && callback)
-        {
-            callback();
-        }
+
 
 
     }
@@ -81,4 +97,9 @@ void Button::Draw()
 void Button::SetCallback(void (* c)())
 {
     this->callback = c;
+}
+
+void Button::SetEnabled(bool enabled)
+{
+    this->enabled = enabled;
 }

@@ -172,6 +172,9 @@ int main(int argc, char *args[])
             }
         }
 
+        jugar->SetEnabled(player->CreditsLeft() != 0);
+        monedas->SetEnabled(player->CreditsLeft() != 0);
+
         for (Widget* button: widgets)
         {
             button->Update();

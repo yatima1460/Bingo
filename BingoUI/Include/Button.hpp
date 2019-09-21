@@ -16,9 +16,11 @@ private:
     std::string text;
     Texture *active;
     bool hovered;
+    bool enabled = true;
 
     SDL_Cursor* normalCursor;
     SDL_Cursor* hoverCursor;
+    SDL_Cursor* disabledCursor;
     bool previousFrameHovered;
     bool leftPressedPrevious;
 
@@ -31,6 +33,7 @@ public:
 
     Texture* GetTexture();
 
+    void SetEnabled(bool enabled);
 
     void Update();
 
