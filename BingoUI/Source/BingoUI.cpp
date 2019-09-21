@@ -7,6 +7,7 @@
 
 #include <Player.hpp>
 #include <Game.hpp>
+#include <DrumUI.hpp>
 
 
 #include "Texture.hpp"
@@ -25,9 +26,10 @@
 #define CARTON_COLUMN_1_Y 450
 
 
+Player* player = nullptr;
+bool quit = false;
+Game* game = nullptr;
 
-
-Player* player;
 
 void Cobrar()
 {
@@ -35,8 +37,7 @@ void Cobrar()
 }
 
 
-//Main loop flag
-bool quit = false;
+
 
 void Monedas()
 {
@@ -49,21 +50,31 @@ void Quit()
 }
 
 
-#undef main
+DrumUI* drumUI;
+
 
 void Numeros()
 {
     player->RerollCards();
 }
 
+void Jugar()
+{
+    game->PlayOneGame();
+    auto latestBalls = game->ExtractedBalls();
+    drumUI->SetBalls(latestBalls);
+
+}
+
+#undef main
 int main(int argc, char *args[])
 {
 
     player = new Player();
 
-    Game game(*player);
-    game.SetDrumSize(60);
-    game.SetCardsSize(5, 3);
+    game = new Game(*player);
+    game->SetDrumSize(60);
+    game->SetCardsSize(5, 3);
 
     //Start up SDL
     Graphics::Init();
@@ -77,11 +88,16 @@ int main(int argc, char *args[])
     auto redX = new Texture("Assets/x.bmp");
     auto cartonBackground = new Texture("Assets/carton.bmp");
     auto celdaBackground = new Texture("Assets/celda.bmp");
+    auto ball = new Texture("Assets/bola.bmp");
+
+    drumUI = new DrumUI(ball);
 
     //Event handler
     SDL_Event e;
 
     std::vector<Widget*> widgets;
+
+    widgets.push_back(drumUI);
 
     auto backgroundSize = background->GetSDLRect();
     auto buttonBigNormalSize = buttonBigNormal->GetSDLRect();
@@ -100,6 +116,7 @@ int main(int argc, char *args[])
 
     auto jugar = new ButtonWidget("JUGAR", buttonBigNormal, buttonBigHovered);
     jugar->SetPosition({backgroundSize.w - buttonBigNormalSize.w, backgroundSize.h - buttonBigNormalSize.h});
+    jugar->SetCallback(&Jugar);
     widgets.push_back(jugar);
 
     auto monedas = new ButtonWidget("Monedas", buttonSmallNormal, buttonSmallHovered);
