@@ -107,3 +107,8 @@ void Game::SetCardsSize(unsigned int Width, unsigned int Height)
     this->height = Height;
 }
 
+void Game::SetCardsNumber(unsigned int N)
+{
+    this->maxCards = N;
+}
+

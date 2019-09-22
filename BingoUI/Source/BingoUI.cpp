@@ -94,6 +94,7 @@ int main(int argc, char *args[])
     game = new Game(*player);
     game->SetDrumSize(60);
     game->SetCardsSize(5, 3);
+    game->SetCardsNumber(4);
 
     //Start up SDL
     Graphics::Init();
