@@ -112,5 +112,5 @@ Bingo::Bingo()
     //TODO: use RAII
 
 
-    Graphics::Clean();
+
 }
