@@ -16,6 +16,8 @@ class LabelWidget : public Widget
 public:
     explicit LabelWidget(std::string text);
 
+    LabelWidget();
+
     void Update() override
     {
 

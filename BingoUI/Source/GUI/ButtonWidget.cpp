@@ -50,9 +50,9 @@ void ButtonWidget::Update()
             SDL_SetCursor(hoverCursor);
 
 
-            if (leftPressed && !leftPressedPrevious && callback)
+            if (leftPressed && !leftPressedPrevious)
             {
-                callback();
+                Pressed();
             }
         } else
         {
@@ -93,11 +93,6 @@ void ButtonWidget::Draw()
     Graphics::DrawText(text, centered, {255, 255, 255});
 }
 
-
-void ButtonWidget::SetCallback(void (* c)())
-{
-    this->callback = c;
-}
 
 void ButtonWidget::SetEnabled(bool enabled)
 {

@@ -2,7 +2,7 @@
 
 #include <AssetsManager.hpp>
 #include <Graphics.hpp>
-#include "BingoUI.hpp"
+#include "Bingo.hpp"
 
 
 #undef main
@@ -14,6 +14,6 @@ int main(int argc, char* args[])
 
     AssetsManager::Init("Assets");
 
-    BingoUI();
+    Bingo();
     return EXIT_SUCCESS;
 }

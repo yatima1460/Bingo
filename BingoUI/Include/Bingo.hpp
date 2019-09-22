@@ -10,7 +10,7 @@
 #include "CustomWidgets/DrumUI.hpp"
 #include "CustomWidgets/CardUI.hpp"
 
-class BingoUI
+class Bingo
 {
 
 
@@ -27,7 +27,8 @@ class BingoUI
 
 public:
 
-    BingoUI();
+    Bingo();
 
 
+    void BuildUI();
 };

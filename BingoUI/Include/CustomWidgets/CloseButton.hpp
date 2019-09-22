@@ -4,17 +4,16 @@
 #include <Player.hpp>
 #include "GUI/ButtonWidget.hpp"
 
-class MonedasButton : public ButtonWidget
+class CloseButton : public ButtonWidget
 {
-
-
 private:
 
-    Player& player;
+    bool* quit;
+
 
 public:
 
-    MonedasButton(Player& player);
+    explicit CloseButton(bool* quit);
 
     void Update() override;
 

@@ -30,5 +30,10 @@ void MonedasButton::Update()
 
 }
 
+void MonedasButton::Pressed()
+{
+    player.Collect();
+}
+
 //callback
-//player.Collect();
+//

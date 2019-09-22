@@ -24,8 +24,9 @@ private:
     bool previousFrameHovered;
     bool leftPressedPrevious;
 
-    void (* callback)() = nullptr;
-
+    //void (* callback)() = nullptr;
+protected:
+    virtual void Pressed() = 0;
 
 public:
 
@@ -37,9 +38,11 @@ public:
 
     void Update() override;
 
+
+
     //void SetSize(int width, int height);
 
-    void SetCallback(void (* callback)());
+
 
     void Draw() override;
 

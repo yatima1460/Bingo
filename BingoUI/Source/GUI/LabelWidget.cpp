@@ -42,3 +42,8 @@ void LabelWidget::SetText(std::string basicString)
 {
     this->text = std::move(basicString);
 }
+
+LabelWidget::LabelWidget()
+{
+    this->text = "";
+}
