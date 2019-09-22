@@ -1,9 +1,10 @@
+
 #pragma once
 
+#include "Prize.hpp"
 
-#include "Card.hpp"
 
-class Prize
+class LinePrize : public Prize
 {
 
 
@@ -11,5 +12,6 @@ class Prize
      * Checks if the Prize is won, and will return the win credits amount
      * @return
      */
-    virtual unsigned int Check(Card* card) = 0;
+    unsigned int Check(Card* card) override;
 };
+

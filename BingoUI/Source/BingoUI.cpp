@@ -1,3 +1,6 @@
+#include "BingoUI.hpp"
+
+
 #include <SDL.h>
 #include <cstdio>
 #include <SDL_ttf.h>
@@ -5,18 +8,15 @@
 #include <string>
 #include <sstream>
 
-#include <Player.hpp>
-#include <Game.hpp>
-#include <CustomWidgets/DrumUI.hpp>
-
-
-#include "Texture.hpp"
-#include "Graphics.hpp"
 
 #include "GUI/LabelWidget.hpp"
 #include "GUI/ButtonWidget.hpp"
 
-#include "CustomWidgets/CardUI.hpp"
+#include "Texture.hpp"
+#include "Graphics.hpp"
+
+#include "AssetsManager.hpp"
+
 
 #define COBRAR_CHARGE 100
 
@@ -26,67 +26,58 @@
 #define CARTON_COLUMN_1_Y 450
 
 
-Player* player = nullptr;
-bool quit = false;
-Game* game = nullptr;
+//#include "CustomWidgets/CobrarButton.hpp"
+//#include "CustomWidgets/NumerosButton.hpp"
+#include "CustomWidgets/MonedasButton.hpp"
+//#include "CustomWidgets/JuegoButton.hpp"
 
 
-void Cobrar()
-{
-    player->AddCredits(COBRAR_CHARGE);
-}
-
-
-
-
-void Monedas()
-{
-    player->Collect();
-}
-
-void Quit()
-{
-    quit = true;
-}
-
-
-DrumUI* drumUI;
-
-
-std::vector<CardUI*> cards;
-
-void Numeros()
-{
-    player->RerollCards();
-    for (CardUI* card: cards)
-    {
-        card->SetExtractedNumbers(std::vector<unsigned int>());
-    }
-    drumUI->SetBalls(std::vector<unsigned int>());
-}
+//void Cobrar()
+//{
+//    player->AddCredits(COBRAR_CHARGE);
+//}
+//
+//
+//void Quit()
+//{
+//    quit = true;
+//}
 
 
 
-void Jugar()
-{
-    game->PlayOneGame();
-    auto latestBalls = game->ExtractedBalls();
-    drumUI->SetBalls(latestBalls);
-
-    for (CardUI* card: cards)
-    {
-        card->SetExtractedNumbers(latestBalls);
-    }
-
-}
+//
+//void Numeros()
+//{
+//    player->RerollCards();
+//    for (CardUI* card: cards)
+//    {
+//        card->SetExtractedNumbers(std::vector<unsigned int>());
+//    }
+//    drumUI->SetBalls(std::vector<unsigned int>());
+//}
+//
+//
+//
+//void Jugar()
+//{
+//    game->PlayOneGame();
+//    auto latestBalls = game->ExtractedBalls();
+//    drumUI->SetBalls(latestBalls);
+//
+//    for (CardUI* card: cards)
+//    {
+//        card->SetExtractedNumbers(latestBalls);
+//    }
+//
+//}
 
 void BuildUI()
 {
 
 }
 
-#undef main
-int main(int argc, char *args[])
+
+BingoUI::BingoUI()
 {
 
     player = new Player();
@@ -96,11 +87,10 @@ int main(int argc, char *args[])
     game->SetCardsSize(5, 3);
     game->SetCardsNumber(4);
 
-    //Start up SDL
-    Graphics::Init();
+
 
     //Load media
-    auto background = new Texture("Assets/Fondo_Juego.bmp");
+    /*auto background = new Texture("Assets/Fondo_Juego.bmp");
     auto buttonBigNormal = new Texture("Assets/botongrande01.bmp");
     auto buttonBigHovered = new Texture("Assets/botongrande02.bmp");
     auto buttonSmallNormal = new Texture("Assets/botonpeque01.bmp");
@@ -109,16 +99,23 @@ int main(int argc, char *args[])
     auto cartonBackground = new Texture("Assets/carton.bmp");
     auto celdaBackground = new Texture("Assets/celda.bmp");
     auto ball = new Texture("Assets/bola.bmp");
-    auto marked = new Texture("Assets/sello1.bmp");
+    auto marked = new Texture("Assets/sello1.bmp");*/
+
+    auto ball = AssetsManager::Get<Texture>("bola");
 
     drumUI = new DrumUI(ball);
 
-    //Event handler
-    SDL_Event e;
+    auto background = AssetsManager::Get<Texture>("Fondo_Juego");
 
-    std::vector<Widget*> widgets;
 
     widgets.push_back(drumUI);
+
+    auto buttonBigNormal = AssetsManager::Get<Texture>("botongrande01");
+    auto buttonBigHovered = AssetsManager::Get<Texture>("botongrande02");
+    auto buttonSmallNormal = AssetsManager::Get<Texture>("botonpeque01");
+    auto buttonSmallHovered = AssetsManager::Get<Texture>("botonpeque02");
+
+    auto redX = AssetsManager::Get<Texture>("x");
 
     auto backgroundSize = background->GetSDLRect();
     auto buttonBigNormalSize = buttonBigNormal->GetSDLRect();
@@ -127,33 +124,35 @@ int main(int argc, char *args[])
 
     auto cobrar = new ButtonWidget("Cobrar", buttonBigNormal, buttonBigHovered);
     cobrar->SetPosition({0, backgroundSize.h - buttonBigNormalSize.h});
-    cobrar->SetCallback(&Cobrar);
+    //cobrar->SetCallback(&Cobrar);
     widgets.push_back(cobrar);
 
     auto numeros = new ButtonWidget("Numeros", buttonSmallNormal, buttonSmallHovered);
     numeros->SetPosition({buttonBigNormalSize.w, backgroundSize.h - buttonSmallNormalSize.h});
-    numeros->SetCallback(&Numeros);
+    //numeros->SetCallback(&Numeros);
     widgets.push_back(numeros);
 
     auto jugar = new ButtonWidget("JUGAR", buttonBigNormal, buttonBigHovered);
     jugar->SetPosition({backgroundSize.w - buttonBigNormalSize.w, backgroundSize.h - buttonBigNormalSize.h});
-    jugar->SetCallback(&Jugar);
+    //jugar->SetCallback(&Jugar);
     widgets.push_back(jugar);
 
-    auto monedas = new ButtonWidget("Monedas", buttonSmallNormal, buttonSmallHovered);
-    monedas->SetPosition({backgroundSize.w - buttonBigNormalSize.w - buttonSmallNormalSize.w,
-                          backgroundSize.h - buttonSmallNormalSize.h});
-    monedas->SetCallback(&Monedas);
-    widgets.push_back(monedas);
+    assert(player != nullptr);
+    widgets.push_back(new MonedasButton(*player));
+
 
     auto redXButton = new ButtonWidget("", redX, redX);
     widgets.push_back(redXButton);
     redXButton->SetPosition({backgroundSize.w - redXSize.w, 0});
-    redXButton->SetCallback(&Quit);
+    //redXButton->SetCallback(&Quit);
 
 
     int CARD_LOCATIONS_X[4] = {CARTON_COLUMN_0_X, CARTON_COLUMN_1_X, CARTON_COLUMN_0_X, CARTON_COLUMN_1_X};
     int CARD_LOCATIONS_Y[4] = {CARTON_COLUMN_0_Y, CARTON_COLUMN_0_Y, CARTON_COLUMN_1_Y, CARTON_COLUMN_1_Y};
+
+    auto cartonBackground = AssetsManager::Get<Texture>("carton");
+    auto celdaBackground = AssetsManager::Get<Texture>("celda");
+    auto marked = AssetsManager::Get<Texture>("sello1");
 
     for (size_t i = 0; i < game->GetCardsNumber(); ++i)
     {
@@ -167,7 +166,6 @@ int main(int argc, char *args[])
 
     auto creditos = new LabelWidget("$ 0");
     widgets.push_back(creditos);
-
 
 
     while (!quit)
@@ -201,7 +199,7 @@ int main(int argc, char *args[])
         }
 
         jugar->SetEnabled(player->CreditsLeft() != 0);
-        monedas->SetEnabled(player->CreditsLeft() != 0);
+
 
         for (Widget* button: widgets)
             button->Update();
@@ -221,8 +219,5 @@ int main(int argc, char *args[])
         Graphics::SwapBuffers();
     }
 
-
     Graphics::Clean();
-
-    return EXIT_SUCCESS;
 }

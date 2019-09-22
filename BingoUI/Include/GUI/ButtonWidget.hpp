@@ -35,9 +35,9 @@ public:
 
     void SetEnabled(bool enabled);
 
-    void Update();
+    void Update() override;
 
-    void SetSize(int width, int height);
+    //void SetSize(int width, int height);
 
     void SetCallback(void (* callback)());
 
