@@ -12,7 +12,9 @@ private:
 #ifdef SDL_VERSION
     static SDL_Renderer *renderer;
     static SDL_Window *window;
+    static TTF_Font* smallFont;
     static TTF_Font *font;
+    static TTF_Font* bigFont;
     static SDL_Surface *screenSurface;
 #endif
 
@@ -28,20 +30,11 @@ public:
 
     static void DrawTexture(Texture *texture, SDL_Point *dest);
 
-    static void DrawText(std::string text, SDL_Point location, SDL_Color color);
+
 
     static void SwapBuffers();
 
-
-#ifdef SDL_VERSION
-
-    static SDL_Renderer *GetSDLRenderer()
-    {
-        return renderer;
-    }
-
-#endif
-
+    static SDL_Renderer* GetSDLRenderer();
 
     static SDL_Rect MeasureText(const std::string& stringstream);
 
@@ -49,5 +42,13 @@ public:
 
     static TTF_Font* GetDefaultFont();
 
+    static TTF_Font* GetBigFont();
 
+    static TTF_Font* GetSmallFont();
+
+    static void DrawText(std::string text, SDL_Point location, SDL_Color color);
+
+    static void DrawText(std::string text, SDL_Point location, SDL_Color color, TTF_Font* font);
+
+    static SDL_Rect MeasureText(const std::string& stringstream, TTF_Font* font);
 };

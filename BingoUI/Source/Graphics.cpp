@@ -6,6 +6,8 @@
 
 SDL_Window *Graphics::window;
 TTF_Font *Graphics::font;
+TTF_Font* Graphics::bigFont;
+TTF_Font* Graphics::smallFont;
 SDL_Renderer *Graphics::renderer;
 SDL_Surface *Graphics::screenSurface;
 
@@ -28,10 +30,22 @@ void Graphics::Init()
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     TTF_Init();
+    smallFont = TTF_OpenFont("Assets/Roboto-Regular.ttf", 24);
     font = TTF_OpenFont("Assets/Roboto-Regular.ttf", 32);
+    bigFont = TTF_OpenFont("Assets/Roboto-Regular.ttf", 48);
     if (font == nullptr)
     {
         fprintf(stderr, "error: font not found\n");
+        exit(EXIT_FAILURE);
+    }
+    if (bigFont == nullptr)
+    {
+        fprintf(stderr, "error: bigFont not found\n");
+        exit(EXIT_FAILURE);
+    }
+    if (smallFont == nullptr)
+    {
+        fprintf(stderr, "error: smallFont not found\n");
         exit(EXIT_FAILURE);
     }
 
@@ -62,9 +76,9 @@ void Graphics::SwapBuffers()
     SDL_RenderPresent(renderer);
 }
 
-void Graphics::DrawText(std::string text, SDL_Point location, SDL_Color color)
+void Graphics::DrawText(std::string text, SDL_Point location, SDL_Color color, TTF_Font* font)
 {
-    SDL_Surface *creditsSurface = TTF_RenderText_Blended(font, text.c_str(), color);
+    SDL_Surface* creditsSurface = TTF_RenderText_Blended(font, text.c_str(), color);
 
     // is null if string has length zero
     if (creditsSurface)
@@ -87,15 +101,19 @@ void Graphics::DrawText(std::string text, SDL_Point location, SDL_Color color)
         creditsTexture = nullptr;
 
     }
-
-
 }
 
-SDL_Rect Graphics::MeasureText(const std::string& stringstream)
+
+void Graphics::DrawText(std::string text, SDL_Point location, SDL_Color color)
+{
+    Graphics::DrawText(text, location, color, Graphics::GetDefaultFont());
+}
+
+SDL_Rect Graphics::MeasureText(const std::string& stringstream, TTF_Font* font)
 {
 
 
-    SDL_Surface *creditsSurface = TTF_RenderText_Blended(font, stringstream.c_str(), {255, 255, 255});
+    SDL_Surface* creditsSurface = TTF_RenderText_Blended(font, stringstream.c_str(), {255, 255, 255});
 
     // is null if string has length zero
     if (creditsSurface)
@@ -107,6 +125,11 @@ SDL_Rect Graphics::MeasureText(const std::string& stringstream)
     }
     SDL_Rect empty = {0, 0, 0, 0};
     return empty;
+}
+
+SDL_Rect Graphics::MeasureText(const std::string& stringstream)
+{
+    return Graphics::MeasureText(stringstream, Graphics::GetDefaultFont());
 }
 
 void Graphics::Clean()
@@ -156,5 +179,20 @@ void Graphics::DrawTexture(Texture *texture, SDL_Point *dest)
 TTF_Font* Graphics::GetDefaultFont()
 {
     return font;
+}
+
+TTF_Font* Graphics::GetBigFont()
+{
+    return bigFont;
+}
+
+TTF_Font* Graphics::GetSmallFont()
+{
+    return smallFont;
+}
+
+SDL_Renderer* Graphics::GetSDLRenderer()
+{
+    return renderer;
 }
 

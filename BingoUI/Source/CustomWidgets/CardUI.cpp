@@ -43,13 +43,13 @@ void CardUI::Draw()
 
 
                 SDL_Point cellTextLoc = p;
-                SDL_Rect r = Graphics::MeasureText(ss.str());
+                SDL_Rect r = Graphics::MeasureText(ss.str(), Graphics::GetBigFont());
                 cellTextLoc.x += cellSize.w / 2;
                 cellTextLoc.y += cellSize.h / 2;
                 cellTextLoc.x -= r.w / 2;
                 cellTextLoc.y -= r.h / 2;
 
-                Graphics::DrawText(ss.str(), cellTextLoc, {0, 0, 0});
+                Graphics::DrawText(ss.str(), cellTextLoc, {0, 0, 0}, Graphics::GetBigFont());
             }
         }
     }
