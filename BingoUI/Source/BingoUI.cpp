@@ -53,16 +53,35 @@ void Quit()
 DrumUI* drumUI;
 
 
+std::vector<CardUI*> cards;
+
 void Numeros()
 {
     player->RerollCards();
+    for (CardUI* card: cards)
+    {
+        card->SetExtractedNumbers(std::vector<unsigned int>());
+    }
+    drumUI->SetBalls(std::vector<unsigned int>());
 }
+
+
 
 void Jugar()
 {
     game->PlayOneGame();
     auto latestBalls = game->ExtractedBalls();
     drumUI->SetBalls(latestBalls);
+
+    for (CardUI* card: cards)
+    {
+        card->SetExtractedNumbers(latestBalls);
+    }
+
+}
+
+void BuildUI()
+{
 
 }
 
@@ -89,6 +108,7 @@ int main(int argc, char *args[])
     auto cartonBackground = new Texture("Assets/carton.bmp");
     auto celdaBackground = new Texture("Assets/celda.bmp");
     auto ball = new Texture("Assets/bola.bmp");
+    auto marked = new Texture("Assets/sello1.bmp");
 
     drumUI = new DrumUI(ball);
 
@@ -130,29 +150,33 @@ int main(int argc, char *args[])
     redXButton->SetPosition({backgroundSize.w - redXSize.w, 0});
     redXButton->SetCallback(&Quit);
 
-    auto card1 = new CardUI(cartonBackground, celdaBackground);
+    auto card1 = new CardUI(cartonBackground, celdaBackground, marked);
     SDL_Point card1Position{CARTON_COLUMN_0_X, CARTON_COLUMN_0_Y};
     card1->SetPosition(card1Position);
     card1->SetCard(player->GetCards()[0]);
     widgets.push_back(card1);
+    cards.push_back(card1);
 
-    auto card2 = new CardUI(cartonBackground, celdaBackground);
+    auto card2 = new CardUI(cartonBackground, celdaBackground, marked);
     SDL_Point card2Position{CARTON_COLUMN_1_X, CARTON_COLUMN_0_Y};
     card2->SetPosition(card2Position);
     card2->SetCard(player->GetCards()[1]);
     widgets.push_back(card2);
+    cards.push_back(card2);
 
-    auto card3 = new CardUI(cartonBackground, celdaBackground);
+    auto card3 = new CardUI(cartonBackground, celdaBackground, marked);
     SDL_Point card3Position{CARTON_COLUMN_0_X, CARTON_COLUMN_1_Y};
     card3->SetPosition(card3Position);
     card3->SetCard(player->GetCards()[2]);
     widgets.push_back(card3);
+    cards.push_back(card3);
 
-    auto card4 = new CardUI(cartonBackground, celdaBackground);
+    auto card4 = new CardUI(cartonBackground, celdaBackground, marked);
     SDL_Point card4Position{CARTON_COLUMN_1_X, CARTON_COLUMN_1_Y};
     card4->SetPosition(card4Position);
     card4->SetCard(player->GetCards()[3]);
     widgets.push_back(card4);
+    cards.push_back(card4);
 
     auto creditos = new LabelWidget("$ 0");
     widgets.push_back(creditos);

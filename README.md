@@ -39,7 +39,7 @@
 - ~Background~
 - Balls extracted
 - ~Cartons~
-  - Marked
+  - ~Marked~
 - Buttons
   - ~Enter money~
   - ~Collect money~

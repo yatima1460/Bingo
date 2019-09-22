@@ -3,6 +3,8 @@
 #include <Card.hpp>
 #include <sstream>
 #include "CustomWidgets/CardUI.hpp"
+#include <algorithm>
+
 
 #define DRAW_CELL_OFFSET_X 19
 #define DRAW_CELL_OFFSET_Y 44
@@ -17,9 +19,9 @@ void CardUI::Draw()
 
     if (card != nullptr)
     {
-        for (int x = 0; x < card->Width; x++)
+        for (size_t x = 0; x < card->Width; x++)
         {
-            for (int y = 0; y < card->Height; y++)
+            for (size_t y = 0; y < card->Height; y++)
             {
                 auto n = card->operator[](y * card->Height + x);
 
@@ -33,6 +35,12 @@ void CardUI::Draw()
                 p.x += DRAW_CELL_OFFSET_X + (cellSize.w + PADDING) * x;
                 p.y += DRAW_CELL_OFFSET_Y + (cellSize.h + PADDING) * y;
                 Graphics::DrawTexture(cell, &p);
+
+                if (std::find(extracted.begin(), extracted.end(), n) != extracted.end())
+                {
+                    Graphics::DrawTexture(marked, &p);
+                }
+
 
                 SDL_Point cellTextLoc = p;
                 SDL_Rect r = Graphics::MeasureText(ss.str());
@@ -49,10 +57,11 @@ void CardUI::Draw()
 
 }
 
-CardUI::CardUI(Texture* background, Texture* cell)
+CardUI::CardUI(Texture* background, Texture* cell, Texture* marked)
 {
     this->background = background;
     this->cell = cell;
+    this->marked = marked;
 }
 
 void CardUI::Update()
@@ -64,5 +73,10 @@ void CardUI::Update()
 void CardUI::SetCard(Card* card)
 {
     this->card = card;
+}
+
+void CardUI::SetExtractedNumbers(std::vector<unsigned int> e)
+{
+    this->extracted = e;
 }
 

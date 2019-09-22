@@ -20,7 +20,7 @@ DrumUI::DrumUI(Texture* ball)
 
 void DrumUI::SetBalls(std::vector<unsigned int> e)
 {
-    assert(e.size() == 30);
+    assert(e.size() == 30 || e.size() == 0);
     this->extracted = std::move(e);
 }
 
@@ -40,7 +40,10 @@ void DrumUI::Draw()
             p.x = OFFSET_X_ROW_0 + i * (ballSize.w + HORIZONTAL_PADDING);
             p.y = OFFSET_Y_ROW_0;
             Graphics::DrawTexture(ball, &p);
-            // Graphics::DrawText("a");
+
+
+
+//            Graphics::DrawText("a");
         }
         for (int i = 0; i < BALLS_N_ROW_1; i++)
         {

@@ -14,10 +14,14 @@ class CardUI : public Widget
     Texture* background = nullptr;
     Card* card = nullptr;
     Texture* cell = nullptr;
+    std::vector<unsigned int> extracted;
+    Texture* marked = nullptr;
 
 
 public:
-    CardUI(Texture* background, Texture* cell);
+    CardUI(Texture* background, Texture* cell, Texture* marked);
+
+    void SetExtractedNumbers(std::vector<unsigned int> extracted);
 
 
     void SetCard(Card* card);
