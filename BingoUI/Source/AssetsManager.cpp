@@ -11,6 +11,25 @@ namespace fs = std::filesystem;
 
 std::map<std::string, void*> AssetsManager::assets;
 
+
+std::string pathAppend(const std::string& p1, const std::string& p2)
+{
+
+    char sep = '/';
+    std::string tmp = p1;
+
+#ifdef _WIN32
+    sep = '\\';
+#endif
+
+    if (p1[p1.length()] != sep)
+    { // Need to add a
+        tmp += sep;                // path separator
+        return (tmp + p2);
+    } else
+        return (p1 + p2);
+}
+
 bool hasEnding(std::string const& fullString, std::string const& ending)
 {
     if (fullString.length() >= ending.length())
@@ -37,7 +56,7 @@ void AssetsManager::Init(const std::string& assetsDirectory)
         if (hasEnding(nameStr, "bmp"))
         {
 
-            auto t = new Texture(assetsDirectory + "/" + nameStr);
+            auto t = new Texture(pathAppend(assetsDirectory, nameStr));
             assert(t != nullptr);
 
             size_t lastindex = nameStr.find_last_of('.');

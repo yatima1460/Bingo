@@ -4,6 +4,8 @@
 #include <map>
 #include "Texture.hpp"
 
+// TODO: default texture in case of error?
+
 class AssetsManager
 {
 
