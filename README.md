@@ -43,11 +43,13 @@
 - Buttons
   - ~Enter money~
   - ~Collect money~
+    - ~Disable if no money~
   - ~Change Cardboard numbers~
   - Play Game
     - ~Remove credits for cards~
     - ~Update screen~
     - Give prizes
+    - Disable if no money for cards
 - ~Current credits~
 - ~Exit with ESC~
 - SDL_Image support for .png?
