@@ -5,7 +5,7 @@
 
 void ImageWidget::Draw()
 {
-    Graphics::DrawTexture(&texture);
+    Graphics::DrawTexture(texture);
 }
 
 ImageWidget::ImageWidget(Texture& texture) : texture(texture)

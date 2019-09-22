@@ -24,11 +24,11 @@ public:
     static void CreateWindow();
 
 
-    static void DrawTexture(Texture *texture);
+    static void DrawTexture(Texture& texture);
 
-    static void DrawTexture(Texture *texture, SDL_Rect *dest);
+    static void DrawTexture(Texture& texture, SDL_Rect* dest);
 
-    static void DrawTexture(Texture *texture, SDL_Point *dest);
+    static void DrawTexture(Texture& texture, SDL_Point* dest);
 
 
 
@@ -48,9 +48,9 @@ public:
 
     static void DrawText(std::string text, SDL_Point location, SDL_Color color);
 
-    static void DrawText(std::string text, SDL_Point location, SDL_Color color, TTF_Font* font);
+    static void DrawText(std::string text, SDL_Point location, SDL_Color color, TTF_Font* pFont);
 
-    static SDL_Rect MeasureText(const std::string& stringstream, TTF_Font* font);
+    static SDL_Rect MeasureText(const std::string& stringstream, TTF_Font* pFont);
 
 
 };

@@ -34,11 +34,11 @@ void CardUI::Draw()
                 SDL_Point p = location;
                 p.x += DRAW_CELL_OFFSET_X + (cellSize.w + PADDING) * x;
                 p.y += DRAW_CELL_OFFSET_Y + (cellSize.h + PADDING) * y;
-                Graphics::DrawTexture(cell, &p);
+                Graphics::DrawTexture(*cell, &p);
 
                 if (std::find(extracted.begin(), extracted.end(), n) != extracted.end())
                 {
-                    Graphics::DrawTexture(marked, &p);
+                    Graphics::DrawTexture(*marked, &p);
                 }
 
 
@@ -57,9 +57,9 @@ void CardUI::Draw()
 
 }
 
-CardUI::CardUI(Texture* background, Texture* cell, Texture* marked)
+CardUI::CardUI(Texture& background, Texture* cell, Texture* marked) : background(background)
 {
-    this->background = background;
+
     this->cell = cell;
     this->marked = marked;
 }

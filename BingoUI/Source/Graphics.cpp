@@ -2,14 +2,15 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <cassert>
+#include <utility>
 #include "Graphics.hpp"
 
-SDL_Window *Graphics::window;
-TTF_Font *Graphics::font;
+SDL_Window* Graphics::window;
+TTF_Font* Graphics::font;
 TTF_Font* Graphics::bigFont;
 TTF_Font* Graphics::smallFont;
-SDL_Renderer *Graphics::renderer;
-SDL_Surface *Graphics::screenSurface;
+SDL_Renderer* Graphics::renderer;
+SDL_Surface* Graphics::screenSurface;
 
 void Graphics::Init()
 {
@@ -55,19 +56,19 @@ void Graphics::Init()
         exit(EXIT_FAILURE);
     }
 
-    //Get window surface
+    // Get window surface
     screenSurface = SDL_GetWindowSurface(window);
 
     // Enable VSync
     SDL_GL_SetSwapInterval(-1);
 }
 
-void Graphics::DrawTexture(Texture *texture)
+void Graphics::DrawTexture(Texture& texture)
 {
-    SDL_Rect r = texture->GetSDLRect();
+    SDL_Rect r = texture.GetSDLRect();
 
     assert(renderer != nullptr);
-    SDL_RenderCopy(renderer, texture->GetSDLTexture(), nullptr, &r);
+    SDL_RenderCopy(renderer, texture.GetSDLTexture(), nullptr, &r);
 }
 
 void Graphics::SwapBuffers()
@@ -76,9 +77,9 @@ void Graphics::SwapBuffers()
     SDL_RenderPresent(renderer);
 }
 
-void Graphics::DrawText(std::string text, SDL_Point location, SDL_Color color, TTF_Font* font)
+void Graphics::DrawText(std::string text, SDL_Point location, SDL_Color color, TTF_Font* pFont)
 {
-    SDL_Surface* creditsSurface = TTF_RenderText_Blended(font, text.c_str(), color);
+    SDL_Surface* creditsSurface = TTF_RenderText_Blended(pFont, text.c_str(), color);
 
     // is null if string has length zero
     if (creditsSurface)
@@ -106,19 +107,18 @@ void Graphics::DrawText(std::string text, SDL_Point location, SDL_Color color, T
 
 void Graphics::DrawText(std::string text, SDL_Point location, SDL_Color color)
 {
-    Graphics::DrawText(text, location, color, Graphics::GetDefaultFont());
+    Graphics::DrawText(std::move(text), location, color, Graphics::GetDefaultFont());
 }
 
-SDL_Rect Graphics::MeasureText(const std::string& stringstream, TTF_Font* font)
+SDL_Rect Graphics::MeasureText(const std::string& stringstream, TTF_Font* pFont)
 {
-
-
-    SDL_Surface* creditsSurface = TTF_RenderText_Blended(font, stringstream.c_str(), {255, 255, 255});
+    SDL_Surface* creditsSurface = TTF_RenderText_Blended(pFont, stringstream.c_str(), {255, 255, 255});
 
     // is null if string has length zero
     if (creditsSurface)
     {
         SDL_Rect r = creditsSurface->clip_rect;
+        assert(creditsSurface != nullptr);
         SDL_FreeSurface(creditsSurface);
         creditsSurface = nullptr;
         return r;
@@ -147,11 +147,10 @@ void Graphics::Clean()
     SDL_Quit();
 }
 
-void Graphics::DrawTexture(Texture *texture, SDL_Rect *dest)
+void Graphics::DrawTexture(Texture& texture, SDL_Rect* dest)
 {
-    assert(texture != nullptr);
 
-    auto sdlt = texture->GetSDLTexture();
+    auto sdlt = texture.GetSDLTexture();
     assert(sdlt != nullptr);
 
     assert(renderer != nullptr);
@@ -160,16 +159,16 @@ void Graphics::DrawTexture(Texture *texture, SDL_Rect *dest)
 }
 
 
-void Graphics::DrawTexture(Texture *texture, SDL_Point *dest)
+void Graphics::DrawTexture(Texture& texture, SDL_Point* dest)
 {
-    assert(texture != nullptr);
-    SDL_Rect rec = texture->GetSDLRect();
+
+    SDL_Rect rec = texture.GetSDLRect();
 
     assert(dest != nullptr);
     rec.x = dest->x;
     rec.y = dest->y;
 
-    auto sdlt = texture->GetSDLTexture();
+    auto sdlt = texture.GetSDLTexture();
     assert(sdlt != nullptr);
 
     assert(renderer != nullptr);
@@ -193,6 +192,7 @@ TTF_Font* Graphics::GetSmallFont()
 
 SDL_Renderer* Graphics::GetSDLRenderer()
 {
+    assert(renderer != nullptr);
     return renderer;
 }
 

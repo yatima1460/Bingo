@@ -49,7 +49,7 @@ Bingo::Bingo()
     auto marked = AssetsManager::Get<Texture>("sello1");
     for (size_t i = 0; i < game->GetCardsNumber(); ++i)
     {
-        auto card = new CardUI(cartonBackground, celdaBackground, marked);
+        auto card = new CardUI(*cartonBackground, celdaBackground, marked);
         SDL_Point cardPosition{CARD_LOCATIONS_X[i], CARD_LOCATIONS_Y[i]};
         card->SetPosition(cardPosition);
         card->SetCard(player->GetCards()[i]);

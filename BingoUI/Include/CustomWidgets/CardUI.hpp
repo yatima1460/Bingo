@@ -12,7 +12,7 @@ class CardUI : public Widget
 
     void Update() override;
 
-    Texture* background = nullptr;
+    Texture& background;
     Card* card = nullptr;
     Texture* cell = nullptr;
     std::vector<unsigned int> extracted;
@@ -20,7 +20,7 @@ class CardUI : public Widget
 
 
 public:
-    CardUI(Texture* background, Texture* cell, Texture* marked);
+    CardUI(Texture& background, Texture* cell, Texture* marked);
 
     void SetExtractedNumbers(std::vector<unsigned int> extracted);
 
