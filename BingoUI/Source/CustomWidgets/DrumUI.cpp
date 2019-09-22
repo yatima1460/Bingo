@@ -8,12 +8,12 @@
 #include <sstream>
 #include <AssetsManager.hpp>
 
-#define OFFSET_X_ROW_0 438
-#define OFFSET_Y_ROW_0 805
-#define HORIZONTAL_PADDING 2
-#define VERTICAL_PADDING 2
-#define BALLS_N_ROW_0 13
-#define BALLS_N_ROW_1 17
+#define OFFSET_X_ROW_0      438
+#define OFFSET_Y_ROW_0      805
+#define HORIZONTAL_PADDING  2
+#define VERTICAL_PADDING    2
+#define BALLS_N_ROW_0       13
+#define BALLS_N_ROW_1       17
 
 DrumUI::DrumUI()
 {

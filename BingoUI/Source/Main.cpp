@@ -15,5 +15,7 @@ int main(int argc, char* args[])
     AssetsManager::Init("Assets");
 
     Bingo();
+
+    AssetsManager::Clean();
     return EXIT_SUCCESS;
 }

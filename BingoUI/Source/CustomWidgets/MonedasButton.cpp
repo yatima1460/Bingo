@@ -5,8 +5,8 @@
 #include "CustomWidgets/MonedasButton.hpp"
 
 
-MonedasButton::MonedasButton(Player& player) : ButtonWidget("Monedas", AssetsManager::Get<Texture>("botongrande01"),
-                                                            AssetsManager::Get<Texture>("botongrande02")),
+MonedasButton::MonedasButton(Player& player) : ButtonWidget("Monedas", AssetsManager::Get<Texture>("botonpeque01"),
+                                                            AssetsManager::Get<Texture>("botonpeque02")),
                                                player(player)
 {
 
@@ -26,6 +26,7 @@ MonedasButton::MonedasButton(Player& player) : ButtonWidget("Monedas", AssetsMan
 
 void MonedasButton::Update()
 {
+    ButtonWidget::Update();
     SetEnabled(player.CreditsLeft() != 0);
 
 }

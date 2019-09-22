@@ -51,4 +51,6 @@ public:
     static void DrawText(std::string text, SDL_Point location, SDL_Color color, TTF_Font* font);
 
     static SDL_Rect MeasureText(const std::string& stringstream, TTF_Font* font);
+
+
 };

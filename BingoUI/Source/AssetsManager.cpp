@@ -72,3 +72,22 @@ void AssetsManager::Init(const std::string& assetsDirectory)
     }
 
 }
+
+void AssetsManager::Clean()
+{
+    std::map<std::string, void*>::iterator it;
+
+    for (it = assets.begin(); it != assets.end(); it++)
+    {
+        auto t = reinterpret_cast<Texture*>(it->second);
+
+
+        assert(t != nullptr);
+
+        delete t;
+
+
+    }
+
+    assets.clear();
+}

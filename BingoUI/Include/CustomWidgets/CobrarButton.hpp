@@ -4,7 +4,7 @@
 #include <Player.hpp>
 #include "GUI/ButtonWidget.hpp"
 
-class MonedasButton : public ButtonWidget
+class CobrarButton : public ButtonWidget
 {
 
 
@@ -14,9 +14,8 @@ private:
 
 public:
 
-    explicit MonedasButton(Player& player);
+    explicit CobrarButton(Player& player);
 
-    void Update() override;
 
     void Pressed() override;
 

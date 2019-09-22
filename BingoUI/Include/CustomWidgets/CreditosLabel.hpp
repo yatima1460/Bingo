@@ -19,7 +19,7 @@ protected:
 public:
 
 
-    CreditosLabel(Player& player);
+    explicit CreditosLabel(Player& player);
 
 
     void Update() override;

@@ -29,6 +29,4 @@ public:
 
     Bingo();
 
-
-    void BuildUI();
 };

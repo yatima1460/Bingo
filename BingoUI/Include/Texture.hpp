@@ -25,5 +25,5 @@ public:
     ~Texture();
 
 
-    const SDL_Rect GetSDLRect();
+    SDL_Rect GetSDLRect();
 };

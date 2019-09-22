@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <Card.hpp>
 #include "Texture.hpp"
 #include "GUI/Widget.hpp"
 
