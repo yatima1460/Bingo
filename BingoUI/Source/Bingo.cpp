@@ -76,18 +76,10 @@ void Bingo::BuildUI()
     // Add game background
     widgets.push_back(new ImageWidget(*AssetsManager::Get<Texture>("Fondo_Juego")));
 
-    // Add extracted balls
-    auto ball = AssetsManager::Get<Texture>("bola");
-    widgets.push_back(new DrumUI(ball));
+    // Add credits label
+    widgets.push_back(new CreditosLabel(*player));
 
-//widgets.push_back(new CobrarButton(*player));
-    //widgets.push_back(new NumerosButton(*player, cards, drumUI));
-    assert(player != nullptr);
-    widgets.push_back(new MonedasButton(*player));
-    //widgets.push_back(new JugarButton(*player));
-    widgets.push_back(new CloseButton(&quit));
-
-
+    // Add cards
     int CARD_LOCATIONS_X[4] = {CARTON_COLUMN_0_X, CARTON_COLUMN_1_X, CARTON_COLUMN_0_X, CARTON_COLUMN_1_X};
     int CARD_LOCATIONS_Y[4] = {CARTON_COLUMN_0_Y, CARTON_COLUMN_0_Y, CARTON_COLUMN_1_Y, CARTON_COLUMN_1_Y};
 
@@ -105,11 +97,15 @@ void Bingo::BuildUI()
         cards.push_back(card);
     }
 
-    assert(player != nullptr);
-    auto creditos = new CreditosLabel(*player);
-    widgets.push_back(creditos);
+    // Add extracted balls
+    widgets.push_back(new DrumUI());
 
-
+    // Add buttons
+    //widgets.push_back(new CobrarButton(*player));
+    //widgets.push_back(new NumerosButton(*player, cards, drumUI));
+    widgets.push_back(new MonedasButton(*player));
+    //widgets.push_back(new JugarButton(*player));
+    widgets.push_back(new CloseButton(&quit));
 }
 
 
@@ -164,6 +160,7 @@ Bingo::Bingo()
             {
                 case SDL_QUIT:
                 {
+                    // Pressing the window [X] closes
                     quit = true;
                     break;
                 }
@@ -198,5 +195,6 @@ Bingo::Bingo()
         Graphics::SwapBuffers();
     }
 
+    //TODO: use RAII
     Graphics::Clean();
 }

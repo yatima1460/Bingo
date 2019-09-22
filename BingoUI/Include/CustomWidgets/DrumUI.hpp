@@ -12,7 +12,7 @@ class DrumUI : public Widget
 
 public:
 
-    explicit DrumUI(Texture* ball);
+    explicit DrumUI();
 
     void SetBalls(std::vector<unsigned int> extracted);
 

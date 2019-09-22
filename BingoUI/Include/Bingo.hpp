@@ -14,7 +14,7 @@ class Bingo
 {
 
 
-    DrumUI* drumUI;
+    //DrumUI* drumUI;
     std::vector<CardUI*> cards;
     Player* player = nullptr;
     bool quit = false;
