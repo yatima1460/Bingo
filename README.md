@@ -57,7 +57,7 @@
 - ~Disabled button~
 - Font size
 - Sounds and effects
-- Assets loader with associative string->Texture map?
+- ~Assets loader with associative string->Texture map?~
 - Balls different colors
 
 ## Build
