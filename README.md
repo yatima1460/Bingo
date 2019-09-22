@@ -37,7 +37,7 @@
 ## UI
 
 - ~Background~
-- Balls extracted
+- ~Balls extracted~
 - ~Cartons~
   - ~Marked~
 - Buttons
@@ -53,6 +53,7 @@
 - Font size
 - Sounds and effects
 - Assets loader with associative string->Texture map?
+- Balls different sizes
 
 ## Build
 
