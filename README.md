@@ -45,15 +45,18 @@
   - ~Collect money~
   - ~Change Cardboard numbers~
   - Play Game
+    - ~Remove credits for cards~
+    - ~Update screen~
+    - Give prizes
 - ~Current credits~
 - ~Exit with ESC~
-- SDL_Image support for .png
-- Resize using renderToTexture
+- SDL_Image support for .png?
+- Resize buffer using renderToTexture
 - ~Disabled button~
 - Font size
 - Sounds and effects
 - Assets loader with associative string->Texture map?
-- Balls different sizes
+- Balls different colors
 
 ## Build
 
