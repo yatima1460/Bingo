@@ -134,9 +134,15 @@ SDL_Rect Graphics::MeasureText(const std::string& stringstream)
 
 void Graphics::Clean()
 {
+    assert(smallFont != nullptr);
+    TTF_CloseFont(smallFont);
     assert(font != nullptr);
     TTF_CloseFont(font);
+    assert(bigFont != nullptr);
+    TTF_CloseFont(bigFont);
+    smallFont = nullptr;
     font = nullptr;
+    bigFont = nullptr;
 
     //Destroy window
     assert(window != nullptr);

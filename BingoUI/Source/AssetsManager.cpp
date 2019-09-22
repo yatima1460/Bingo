@@ -67,7 +67,11 @@ void AssetsManager::Init(const std::string& assetsDirectory)
         } else if (hasEnding(nameStr, "wav"))
         {
             // TODO
+        } else if (hasEnding(nameStr, "ttf"))
+        {
+            // TODO
         }
+
 
     }
 
