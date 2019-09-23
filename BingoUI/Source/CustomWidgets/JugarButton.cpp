@@ -6,6 +6,10 @@
 #include <Config.hpp>
 #include <Engine.hpp>
 #include <BingoLevel.hpp>
+#include <Prizes/LinePrize.hpp>
+#include <Prizes/DoubleLinePrize.hpp>
+#include <Prizes/BingoPrize.hpp>
+#include <cassert>
 #include "CustomWidgets/JugarButton.hpp"
 
 
@@ -34,19 +38,44 @@ void JugarButton::Update()
 void JugarButton::Pressed()
 {
     Level& level = Engine::GetCurrentLevel();
+
     auto& PlayerRef = dynamic_cast<BingoLevel&>(level).GetPlayer();
     auto& DrumUIRef = dynamic_cast<BingoLevel&>(level).GetDrumUI();
     auto cards = dynamic_cast<BingoLevel&>(level).GetCardsUI();
 
-    // Remove cost of CardsUI
+    // Remove cost of cards
     if (!PlayerRef.TryRemoveCredits(PlayerRef.GetCards().size()))
         throw std::runtime_error("Play button can be pressed when not enough money to play");
 
-    // Show extracted numbers
+    // Update shown extracted numbers
     auto latestBalls = DrumUIRef.ExtractNewBalls();
+    assert(!latestBalls.empty());
     for (CardUI* card: cards)
         card->SetExtractedNumbers(latestBalls);
 
     // Calculate prizes
+    Prize* prizes[] = {new BingoPrize(BINGO_PRIZE), new DoubleLinePrize(DOUBLELINE_PRIZE), new LinePrize(LINE_PRIZE)};
+    for (const std::shared_ptr<Card>& card: PlayerRef.GetCards())
+    {
 
+        for (Prize* p : prizes)
+        {
+            assert(card != nullptr);
+            auto prizeAmount = p->Check(*card, latestBalls);
+
+            if (prizeAmount != 0)
+            {
+                PlayerRef.AddCredits(prizeAmount);
+
+                // A prize overrides the lower value ones
+                break;
+            }
+
+        }
+
+    }
+
+    // TODO: destructor
+    for (auto& prize : prizes)
+        delete prize;
 }

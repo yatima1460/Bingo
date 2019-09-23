@@ -45,11 +45,12 @@
   - ~Collect money~
     - ~Disable if no money~
   - ~Change Cardboard numbers~
-  - Play Game
+  - ~Play Game~
     - ~Remove Credits for Cards~
     - ~Update screen~
-    - Give prizes
+    - ~Give prizes~
     - ~Disable if no money for Cards~
+  - Mute audio
 - ~Current Credits~
 - ~Exit with ESC~
 - SDL_Image support for .png?

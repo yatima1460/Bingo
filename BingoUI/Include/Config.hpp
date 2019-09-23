@@ -11,6 +11,11 @@
 // Credits
 #define INITIAL_CREDITS         0
 
+// Prizes
+#define LINE_PRIZE              8
+#define DOUBLELINE_PRIZE        150
+#define BINGO_PRIZE             1500
+
 // Cards
 #define CARTON_NUMBER           4
 #define CARTON_WIDTH            5

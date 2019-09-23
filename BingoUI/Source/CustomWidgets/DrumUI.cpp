@@ -71,3 +71,8 @@ std::vector<unsigned int> DrumUI::ExtractNewBalls()
     ExtractedBalls = d.Extract(DRUM_BALLS_TO_EXTRACT);
     return ExtractedBalls;
 }
+
+void DrumUI::Clear()
+{
+    ExtractedBalls.clear();
+}

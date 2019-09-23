@@ -39,6 +39,7 @@ void NumerosButton::Pressed()
     Level& level = Engine::GetCurrentLevel();
     auto& PlayerRef = dynamic_cast<BingoLevel&>(level).GetPlayer();
     auto cardsUI = dynamic_cast<BingoLevel&>(level).GetCardsUI();
+    auto& DrumUIRef = dynamic_cast<BingoLevel&>(level).GetDrumUI();
 
     PlayerRef.ChangeCards();
 
@@ -50,7 +51,7 @@ void NumerosButton::Pressed()
         cardsUI[i]->SetExtractedNumbers(std::vector<unsigned int>());
     }
 
-
+    DrumUIRef.Clear();
     //DrumUIRef.SetBalls(std::vector<unsigned int>());
 }
 

@@ -92,14 +92,18 @@ void Graphics::DrawText(const std::string& Text, SDL_Point Position, SDL_Color C
         Message_rect.w = creditsSurface->w; // controls the width of the rect
         Message_rect.h = creditsSurface->h; // controls the height of the rect
 
+        assert(creditsSurface != nullptr);
         SDL_FreeSurface(creditsSurface);
         creditsSurface = nullptr;
 
         assert(SDLRenderer != nullptr);
+        assert(creditsTexture != nullptr);
         SDL_RenderCopy(SDLRenderer, creditsTexture, nullptr, &Message_rect);
-        SDL_DestroyTexture(creditsTexture);
-        creditsTexture = nullptr;
 
+        assert(creditsTexture != nullptr);
+        SDL_DestroyTexture(creditsTexture);
+
+        creditsTexture = nullptr;
     }
 }
 

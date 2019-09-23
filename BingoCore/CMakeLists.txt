@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(Include)
 
 # puts all .cpp files inside Source to the SOURCES variable
-file(GLOB SOURCES Source/*.cpp)
+file(GLOB_RECURSE SOURCES Source/*.cpp)
 
 # compiles the files defined by SOURCES to generante the executable defined by EXEC
 add_library(${EXEC} ${SOURCES})
