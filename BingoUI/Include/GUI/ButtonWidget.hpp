@@ -15,14 +15,14 @@ private:
     Texture *hover;
     std::string text;
     Texture *active;
-    bool hovered;
+    bool hovered = false;
     bool enabled = true;
 
-    SDL_Cursor* normalCursor;
-    SDL_Cursor* hoverCursor;
-    SDL_Cursor* disabledCursor;
-    bool previousFrameHovered;
-    bool leftPressedPrevious;
+    SDL_Cursor* normalCursor = nullptr;
+    SDL_Cursor* hoverCursor = nullptr;
+    SDL_Cursor* disabledCursor = nullptr;
+    bool previousFrameHovered = false;
+    bool leftPressedPrevious = false;
 
     //void (* callback)() = nullptr;
 protected:

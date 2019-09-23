@@ -2,13 +2,12 @@
 
 
 #include <AssetsManager.hpp>
+#include <Config.hpp>
 #include "CustomWidgets/CobrarButton.hpp"
 
 
-#define COBRAR_CHARGE 100
-
-
-CobrarButton::CobrarButton(Player& player) : ButtonWidget("Cobrar", AssetsManager::Get<Texture>("botongrande01"),
+CobrarButton::CobrarButton(Player& player) : ButtonWidget(CHARGE_BUTTON_TEXT,
+                                                          AssetsManager::Get<Texture>("botongrande01"),
                                                           AssetsManager::Get<Texture>("botongrande02")),
                                              player(player)
 {
@@ -28,7 +27,7 @@ CobrarButton::CobrarButton(Player& player) : ButtonWidget("Cobrar", AssetsManage
 
 void CobrarButton::Pressed()
 {
-    player.AddCredits(COBRAR_CHARGE);
+    player.AddCredits(CHARGE_BUTTON_QUANTITY);
 }
 
 //callback

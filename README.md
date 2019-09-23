@@ -26,7 +26,7 @@
 - ~Change numbers~
 - ~Show current Cards~
 - Play One Game
-  - ~Show extracted balls~
+  - ~Show ExtractedBalls balls~
   - Show Cards status
   - Show prizes
   - ~Remaining Credits~
@@ -37,7 +37,7 @@
 ## UI
 
 - ~Background~
-- ~Balls extracted~
+- ~Balls ExtractedBalls~
 - ~Cartons~
   - ~Marked~
 - Buttons

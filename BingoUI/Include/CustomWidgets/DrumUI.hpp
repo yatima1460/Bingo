@@ -7,14 +7,13 @@
 
 class DrumUI : public Widget
 {
-    Texture* ball;
-    std::vector<unsigned int> extracted;
+
+    std::vector<unsigned int> ExtractedBalls;
 
 public:
 
-    explicit DrumUI();
 
-    void SetBalls(std::vector<unsigned int> extracted);
+    void SetBalls(const std::vector<unsigned int>& Extracted);
 
     void Update() override;
 

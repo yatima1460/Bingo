@@ -2,6 +2,7 @@
 #include <string>
 
 #include <SDL.h>
+#include <Config.hpp>
 
 #include "Bingo.hpp"
 
@@ -18,20 +19,20 @@
 #include "CustomWidgets/CloseButton.hpp"
 #include "CustomWidgets/CreditosLabel.hpp"
 
-#define CARTON_COLUMN_0_X 50
-#define CARTON_COLUMN_1_X 1135
-#define CARTON_COLUMN_0_Y 100
-#define CARTON_COLUMN_1_Y 450
+
 
 
 Bingo::Bingo()
 {
     // Create game settings
     player = new Player();
+#if INITIAL_CREDITS > 0
+    player->AddCredits(INITIAL_CREDITS);
+#endif
     game = new Game(*player);
-    game->SetDrumSize(60);
-    game->SetCardsSize(5, 3);
-    game->SetCardsNumber(4);
+    game->SetDrumSize(DRUM_SIZE);
+    game->SetCardsSize(CARTON_WIDTH, CARTON_HEIGHT);
+    game->SetCardsNumber(CARTON_NUMBER);
 
     // Build user interface
 
@@ -59,7 +60,7 @@ Bingo::Bingo()
         cards.push_back(card);
     }
 
-    // Add extracted balls
+    // Add ExtractedBalls balls
     auto drumUI = new DrumUI();
     widgets.push_back(drumUI);
 

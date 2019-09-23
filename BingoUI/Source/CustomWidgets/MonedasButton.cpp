@@ -2,10 +2,12 @@
 
 
 #include <AssetsManager.hpp>
+#include <Config.hpp>
 #include "CustomWidgets/MonedasButton.hpp"
 
 
-MonedasButton::MonedasButton(Player& player) : ButtonWidget("Monedas", AssetsManager::Get<Texture>("botonpeque01"),
+MonedasButton::MonedasButton(Player& player) : ButtonWidget(MONEY_BUTTON_TEXT,
+                                                            AssetsManager::Get<Texture>("botonpeque01"),
                                                             AssetsManager::Get<Texture>("botonpeque02")),
                                                player(player)
 {
@@ -35,6 +37,3 @@ void MonedasButton::Pressed()
 {
     player.Collect();
 }
-
-//callback
-//

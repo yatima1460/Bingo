@@ -3,10 +3,11 @@
 
 #include <AssetsManager.hpp>
 #include <CustomWidgets/CardUI.hpp>
+#include <Config.hpp>
 #include "CustomWidgets/JugarButton.hpp"
 
 
-JugarButton::JugarButton(Game& game, std::vector<CardUI*> cards, DrumUI& drumUI) : ButtonWidget("JUGAR",
+JugarButton::JugarButton(Game& game, std::vector<CardUI*> cards, DrumUI& drumUI) : ButtonWidget(PLAY_BUTTON_TEXT,
                                                                                                 AssetsManager::Get<Texture>(
                                                                                                         "botongrande01"),
                                                                                                 AssetsManager::Get<Texture>(

@@ -3,6 +3,7 @@
 #include <SDL_ttf.h>
 #include <cassert>
 #include <utility>
+#include <Config.hpp>
 #include "Graphics.hpp"
 
 SDL_Window* Graphics::SDLWindow;
@@ -22,7 +23,7 @@ void Graphics::Init()
     }
 
     SDLWindow = SDL_CreateWindow(
-            "Bingo",
+            WINDOW_NAME,
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
             -1, -1,
             SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP);
@@ -35,9 +36,9 @@ void Graphics::Init()
     SDLRenderer = SDL_CreateRenderer(SDLWindow, -1, SDL_RENDERER_ACCELERATED);
 
     TTF_Init();
-    SmallFont = TTF_OpenFont("Assets/Roboto-Regular.ttf", 24);
-    NormalFont = TTF_OpenFont("Assets/Roboto-Regular.ttf", 32);
-    BigFont = TTF_OpenFont("Assets/Roboto-Regular.ttf", 48);
+    SmallFont = TTF_OpenFont(FONT_PATH, 24);
+    NormalFont = TTF_OpenFont(FONT_PATH, 32);
+    BigFont = TTF_OpenFont(FONT_PATH, 48);
     if (NormalFont == nullptr)
     {
         fprintf(stderr, "error: NormalFont not found\n");
@@ -103,9 +104,9 @@ void Graphics::DrawText(const std::string& Text, SDL_Point Position, SDL_Color C
 }
 
 
-void Graphics::DrawText(std::string Text, SDL_Point Position, SDL_Color Color)
+void Graphics::DrawText(const std::string& Text, SDL_Point Position, SDL_Color Color)
 {
-    Graphics::DrawText(std::move(Text), Position, Color, Graphics::GetDefaultFont());
+    Graphics::DrawText(Text, Position, Color, Graphics::GetDefaultFont());
 }
 
 SDL_Rect Graphics::MeasureText(const std::string& String, TTF_Font& Font)

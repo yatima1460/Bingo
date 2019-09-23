@@ -1,3 +1,4 @@
+#include <Config.hpp>
 #include "AssetsManager.hpp"
 #include "Graphics.hpp"
 #include "Bingo.hpp"
@@ -10,7 +11,7 @@ int main(int argc, char* args[])
     Graphics::Init();
 
     // Load all the files inside the input directory
-    AssetsManager::Init("Assets");
+    AssetsManager::Init(ASSETS_PATH);
 
     Bingo();
 

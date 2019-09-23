@@ -3,16 +3,18 @@
 
 #include <AssetsManager.hpp>
 #include <CustomWidgets/CardUI.hpp>
+#include <Config.hpp>
 #include "CustomWidgets/NumerosButton.hpp"
 
 
 #define COBRAR_CHARGE 100
 
 
-NumerosButton::NumerosButton(Player& player, std::vector<CardUI*> cards, DrumUI& drumUI) : ButtonWidget("Numeros",
-                                                                                                        AssetsManager::Get<Texture>(
+NumerosButton::NumerosButton(Player& player, std::vector<CardUI*> cards, DrumUI& drumUI) : ButtonWidget(
+        CARDS_BUTTON_TEXT,
+        AssetsManager::Get<Texture>(
                                                                                                                 "botonpeque01"),
-                                                                                                        AssetsManager::Get<Texture>(
+        AssetsManager::Get<Texture>(
                                                                                                                 "botonpeque02")),
                                                                                            player(player), cards(cards),
                                                                                            drumUI(drumUI)

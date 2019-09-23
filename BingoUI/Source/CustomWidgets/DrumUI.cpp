@@ -7,23 +7,13 @@
 #include <Graphics.hpp>
 #include <sstream>
 #include <AssetsManager.hpp>
+#include "Config.hpp"
 
-#define OFFSET_X_ROW_0      438
-#define OFFSET_Y_ROW_0      805
-#define HORIZONTAL_PADDING  2
-#define VERTICAL_PADDING    2
-#define BALLS_N_ROW_0       13
-#define BALLS_N_ROW_1       17
 
-DrumUI::DrumUI()
+void DrumUI::SetBalls(const std::vector<unsigned int>& Extracted)
 {
-    this->ball = AssetsManager::Get<Texture>("bola");
-}
-
-void DrumUI::SetBalls(std::vector<unsigned int> e)
-{
-    assert(e.size() == 30 || e.empty());
-    this->extracted = std::move(e);
+    assert(Extracted.size() == DRUM_BALLS_TO_EXTRACT || Extracted.empty());
+    this->ExtractedBalls = Extracted;
 }
 
 void DrumUI::Update()
@@ -33,8 +23,10 @@ void DrumUI::Update()
 
 void DrumUI::Draw()
 {
-    if (!extracted.empty())
+
+    if (!ExtractedBalls.empty())
     {
+        auto ball = AssetsManager::Get<Texture>("bola");
         for (int i = 0; i < BALLS_N_ROW_0; i++)
         {
             SDL_Point p;
@@ -45,7 +37,7 @@ void DrumUI::Draw()
 
 
             std::stringstream ss;
-            ss << extracted[i];
+            ss << ExtractedBalls[i];
             p.x += ballSize.w / 2;
             p.y += ballSize.h / 2;
             SDL_Rect text_size = Graphics::MeasureText(ss.str());
@@ -62,7 +54,7 @@ void DrumUI::Draw()
             Graphics::DrawTexture(*ball, p);
 
             std::stringstream ss;
-            ss << extracted[i + BALLS_N_ROW_0];
+            ss << ExtractedBalls[i + BALLS_N_ROW_0];
             p.x += ballSize.w / 2;
             p.y += ballSize.h / 2;
             SDL_Rect text_size = Graphics::MeasureText(ss.str());

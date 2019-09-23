@@ -51,7 +51,7 @@ public:
 
     [[nodiscard]] static TTF_Font& GetSmallFont();
 
-    static void DrawText(std::string Text, SDL_Point Position, SDL_Color Color);
+    static void DrawText(const std::string& Text, SDL_Point Position, SDL_Color Color);
 
     static void DrawText(const std::string& Text, SDL_Point Position, SDL_Color Color, TTF_Font& Font);
 
