@@ -1,12 +1,13 @@
 #include <Drum.hpp>
 #include <iostream>
 
-#include <Game.hpp>
+
 #include <cstdlib>
-#include <OutOfCreditsException.hpp>
+
 #include <limits>
 #include <cassert>
 #include <ctime>
+#include <Player.hpp>
 
 void ClearScreen()
 {
@@ -15,17 +16,17 @@ void ClearScreen()
 
 
 Player *player;
-Game *game;
+
 
 
 void PrintCards(Player &player) {
     auto cards = player.GetCards();
     for (size_t i = 0; i < cards.size(); i++) {
         std::cout << std::endl << "Card #" << i + 1 << std::endl;
-        Card *card = cards[i];
+        auto card = cards[i];
         assert(card != nullptr);
         for (size_t j = 0; j < card->Width * card->Height; j++) {
-            unsigned int n = card[j];
+            unsigned int n = (*card)[j];
 
             if (n >= 10)
                 std::cout << n << " ";
@@ -92,7 +93,7 @@ void PrintMenu()
             // Change number of Cards
         case 3:
         {
-            player->RerollCards();
+            player->ChangeCards(4, 5, 3, 60);
             std::cout << std::endl << "New cards: " << std::endl;
             PrintCards(*player);
             /*std::cout << std::endl << "How many cards? ";
@@ -114,7 +115,7 @@ void PrintMenu()
         // Play 1 Game
         case 5:
         {
-            try
+            /*try
             {
                 game->PlayOneGame();
             }
@@ -123,23 +124,23 @@ void PrintMenu()
 
                 std::cout << "ERROR: You don't have enough credits for cards" << std::endl;
                 return;
-            }
+            }*/
 
 
-            auto balls = game->ExtractedBalls();
+            /* auto balls = game->ExtractedBalls();
 
-            std::cout << std::endl << balls.size() << " extracted balls: " << std::endl;
+             std::cout << std::endl << balls.size() << " extracted balls: " << std::endl;
 
-            for (size_t i = 0; i < balls.size(); i++)
-            {
-                if (balls[i] >= 10)
-                    std::cout << "(" << balls[i] << ")";
-                else
-                    std::cout << "(0" << balls[i] << ")";
-                if ((i + 1) % 10 == 0) std::cout << std::endl;
-            }
+             for (size_t i = 0; i < balls.size(); i++)
+             {
+                 if (balls[i] >= 10)
+                     std::cout << "(" << balls[i] << ")";
+                 else
+                     std::cout << "(0" << balls[i] << ")";
+                 if ((i + 1) % 10 == 0) std::cout << std::endl;
+             }*/
             std::cout << std::endl << "Cards: " << std::endl;
-
+            PrintCards(*player);
 
 
 
@@ -157,7 +158,7 @@ void PrintMenu()
             std::cout << std::endl << "How many games? ";
             int games = -1;
             std::cin >> games;
-            game->PlayNGames(games);
+            //game->PlayNGames(games);
             break;
         }
         // Collect
@@ -184,11 +185,11 @@ void PrintMenu()
 int main(int argc, char *argv[])
 {
     player = new Player();
-    player->AddCredits(100);
+    //player->AddCredits(100);
 
-    game = new Game(*player);
+    /*game = new Game(*player);
     game->SetCardsSize(5, 3);
-    game->SetDrumSize(60);
+    game->SetDrumSize(60);*/
     // game.SetCardsNumber(4);
 
 
