@@ -9,14 +9,17 @@ Card::Card(const unsigned int Width, const unsigned int Height, const unsigned i
                                                                                                 Height(Height),
                                                                                                 MaxNumber(MaxNumber)
 {
-    ReRoll();
+    Drum d(MaxNumber);
+    CardInternal = d.Extract(Width * Height);
 }
 
+/*
 void Card::ReRoll()
 {
     Drum d(MaxNumber);
     CardInternal = d.Extract(Width * Height);
 }
+*/
 
 /*
 unsigned int Card::operator[]( int index)

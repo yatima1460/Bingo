@@ -36,7 +36,7 @@ public:
      */
     Card(unsigned int Width, unsigned int Height, unsigned int MaxNumber);
 
-    [[deprecated]] void ReRoll();
+    //[[deprecated]] void ReRoll();
 
 
     [[nodiscard]] const unsigned int& operator[](int index) const

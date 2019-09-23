@@ -9,7 +9,7 @@
 #include <cassert>
 
 
-Drum::Drum(unsigned int numberOfBalls) : NumberOfBalls(numberOfBalls)
+Drum::Drum(const unsigned int numberOfBalls) : NumberOfBalls(numberOfBalls)
 {
     if (numberOfBalls == 0)
         throw std::invalid_argument("The number of balls in a Drum can't be 0!");

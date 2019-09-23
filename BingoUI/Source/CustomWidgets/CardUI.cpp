@@ -17,11 +17,11 @@ void CardUI::Draw()
     Graphics::DrawTexture(background, location);
 
 
-    for (size_t x = 0; x < card.Width; x++)
+    for (size_t x = 0; x < card->Width; x++)
         {
-            for (size_t y = 0; y < card.Height; y++)
+            for (size_t y = 0; y < card->Height; y++)
             {
-                unsigned int n = card[y * card.Height + x];
+                unsigned int n = (*card)[y * card->Height + x];
 
                 std::stringstream ss;
                 ss << n;
@@ -55,7 +55,8 @@ void CardUI::Draw()
 
 }
 
-CardUI::CardUI(Card& card, Texture& background, Texture* cell, Texture* marked) : background(background), card(card)
+CardUI::CardUI(std::shared_ptr<Card> card, Texture& background, Texture* cell, Texture* marked) : background(
+        background), card(card)
 {
 
     this->cell = cell;
@@ -71,5 +72,10 @@ void CardUI::Update()
 void CardUI::SetExtractedNumbers(std::vector<unsigned int> e)
 {
     this->extracted = e;
+}
+
+void CardUI::ChangeCard(std::shared_ptr<Card> c)
+{
+    this->card = c;
 }
 

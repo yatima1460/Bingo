@@ -1,15 +1,18 @@
+/*
 #include <stdexcept>
 #include <Drum.hpp>
 #include "Game.hpp"
 #include "OutOfCreditsException.hpp"
 #include <cassert>
 
+*/
 /*int Game::Collect()
 {
     int win = Credits;
     Credits = 0;
     return win;
-}*/
+}*//*
+
 
 
 Game::Game(Player &player) : player(player)
@@ -21,10 +24,12 @@ Game::Game(Player &player) : player(player)
 void Game::PlayOneGame()
 {
 
-    /* if (this->maxCards > PlayerRef.CreditsLeft())
+    */
+/* if (this->maxCards > PlayerRef.CreditsLeft())
      {
          throw OutOfCreditsException();
-     }*/
+     }*//*
+
 
     if (!player.TryRemoveCredits(this->maxCards))
     {
@@ -43,12 +48,15 @@ void Game::PlayOneGame()
 
 void Game::PlayNGames(unsigned int N)
 {
+*/
 /*    for (int i = 0; i < N; ++i)
     {
         PlayOneGame();
-    }*/
+    }*//*
+
 }
 
+*/
 /*void Game::InsertCredits(unsigned int N)
 {
 
@@ -58,17 +66,21 @@ void Game::PlayNGames(unsigned int N)
     }
 
     credits += N;
-}*/
+}*//*
 
+
+*/
 /*
 int Game::CurrentCredits()
 {
     return Credits;
 }
+*//*
+
+
+
+
 */
-
-
-
 /*void Game::SetCardsNumber(unsigned int N)
 {
     if (N == 0)
@@ -85,7 +97,8 @@ int Game::CurrentCredits()
     {
         Cards[i] = new Card(this->width, this->height, this->drumSize);
     }
-}*/
+}*//*
+
 
 std::vector<unsigned int> Game::ExtractedBalls()
 {
@@ -113,3 +126,4 @@ void Game::SetCardsNumber(unsigned int N)
     this->maxCards = N;
 }
 
+*/

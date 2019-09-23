@@ -14,7 +14,6 @@ class CreditosLabel : public LabelWidget
 public:
 
 
-
     void Update() override;
 
 };

@@ -8,7 +8,6 @@ class CobrarButton : public ButtonWidget
 {
 
 
-
 public:
 
     explicit CobrarButton();

@@ -25,8 +25,13 @@ public:
      *
      * @return unsigned int of credits
      */
-    [[nodiscard]] unsigned int CreditsLeft();
+    [[nodiscard]] unsigned int CreditsLeft() const;
 
+    /**
+     * Tries to remove the credits from the player, otherwise returns false
+     * @param Value
+     * @return true if removed, false if not enough
+     */
     [[nodiscard]] bool TryRemoveCredits(unsigned int Value);
 
     /**
@@ -49,9 +54,12 @@ public:
      *
      * @return
      */
-    [[nodiscard]] std::vector<std::shared_ptr<Card>>& GetCards();
+    [[nodiscard]] const std::vector<std::shared_ptr<Card>>& GetCards() const;
 
-    [[deprecated]] void RerollCards();
+    /**
+     * Gets new Bingo cards, discarding the previous ones
+     */
+    void ChangeCards();
 
 };
 

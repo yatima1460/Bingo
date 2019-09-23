@@ -3,13 +3,14 @@
 
 #include <stdexcept>
 #include <cassert>
+#include <Config.hpp>
 
-unsigned int Player::CreditsLeft()
+unsigned int Player::CreditsLeft() const
 {
     return Credits;
 }
 
-bool Player::TryRemoveCredits(unsigned int Value)
+bool Player::TryRemoveCredits(const unsigned int Value)
 {
     if (Value > Credits)
         return false;
@@ -33,7 +34,7 @@ void Player::AddCredits(unsigned int Value)
     Credits += Value;
 }
 
-std::vector<std::shared_ptr<Card>>& Player::GetCards()
+const std::vector<std::shared_ptr<Card>>& Player::GetCards() const
 {
     return Cards;
 }
@@ -41,20 +42,24 @@ std::vector<std::shared_ptr<Card>>& Player::GetCards()
 Player::Player() : Credits(0)
 {
 
-    Cards = std::vector<std::shared_ptr<Card>>(4);
+    Player::ChangeCards();
+    //Cards = std::vector<std::shared_ptr<Card>>(CARTON_NUMBER);
 
-    for (int i = 0; i < 4; i++)
-    {
-        Cards[i] = std::make_shared<Card>(5, 3, 60);
-    }
+
 }
 
-void Player::RerollCards()
+void Player::ChangeCards()
 {
 
-    for (auto& card : Cards)
+    Cards.clear();
+    for (int i = 0; i < CARTON_NUMBER; i++)
+        Cards.push_back(std::make_shared<Card>(CARTON_WIDTH, CARTON_HEIGHT, DRUM_SIZE));
+    /*for (auto& card : Cards)
     {
         assert(card != nullptr);
+
+
+
 
         //auto newCard = new Card(CardInternal->Width, CardInternal->Height, CardInternal->MaxNumber);
 
@@ -63,6 +68,6 @@ void Player::RerollCards()
         //CardInternal = newCard;
 
         card->ReRoll();
-    }
+    }*/
 
 }

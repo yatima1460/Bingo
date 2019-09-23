@@ -1,3 +1,4 @@
+/*
 
 #pragma once
 
@@ -42,20 +43,25 @@ public:
 
 //    void ChangeCards(unsigned int N);
 
-    /**
+    */
+/**
      * Collects all credits won, internal credits are reset to 0
-     */
+     *//*
+
     //int Collect();
 
     //int CurrentCredits();
 
-    /**
+    */
+/**
      * The latest balls extracted
      * @return
-     */
+     *//*
+
     std::vector<unsigned int> ExtractedBalls();
 
 
 };
 
 
+*/

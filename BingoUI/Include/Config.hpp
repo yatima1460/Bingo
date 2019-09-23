@@ -2,25 +2,23 @@
 
 
 // Project
-#define ASSETS_PATH     "Assets"
-
+#define ASSETS_PATH             "Assets"
 
 // Window
-#define WINDOW_NAME     "Bingo"
-#define FONT_PATH       ASSETS_PATH"/Roboto-Regular.ttf"
-
+#define WINDOW_NAME             "Bingo"
+#define FONT_PATH               ASSETS_PATH"/Roboto-Regular.ttf"
 
 // Credits
-#define INITIAL_CREDITS     1
+#define INITIAL_CREDITS         0
 
 // Cards
-#define CARTON_NUMBER       4
-#define CARTON_WIDTH        5
-#define CARTON_HEIGHT       3
-#define CARTON_COLUMN_0_X   50
-#define CARTON_COLUMN_1_X   1135
-#define CARTON_COLUMN_0_Y   100
-#define CARTON_COLUMN_1_Y   450
+#define CARTON_NUMBER           4
+#define CARTON_WIDTH            5
+#define CARTON_HEIGHT           3
+#define CARTON_COLUMN_0_X       50
+#define CARTON_COLUMN_1_X       1135
+#define CARTON_COLUMN_0_Y       100
+#define CARTON_COLUMN_1_Y       450
 
 // Buttons
 #define CHARGE_BUTTON_TEXT     "Cobrar"
@@ -28,7 +26,6 @@
 #define CARDS_BUTTON_TEXT      "Numeros"
 #define MONEY_BUTTON_TEXT      "Monedas"
 #define PLAY_BUTTON_TEXT       "JUGAR"
-
 
 // Drum
 #define DRUM_SIZE               60

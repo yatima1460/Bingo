@@ -65,7 +65,7 @@ void BingoLevel::BeginLevel()
     for (size_t i = 0; i < player.GetCards().size(); i++)
     {
         std::shared_ptr<Card> c = player.GetCards()[i];
-        auto card = new CardUI(*c, *cartonBackground, celdaBackground, marked);
+        auto card = new CardUI(c, *cartonBackground, celdaBackground, marked);
         SDL_Point cardPosition{CARD_LOCATIONS_X[i], CARD_LOCATIONS_Y[i]};
         card->SetPosition(cardPosition);
 

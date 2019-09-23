@@ -6,6 +6,7 @@
 #include <Config.hpp>
 #include <BingoLevel.hpp>
 #include <Engine.hpp>
+#include <cassert>
 #include "CustomWidgets/NumerosButton.hpp"
 
 
@@ -37,13 +38,19 @@ void NumerosButton::Pressed()
 {
     Level& level = Engine::GetCurrentLevel();
     auto& PlayerRef = dynamic_cast<BingoLevel&>(level).GetPlayer();
-    auto cards = dynamic_cast<BingoLevel&>(level).GetCardsUI();
+    auto cardsUI = dynamic_cast<BingoLevel&>(level).GetCardsUI();
 
-    PlayerRef.RerollCards();
-    for (CardUI* card: cards)
+    PlayerRef.ChangeCards();
+
+    auto cards = PlayerRef.GetCards();
+    for (size_t i = 0; i < cards.size(); i++)
     {
-        card->SetExtractedNumbers(std::vector<unsigned int>());
+        assert(cardsUI[i] != nullptr);
+        cardsUI[i]->ChangeCard(cards[i]);
+        cardsUI[i]->SetExtractedNumbers(std::vector<unsigned int>());
     }
+
+
     //DrumUIRef.SetBalls(std::vector<unsigned int>());
 }
 
