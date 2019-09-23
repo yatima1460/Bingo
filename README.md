@@ -49,11 +49,11 @@
     - ~Remove Credits for Cards~
     - ~Update screen~
     - Give prizes
-    - Disable if no money for Cards
+    - ~Disable if no money for Cards~
 - ~Current Credits~
 - ~Exit with ESC~
 - SDL_Image support for .png?
-- Resize buffer using renderToTexture
+- Resize window buffer using renderToTexture
 - ~Disabled button~
 - Font size
 - Sounds and effects
