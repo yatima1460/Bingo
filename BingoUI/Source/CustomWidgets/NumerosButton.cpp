@@ -4,20 +4,20 @@
 #include <AssetsManager.hpp>
 #include <CustomWidgets/CardUI.hpp>
 #include <Config.hpp>
+#include <BingoLevel.hpp>
+#include <Engine.hpp>
 #include "CustomWidgets/NumerosButton.hpp"
 
 
 #define COBRAR_CHARGE 100
 
 
-NumerosButton::NumerosButton(Player& player, std::vector<CardUI*> cards, DrumUI& drumUI) : ButtonWidget(
+NumerosButton::NumerosButton() : ButtonWidget(
         CARDS_BUTTON_TEXT,
         AssetsManager::Get<Texture>(
                                                                                                                 "botonpeque01"),
         AssetsManager::Get<Texture>(
-                                                                                                                "botonpeque02")),
-                                                                                           player(player), cards(cards),
-                                                                                           drumUI(drumUI)
+                "botonpeque02"))
 {
 
     auto background = AssetsManager::Get<Texture>("Fondo_Juego");
@@ -35,12 +35,16 @@ NumerosButton::NumerosButton(Player& player, std::vector<CardUI*> cards, DrumUI&
 
 void NumerosButton::Pressed()
 {
-    player.RerollCards();
+    Level& level = Engine::GetCurrentLevel();
+    auto& PlayerRef = dynamic_cast<BingoLevel&>(level).GetPlayer();
+    auto cards = dynamic_cast<BingoLevel&>(level).GetCardsUI();
+
+    PlayerRef.RerollCards();
     for (CardUI* card: cards)
     {
         card->SetExtractedNumbers(std::vector<unsigned int>());
     }
-    drumUI.SetBalls(std::vector<unsigned int>());
+    //DrumUIRef.SetBalls(std::vector<unsigned int>());
 }
 
 

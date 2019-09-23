@@ -7,14 +7,9 @@
 class MonedasButton : public ButtonWidget
 {
 
-
-private:
-
-    Player& player;
-
 public:
 
-    explicit MonedasButton(Player& player);
+    explicit MonedasButton();
 
     void Update() override;
 

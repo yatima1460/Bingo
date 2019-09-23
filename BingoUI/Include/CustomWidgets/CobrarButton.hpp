@@ -8,13 +8,10 @@ class CobrarButton : public ButtonWidget
 {
 
 
-private:
-
-    Player& player;
 
 public:
 
-    explicit CobrarButton(Player& player);
+    explicit CobrarButton();
 
 
     void Pressed() override;

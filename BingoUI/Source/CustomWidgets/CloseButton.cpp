@@ -4,10 +4,10 @@
 #include <AssetsManager.hpp>
 #include <cassert>
 #include "CustomWidgets/CloseButton.hpp"
+#include "Engine.hpp"
 
-
-CloseButton::CloseButton(bool* quit) : ButtonWidget("", AssetsManager::Get<Texture>("x"),
-                                                    AssetsManager::Get<Texture>("x")), quit(quit)
+CloseButton::CloseButton() : ButtonWidget("", AssetsManager::Get<Texture>("x"),
+                                          AssetsManager::Get<Texture>("x"))
 {
 
 
@@ -31,10 +31,8 @@ void CloseButton::Update()
 
 void CloseButton::Pressed()
 {
-    assert(quit != nullptr);
-    *quit = true;
-
+    Engine::Quit();
 }
 
 //callback
-//player.Collect();
+//PlayerRef.Collect();

@@ -10,15 +10,9 @@ class NumerosButton : public ButtonWidget
 {
 
 
-private:
-
-    Player& player;
-    DrumUI& drumUI;
-    std::vector<CardUI*> cards;
-
 public:
 
-    explicit NumerosButton(Player& player, std::vector<CardUI*> cards, DrumUI& drumUI);
+    explicit NumerosButton();
 
 
     void Pressed() override;

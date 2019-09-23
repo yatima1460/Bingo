@@ -7,22 +7,21 @@
 #include <Graphics.hpp>
 #include <sstream>
 #include <AssetsManager.hpp>
+#include <Drum.hpp>
 #include "Config.hpp"
 
 
-void DrumUI::SetBalls(const std::vector<unsigned int>& Extracted)
-{
-    assert(Extracted.size() == DRUM_BALLS_TO_EXTRACT || Extracted.empty());
-    this->ExtractedBalls = Extracted;
-}
+
 
 void DrumUI::Update()
 {
+
 
 }
 
 void DrumUI::Draw()
 {
+
 
     if (!ExtractedBalls.empty())
     {
@@ -64,4 +63,11 @@ void DrumUI::Draw()
         }
     }
 
+}
+
+std::vector<unsigned int> DrumUI::ExtractNewBalls()
+{
+    Drum d(DRUM_SIZE);
+    ExtractedBalls = d.Extract(DRUM_BALLS_TO_EXTRACT);
+    return ExtractedBalls;
 }

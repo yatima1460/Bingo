@@ -1,23 +1,17 @@
-//
-// Created by yatima1460 on 23/09/2019.
-//
-
 #include <Graphics.hpp>
 #include <sstream>
+#include <BingoLevel.hpp>
+#include <Engine.hpp>
 #include "CustomWidgets/CreditosLabel.hpp"
-
-
-CreditosLabel::CreditosLabel(Player& player) : player(player)
-{
-
-
-}
 
 
 void CreditosLabel::Update()
 {
+    Level& level = Engine::GetCurrentLevel();
+    auto PlayerRef = dynamic_cast<BingoLevel&>(level).GetPlayer();
+
     std::stringstream player_credits;
-    player_credits << "$ " << player.CreditsLeft();
+    player_credits << "$ " << PlayerRef.CreditsLeft();
     std::string creditsString = player_credits.str();
     SDL_Rect size = Graphics::MeasureText(creditsString);
     SetPosition({static_cast<int>(1120 - size.w / 2), 20});

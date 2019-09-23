@@ -32,7 +32,7 @@ public:
 
     void SetCardsSize(unsigned int Width, unsigned int Height);
 
-    void InsertCredits(unsigned int N);
+    //void InsertCredits(unsigned int N);
 
     void PlayOneGame();
 

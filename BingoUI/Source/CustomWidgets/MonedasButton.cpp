@@ -3,13 +3,14 @@
 
 #include <AssetsManager.hpp>
 #include <Config.hpp>
+#include <BingoLevel.hpp>
+#include <Engine.hpp>
 #include "CustomWidgets/MonedasButton.hpp"
 
 
-MonedasButton::MonedasButton(Player& player) : ButtonWidget(MONEY_BUTTON_TEXT,
-                                                            AssetsManager::Get<Texture>("botonpeque01"),
-                                                            AssetsManager::Get<Texture>("botonpeque02")),
-                                               player(player)
+MonedasButton::MonedasButton() : ButtonWidget(MONEY_BUTTON_TEXT,
+                                              AssetsManager::Get<Texture>("botonpeque01"),
+                                              AssetsManager::Get<Texture>("botonpeque02"))
 {
 
     auto background = AssetsManager::Get<Texture>("Fondo_Juego");
@@ -29,11 +30,17 @@ MonedasButton::MonedasButton(Player& player) : ButtonWidget(MONEY_BUTTON_TEXT,
 void MonedasButton::Update()
 {
     ButtonWidget::Update();
-    SetEnabled(player.CreditsLeft() != 0);
+
+    Level& level = Engine::GetCurrentLevel();
+    auto& PlayerRef = dynamic_cast<BingoLevel&>(level).GetPlayer();
+
+    SetEnabled(PlayerRef.CreditsLeft() != 0);
 
 }
 
 void MonedasButton::Pressed()
 {
-    player.Collect();
+    Level& level = Engine::GetCurrentLevel();
+    auto& PlayerRef = dynamic_cast<BingoLevel&>(level).GetPlayer();
+    PlayerRef.Collect();
 }

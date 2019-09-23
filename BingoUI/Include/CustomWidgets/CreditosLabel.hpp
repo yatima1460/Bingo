@@ -11,15 +11,8 @@ class CreditosLabel : public LabelWidget
 {
 
 
-    Player& player;
-
-protected:
-
-
 public:
 
-
-    explicit CreditosLabel(Player& player);
 
 
     void Update() override;

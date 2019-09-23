@@ -12,8 +12,7 @@ class DrumUI : public Widget
 
 public:
 
-
-    void SetBalls(const std::vector<unsigned int>& Extracted);
+    std::vector<unsigned int> ExtractNewBalls();
 
     void Update() override;
 

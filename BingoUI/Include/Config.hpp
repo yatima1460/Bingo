@@ -11,7 +11,7 @@
 
 
 // Credits
-#define INITIAL_CREDITS     0
+#define INITIAL_CREDITS     1
 
 // Cards
 #define CARTON_NUMBER       4

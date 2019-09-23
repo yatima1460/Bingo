@@ -7,7 +7,7 @@ class OutOfCreditsException : BingoException
 {
 
 public:
-    OutOfCreditsException() : BingoException("Player is out of Credits")
+    OutOfCreditsException() : BingoException("PlayerRef is out of Credits")
     {
 
     }

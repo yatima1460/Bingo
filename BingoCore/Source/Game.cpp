@@ -21,7 +21,7 @@ Game::Game(Player &player) : player(player)
 void Game::PlayOneGame()
 {
 
-    /* if (this->maxCards > player.CreditsLeft())
+    /* if (this->maxCards > PlayerRef.CreditsLeft())
      {
          throw OutOfCreditsException();
      }*/

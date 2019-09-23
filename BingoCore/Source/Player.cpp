@@ -28,7 +28,7 @@ void Player::AddCredits(unsigned int Value)
 {
     if (Value == 0)
     {
-        throw std::invalid_argument("Trying to add 0 Credits to a Player!");
+        throw std::invalid_argument("Trying to add 0 Credits to a PlayerRef!");
     }
     Credits += Value;
 }

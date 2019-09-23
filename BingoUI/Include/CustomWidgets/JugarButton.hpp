@@ -10,15 +10,9 @@ class JugarButton : public ButtonWidget
 {
 
 
-private:
-
-    Game& game;
-    std::vector<CardUI*> cards;
-    DrumUI& drumUI;
-
 public:
 
-    explicit JugarButton(Game& game, std::vector<CardUI*> cards, DrumUI& drumUI);
+    explicit JugarButton();
 
     void Update() override;
 

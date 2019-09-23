@@ -6,14 +6,11 @@
 
 class CloseButton : public ButtonWidget
 {
-private:
-
-    bool* quit;
 
 
 public:
 
-    explicit CloseButton(bool* quit);
+    explicit CloseButton();
 
     void Update() override;
 
