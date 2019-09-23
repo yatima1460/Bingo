@@ -9,53 +9,44 @@
 #include <cassert>
 
 
-Drum::Drum(unsigned int numberOfBalls)
+Drum::Drum(unsigned int numberOfBalls) : NumberOfBalls(numberOfBalls)
 {
+    if (numberOfBalls == 0)
+        throw std::invalid_argument("The number of balls in a Drum can't be 0!");
 
+    for (size_t i = 0; i < NumberOfBalls; i++)
+    {
+        Balls.push_back(i + 1);
+    }
     // obtain a random number from hardware
     // seed the generator
-
-
-
-    // "random_device" seems to have a problem with MingGW
-    // entropy is 0 here, at least on my PC
-    // double d = rd.entropy();
-    //assert(d != 0.0f);
-
-    for (size_t i = 0; i < numberOfBalls; i++)
-    {
-        balls.push_back(i + 1);
-    }
-
-
     static std::random_device rng;
     static std::default_random_engine urng(rng());
-    std::shuffle(balls.begin(), balls.end(), urng);
-    //std::random_device dev;
-    //auto rng = std::default_random_engine(dev());
-
+    std::shuffle(Balls.begin(), Balls.end(), urng);
 }
 
-unsigned int Drum::Total()
-{
-    return balls.size();
-}
+
 
 std::vector<unsigned int> Drum::Extract(const unsigned int N)
 {
-    if (N > balls.size())
-    {
-        throw std::invalid_argument("You can't extract more balls than the ones left in the drum!");
-    }
+    if (N > Balls.size())
+        throw EmptyDrumException();
 
     std::vector<unsigned int> results;
     for (int i = 0; i < N; ++i)
     {
-        results.push_back(balls.back());
-        balls.pop_back();
+        results.push_back(Balls.back());
+        Balls.pop_back();
     }
 
     return results;
 }
+
+unsigned int Drum::BallsLeft() const
+{
+    return Balls.size();
+}
+
+
 
 
