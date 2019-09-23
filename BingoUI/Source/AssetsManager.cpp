@@ -1,15 +1,11 @@
 #include "AssetsManager.hpp"
 
-#include <fstream>
 #include <iostream>
-#include <filesystem>
 #include <dirent.h>
 #include <cassert>
 
-namespace fs = std::filesystem;
 
-
-std::map<std::string, void*> AssetsManager::assets;
+std::map<std::string, void*> AssetsManager::Assets;
 
 
 std::string pathAppend(const std::string& p1, const std::string& p2)
@@ -62,7 +58,7 @@ void AssetsManager::Init(const std::string& assetsDirectory)
             size_t lastindex = nameStr.find_last_of('.');
             std::string rawname = nameStr.substr(0, lastindex);
 
-            assets[rawname] = t;
+            Assets[rawname] = t;
 
         } else if (hasEnding(nameStr, "wav"))
         {
@@ -81,7 +77,7 @@ void AssetsManager::Clean()
 {
     std::map<std::string, void*>::iterator it;
 
-    for (it = assets.begin(); it != assets.end(); it++)
+    for (it = Assets.begin(); it != Assets.end(); it++)
     {
         auto t = reinterpret_cast<Texture*>(it->second);
 
@@ -93,5 +89,5 @@ void AssetsManager::Clean()
 
     }
 
-    assets.clear();
+    Assets.clear();
 }

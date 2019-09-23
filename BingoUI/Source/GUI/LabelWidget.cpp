@@ -13,7 +13,7 @@ void LabelWidget::Draw()
 {
 
 
-    SDL_Surface* fontSurface = TTF_RenderText_Blended(Graphics::GetDefaultFont(), text.c_str(), color);
+    SDL_Surface* fontSurface = TTF_RenderText_Blended(&Graphics::GetDefaultFont(), text.c_str(), color);
 
     // is null if string has length zero
     if (fontSurface)

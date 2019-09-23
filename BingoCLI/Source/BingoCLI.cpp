@@ -25,7 +25,7 @@ void PrintCards(Player &player) {
         Card *card = cards[i];
         assert(card != nullptr);
         for (size_t j = 0; j < card->Width * card->Height; j++) {
-            unsigned int n = card->operator[](j); //FIXME
+            unsigned int n = card[j];
 
             if (n >= 10)
                 std::cout << n << " ";

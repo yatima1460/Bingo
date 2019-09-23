@@ -38,10 +38,10 @@ Bingo::Bingo()
     // Add game background
     widgets.push_back(new ImageWidget(*AssetsManager::Get<Texture>("Fondo_Juego")));
 
-    // Add credits label
+    // Add Credits label
     widgets.push_back(new CreditosLabel(*player));
 
-    // Add cards
+    // Add Cards
     int CARD_LOCATIONS_X[4] = {CARTON_COLUMN_0_X, CARTON_COLUMN_1_X, CARTON_COLUMN_0_X, CARTON_COLUMN_1_X};
     int CARD_LOCATIONS_Y[4] = {CARTON_COLUMN_0_Y, CARTON_COLUMN_0_Y, CARTON_COLUMN_1_Y, CARTON_COLUMN_1_Y};
     auto cartonBackground = AssetsManager::Get<Texture>("carton");
@@ -49,10 +49,12 @@ Bingo::Bingo()
     auto marked = AssetsManager::Get<Texture>("sello1");
     for (size_t i = 0; i < game->GetCardsNumber(); ++i)
     {
-        auto card = new CardUI(*cartonBackground, celdaBackground, marked);
+        std::shared_ptr<Card> c = player->GetCards()[i];
+        auto card = new CardUI(*c, *cartonBackground, celdaBackground, marked);
         SDL_Point cardPosition{CARD_LOCATIONS_X[i], CARD_LOCATIONS_Y[i]};
         card->SetPosition(cardPosition);
-        card->SetCard(player->GetCards()[i]);
+
+
         widgets.push_back(card);
         cards.push_back(card);
     }
@@ -77,7 +79,7 @@ Bingo::Bingo()
             {
                 case SDL_QUIT:
                 {
-                    // Pressing the window [X] closes
+                    // Pressing the SDLWindow [X] closes
                     quit = true;
                     break;
                 }

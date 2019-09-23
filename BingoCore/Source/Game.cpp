@@ -3,10 +3,11 @@
 #include "Game.hpp"
 #include "OutOfCreditsException.hpp"
 #include <cassert>
+
 /*int Game::Collect()
 {
-    int win = credits;
-    credits = 0;
+    int win = Credits;
+    Credits = 0;
     return win;
 }*/
 
@@ -48,21 +49,21 @@ void Game::PlayNGames(unsigned int N)
     }*/
 }
 
-void Game::InsertCredits(unsigned int N)
+/*void Game::InsertCredits(unsigned int N)
 {
 
     if (N == 0)
     {
-        throw std::invalid_argument("Can't insert a 0 number of credits!");
+        throw std::invalid_argument("Can't insert a 0 number of Credits!");
     }
 
     credits += N;
-}
+}*/
 
 /*
 int Game::CurrentCredits()
 {
-    return credits;
+    return Credits;
 }
 */
 
@@ -72,17 +73,17 @@ int Game::CurrentCredits()
 {
     if (N == 0)
     {
-        throw std::invalid_argument("Number of cards need to be at least 1");
+        throw std::invalid_argument("Number of Cards need to be at least 1");
     }
     this->maxCards = N;
 
      = std::vector<Card *>(N);
 
-    // FIXME: delete old cards
+    // FIXME: delete old Cards
 
     for (size_t i = 0; i < N; i++)
     {
-        cards[i] = new Card(this->width, this->height, this->drumSize);
+        Cards[i] = new Card(this->width, this->height, this->drumSize);
     }
 }*/
 

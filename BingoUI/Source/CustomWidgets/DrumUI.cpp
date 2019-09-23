@@ -41,7 +41,7 @@ void DrumUI::Draw()
             auto ballSize = ball->GetSDLRect();
             p.x = OFFSET_X_ROW_0 + i * (ballSize.w + HORIZONTAL_PADDING);
             p.y = OFFSET_Y_ROW_0;
-            Graphics::DrawTexture(*ball, &p);
+            Graphics::DrawTexture(*ball, p);
 
 
             std::stringstream ss;
@@ -59,7 +59,7 @@ void DrumUI::Draw()
             auto ballSize = ball->GetSDLRect();
             p.x = OFFSET_X_ROW_0 + i * (ballSize.w + HORIZONTAL_PADDING) - ballSize.w * 2;
             p.y = VERTICAL_PADDING + OFFSET_Y_ROW_0 + ballSize.h;
-            Graphics::DrawTexture(*ball, &p);
+            Graphics::DrawTexture(*ball, p);
 
             std::stringstream ss;
             ss << extracted[i + BALLS_N_ROW_0];

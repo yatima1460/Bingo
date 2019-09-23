@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include <vector>
@@ -8,23 +7,41 @@ class Card
 
 private:
 
-
-    std::vector<unsigned int> card;
+    std::vector<unsigned int> CardInternal;
 
 public:
 
-    Card(unsigned int Width, unsigned int Height, unsigned int DrumMaxNumber);
-
-    void ReRoll();
-
-
+    /**
+     * Number of columns
+     */
     const unsigned int Width;
-    const unsigned int Height;
-    const unsigned int DrumMaxNumber;
 
-    unsigned int operator[](int index)
+    /**
+     * Number of rows
+     */
+    const unsigned int Height;
+
+    /**
+     * Maximum number this card will hold
+     */
+    const unsigned int MaxNumber;
+
+    /**
+     * Creates a new Bingo Card
+     * The card is shuffled at creation time
+     *
+     * @param Width number of columns
+     * @param Height number of rows
+     * @param MaxNumber maximum number for the randomly generated numbers on the card
+     */
+    Card(unsigned int Width, unsigned int Height, unsigned int MaxNumber);
+
+    [[deprecated]] void ReRoll();
+
+
+    [[nodiscard]] const unsigned int& operator[](int index) const
     {
-        return card[index];
+        return CardInternal[index];
     }
 
 };

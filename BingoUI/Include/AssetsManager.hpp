@@ -12,7 +12,7 @@ class AssetsManager
 
 private:
 
-    static std::map<std::string, void*> assets;
+    static std::map<std::string, void*> Assets;
 
 
 public:
@@ -22,9 +22,9 @@ public:
 
 
     template<class T>
-    inline static T* Get(const std::string& name)
+    [[nodiscard]] inline static T* Get(const std::string& name)
     {
-        return reinterpret_cast<T*>(AssetsManager::assets[name]);
+        return reinterpret_cast<T*>(AssetsManager::Assets[name]);
     }
 
 

@@ -5,21 +5,22 @@
 #include "Card.hpp"
 
 
-Card::Card(unsigned int Width, unsigned int Height, unsigned int DrumMaxNumber) : Width(Width), Height(Height),
-                                                                                  DrumMaxNumber(DrumMaxNumber)
+Card::Card(const unsigned int Width, const unsigned int Height, const unsigned int MaxNumber) : Width(Width),
+                                                                                                Height(Height),
+                                                                                                MaxNumber(MaxNumber)
 {
     ReRoll();
 }
 
 void Card::ReRoll()
 {
-    Drum d(DrumMaxNumber);
-    card = d.Extract(Width * Height);
+    Drum d(MaxNumber);
+    CardInternal = d.Extract(Width * Height);
 }
 
 /*
 unsigned int Card::operator[]( int index)
 {
-    return card[index];
+    return CardInternal[index];
 }
 */

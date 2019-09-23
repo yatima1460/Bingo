@@ -16,20 +16,20 @@
 - Dynamic Bingo settings
   - Prize patterns config
   - Number of balls
-  - Number of cards
+  - Number of Cards
   - Card size
 - Game Statistics
   - Percentage Game
   - Pattern frequency
   - Contribution patterns
-- ~Insert credits~
+- ~Insert Credits~
 - ~Change numbers~
-- ~Show current cards~
+- ~Show current Cards~
 - Play One Game
   - ~Show extracted balls~
-  - Show cards status
+  - Show Cards status
   - Show prizes
-  - ~Remaining credits~
+  - ~Remaining Credits~
 - Play X Games
 - ~Collect~
 - ~Exit game~
@@ -46,11 +46,11 @@
     - ~Disable if no money~
   - ~Change Cardboard numbers~
   - Play Game
-    - ~Remove credits for cards~
+    - ~Remove Credits for Cards~
     - ~Update screen~
     - Give prizes
-    - Disable if no money for cards
-- ~Current credits~
+    - Disable if no money for Cards
+- ~Current Credits~
 - ~Exit with ESC~
 - SDL_Image support for .png?
 - Resize buffer using renderToTexture

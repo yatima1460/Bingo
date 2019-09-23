@@ -8,11 +8,11 @@
 #include <Graphics.hpp>
 
 
-Texture::Texture(const std::string& path)
+Texture::Texture(const std::string& Path)
 {
     //Load splash image
-    assert(!path.empty());
-    SDL_Surface* background_surface = SDL_LoadBMP(path.c_str());
+    assert(!Path.empty());
+    SDL_Surface* background_surface = SDL_LoadBMP(Path.c_str());
     assert(background_surface != nullptr);
 
     internal = SDL_CreateTextureFromSurface(Graphics::GetSDLRenderer(), background_surface);
@@ -23,12 +23,12 @@ Texture::Texture(const std::string& path)
 }
 
 
-SDL_Texture* Texture::GetSDLTexture()
+SDL_Texture* Texture::GetSDLTexture() const
 {
     return internal;
 }
 
-SDL_Rect Texture::GetSDLRect()
+SDL_Rect Texture::GetSDLRect() const
 {
     SDL_Rect size = {0, 0, 0, 0};
     assert(internal != nullptr);

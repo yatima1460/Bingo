@@ -13,19 +13,17 @@ class CardUI : public Widget
     void Update() override;
 
     Texture& background;
-    Card* card = nullptr;
+    Card& card;
     Texture* cell = nullptr;
     std::vector<unsigned int> extracted;
     Texture* marked = nullptr;
 
 
 public:
-    CardUI(Texture& background, Texture* cell, Texture* marked);
+    CardUI(Card& card, Texture& background, Texture* cell, Texture* marked);
 
     void SetExtractedNumbers(std::vector<unsigned int> extracted);
 
-
-    void SetCard(Card* card);
 
 
 

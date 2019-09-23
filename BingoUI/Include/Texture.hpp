@@ -8,22 +8,17 @@ class Texture
 {
 
 private:
-#ifdef SDL_VERSION
-    SDL_Texture *internal;
-#endif
+
+    SDL_Texture* internal;
+
 
 public:
-    explicit Texture(const std::string &path);
 
+    explicit Texture(const std::string& Path);
 
-#ifdef SDL_VERSION
+    [[nodiscard]] SDL_Texture* GetSDLTexture() const;
 
-    SDL_Texture *GetSDLTexture();
-
-#endif
+    [[nodiscard]] SDL_Rect GetSDLRect() const;
 
     ~Texture();
-
-
-    SDL_Rect GetSDLRect();
 };

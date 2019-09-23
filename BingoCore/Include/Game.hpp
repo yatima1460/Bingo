@@ -8,7 +8,7 @@ class Game
 {
 private:
 
-    int credits;
+    //int credits;
 
     Player &player;
 

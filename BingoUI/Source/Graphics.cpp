@@ -5,12 +5,12 @@
 #include <utility>
 #include "Graphics.hpp"
 
-SDL_Window* Graphics::window;
-TTF_Font* Graphics::font;
-TTF_Font* Graphics::bigFont;
-TTF_Font* Graphics::smallFont;
-SDL_Renderer* Graphics::renderer;
-SDL_Surface* Graphics::screenSurface;
+SDL_Window* Graphics::SDLWindow;
+TTF_Font* Graphics::NormalFont;
+TTF_Font* Graphics::BigFont;
+TTF_Font* Graphics::SmallFont;
+SDL_Renderer* Graphics::SDLRenderer;
+SDL_Surface* Graphics::ScreenSurface;
 
 void Graphics::Init()
 {
@@ -21,83 +21,81 @@ void Graphics::Init()
         exit(EXIT_FAILURE);
     }
 
-    window = SDL_CreateWindow(
+    SDLWindow = SDL_CreateWindow(
             "Bingo",
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
             -1, -1,
             SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP);
-
-
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-    TTF_Init();
-    smallFont = TTF_OpenFont("Assets/Roboto-Regular.ttf", 24);
-    font = TTF_OpenFont("Assets/Roboto-Regular.ttf", 32);
-    bigFont = TTF_OpenFont("Assets/Roboto-Regular.ttf", 48);
-    if (font == nullptr)
-    {
-        fprintf(stderr, "error: font not found\n");
-        exit(EXIT_FAILURE);
-    }
-    if (bigFont == nullptr)
-    {
-        fprintf(stderr, "error: bigFont not found\n");
-        exit(EXIT_FAILURE);
-    }
-    if (smallFont == nullptr)
-    {
-        fprintf(stderr, "error: smallFont not found\n");
-        exit(EXIT_FAILURE);
-    }
-
-    if (window == nullptr)
+    if (SDLWindow == nullptr)
     {
         printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
     }
 
-    // Get window surface
-    screenSurface = SDL_GetWindowSurface(window);
+    SDLRenderer = SDL_CreateRenderer(SDLWindow, -1, SDL_RENDERER_ACCELERATED);
+
+    TTF_Init();
+    SmallFont = TTF_OpenFont("Assets/Roboto-Regular.ttf", 24);
+    NormalFont = TTF_OpenFont("Assets/Roboto-Regular.ttf", 32);
+    BigFont = TTF_OpenFont("Assets/Roboto-Regular.ttf", 48);
+    if (NormalFont == nullptr)
+    {
+        fprintf(stderr, "error: NormalFont not found\n");
+        exit(EXIT_FAILURE);
+    }
+    if (BigFont == nullptr)
+    {
+        fprintf(stderr, "error: BigFont not found\n");
+        exit(EXIT_FAILURE);
+    }
+    if (SmallFont == nullptr)
+    {
+        fprintf(stderr, "error: SmallFont not found\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Get SDLWindow surface
+    ScreenSurface = SDL_GetWindowSurface(SDLWindow);
 
     // Enable VSync
     SDL_GL_SetSwapInterval(-1);
 }
 
-void Graphics::DrawTexture(Texture& texture)
+void Graphics::DrawTexture(Texture& Texture)
 {
-    SDL_Rect r = texture.GetSDLRect();
+    SDL_Rect r = Texture.GetSDLRect();
 
-    assert(renderer != nullptr);
-    SDL_RenderCopy(renderer, texture.GetSDLTexture(), nullptr, &r);
+    assert(SDLRenderer != nullptr);
+    SDL_RenderCopy(SDLRenderer, Texture.GetSDLTexture(), nullptr, &r);
 }
 
 void Graphics::SwapBuffers()
 {
-    assert(renderer != nullptr);
-    SDL_RenderPresent(renderer);
+    assert(SDLRenderer != nullptr);
+    SDL_RenderPresent(SDLRenderer);
 }
 
-void Graphics::DrawText(std::string text, SDL_Point location, SDL_Color color, TTF_Font* pFont)
+void Graphics::DrawText(const std::string& Text, SDL_Point Position, SDL_Color Color, TTF_Font& Font)
 {
-    SDL_Surface* creditsSurface = TTF_RenderText_Blended(pFont, text.c_str(), color);
+    SDL_Surface* creditsSurface = TTF_RenderText_Blended(&Font, Text.c_str(), Color);
 
     // is null if string has length zero
     if (creditsSurface)
     {
-        SDL_Texture* creditsTexture = SDL_CreateTextureFromSurface(renderer, creditsSurface);
+        SDL_Texture* creditsTexture = SDL_CreateTextureFromSurface(SDLRenderer, creditsSurface);
         assert(creditsTexture != nullptr);
 
         SDL_Rect Message_rect; //create a rect
-        Message_rect.x = location.x;  //controls the rect's x coordinate
-        Message_rect.y = location.y; // controls the rect's y coordinte
+        Message_rect.x = Position.x;  //controls the rect's x coordinate
+        Message_rect.y = Position.y; // controls the rect's y coordinte
         Message_rect.w = creditsSurface->w; // controls the width of the rect
         Message_rect.h = creditsSurface->h; // controls the height of the rect
 
         SDL_FreeSurface(creditsSurface);
         creditsSurface = nullptr;
 
-        assert(renderer != nullptr);
-        SDL_RenderCopy(renderer, creditsTexture, nullptr, &Message_rect);
+        assert(SDLRenderer != nullptr);
+        SDL_RenderCopy(SDLRenderer, creditsTexture, nullptr, &Message_rect);
         SDL_DestroyTexture(creditsTexture);
         creditsTexture = nullptr;
 
@@ -105,14 +103,14 @@ void Graphics::DrawText(std::string text, SDL_Point location, SDL_Color color, T
 }
 
 
-void Graphics::DrawText(std::string text, SDL_Point location, SDL_Color color)
+void Graphics::DrawText(std::string Text, SDL_Point Position, SDL_Color Color)
 {
-    Graphics::DrawText(std::move(text), location, color, Graphics::GetDefaultFont());
+    Graphics::DrawText(std::move(Text), Position, Color, Graphics::GetDefaultFont());
 }
 
-SDL_Rect Graphics::MeasureText(const std::string& stringstream, TTF_Font* pFont)
+SDL_Rect Graphics::MeasureText(const std::string& String, TTF_Font& Font)
 {
-    SDL_Surface* creditsSurface = TTF_RenderText_Blended(pFont, stringstream.c_str(), {255, 255, 255});
+    SDL_Surface* creditsSurface = TTF_RenderText_Blended(&Font, String.c_str(), {255, 255, 255});
 
     // is null if string has length zero
     if (creditsSurface)
@@ -127,78 +125,83 @@ SDL_Rect Graphics::MeasureText(const std::string& stringstream, TTF_Font* pFont)
     return empty;
 }
 
-SDL_Rect Graphics::MeasureText(const std::string& stringstream)
+SDL_Rect Graphics::MeasureText(const std::string& String)
 {
-    return Graphics::MeasureText(stringstream, Graphics::GetDefaultFont());
+    return Graphics::MeasureText(String, Graphics::GetDefaultFont());
 }
 
 void Graphics::Clean()
 {
-    assert(smallFont != nullptr);
-    TTF_CloseFont(smallFont);
-    assert(font != nullptr);
-    TTF_CloseFont(font);
-    assert(bigFont != nullptr);
-    TTF_CloseFont(bigFont);
-    smallFont = nullptr;
-    font = nullptr;
-    bigFont = nullptr;
+    assert(SmallFont != nullptr);
+    TTF_CloseFont(SmallFont);
+    assert(NormalFont != nullptr);
+    TTF_CloseFont(NormalFont);
+    assert(BigFont != nullptr);
+    TTF_CloseFont(BigFont);
+    SmallFont = nullptr;
+    NormalFont = nullptr;
+    BigFont = nullptr;
 
-    //Destroy window
-    assert(window != nullptr);
-    SDL_DestroyWindow(window);
-    window = nullptr;
+    //Destroy SDLWindow
+    assert(SDLWindow != nullptr);
+    SDL_DestroyWindow(SDLWindow);
+    SDLWindow = nullptr;
 
     //Quit SDL subsystems
     SDL_Quit();
 }
 
+/*
 void Graphics::DrawTexture(Texture& texture, SDL_Rect* dest)
 {
 
     auto sdlt = texture.GetSDLTexture();
     assert(sdlt != nullptr);
 
-    assert(renderer != nullptr);
+    assert(SDLRenderer != nullptr);
     assert(dest != nullptr);
-    SDL_RenderCopy(renderer, sdlt, nullptr, dest);
+    SDL_RenderCopy(SDLRenderer, sdlt, nullptr, dest);
 }
+*/
 
 
-void Graphics::DrawTexture(Texture& texture, SDL_Point* dest)
+void Graphics::DrawTexture(const Texture& texture, const SDL_Point& point)
 {
 
     SDL_Rect rec = texture.GetSDLRect();
 
-    assert(dest != nullptr);
-    rec.x = dest->x;
-    rec.y = dest->y;
+
+    rec.x = point.x;
+    rec.y = point.y;
 
     auto sdlt = texture.GetSDLTexture();
     assert(sdlt != nullptr);
 
-    assert(renderer != nullptr);
-    SDL_RenderCopy(renderer, sdlt, nullptr, &rec);
+    assert(SDLRenderer != nullptr);
+    SDL_RenderCopy(SDLRenderer, sdlt, nullptr, &rec);
 }
 
-TTF_Font* Graphics::GetDefaultFont()
+TTF_Font& Graphics::GetDefaultFont()
 {
-    return font;
+    assert(NormalFont != nullptr);
+    return *NormalFont;
 }
 
-TTF_Font* Graphics::GetBigFont()
+TTF_Font& Graphics::GetBigFont()
 {
-    return bigFont;
+    assert(BigFont != nullptr);
+    return *BigFont;
 }
 
-TTF_Font* Graphics::GetSmallFont()
+TTF_Font& Graphics::GetSmallFont()
 {
-    return smallFont;
+    assert(SmallFont != nullptr);
+    return *SmallFont;
 }
 
 SDL_Renderer* Graphics::GetSDLRenderer()
 {
-    assert(renderer != nullptr);
-    return renderer;
+    assert(SDLRenderer != nullptr);
+    return SDLRenderer;
 }
 

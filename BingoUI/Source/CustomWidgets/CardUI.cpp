@@ -14,16 +14,14 @@ void CardUI::Draw()
 {
 
 
-    Graphics::DrawTexture(background, &location);
+    Graphics::DrawTexture(background, location);
 
 
-    if (card != nullptr)
-    {
-        for (size_t x = 0; x < card->Width; x++)
+    for (size_t x = 0; x < card.Width; x++)
         {
-            for (size_t y = 0; y < card->Height; y++)
+            for (size_t y = 0; y < card.Height; y++)
             {
-                auto n = card->operator[](y * card->Height + x);
+                unsigned int n = card[y * card.Height + x];
 
                 std::stringstream ss;
                 ss << n;
@@ -34,11 +32,11 @@ void CardUI::Draw()
                 SDL_Point p = location;
                 p.x += DRAW_CELL_OFFSET_X + (cellSize.w + PADDING) * x;
                 p.y += DRAW_CELL_OFFSET_Y + (cellSize.h + PADDING) * y;
-                Graphics::DrawTexture(*cell, &p);
+                Graphics::DrawTexture(*cell, p);
 
                 if (std::find(extracted.begin(), extracted.end(), n) != extracted.end())
                 {
-                    Graphics::DrawTexture(*marked, &p);
+                    Graphics::DrawTexture(*marked, p);
                 }
 
 
@@ -52,12 +50,12 @@ void CardUI::Draw()
                 Graphics::DrawText(ss.str(), cellTextLoc, {0, 0, 0}, Graphics::GetBigFont());
             }
         }
-    }
+
 
 
 }
 
-CardUI::CardUI(Texture& background, Texture* cell, Texture* marked) : background(background)
+CardUI::CardUI(Card& card, Texture& background, Texture* cell, Texture* marked) : background(background), card(card)
 {
 
     this->cell = cell;
@@ -69,11 +67,6 @@ void CardUI::Update()
 
 }
 
-
-void CardUI::SetCard(Card* card)
-{
-    this->card = card;
-}
 
 void CardUI::SetExtractedNumbers(std::vector<unsigned int> e)
 {

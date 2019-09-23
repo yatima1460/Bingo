@@ -80,7 +80,7 @@ void ButtonWidget::Update()
 
 void ButtonWidget::Draw()
 {
-    Graphics::DrawTexture(*GetTexture(), &location);
+    Graphics::DrawTexture(*GetTexture(), location);
     SDL_Point centered = location;
     SDL_Rect buttonTextureSize = GetTexture()->GetSDLRect();
     centered.x += buttonTextureSize.w / 2;

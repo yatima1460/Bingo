@@ -6,21 +6,21 @@
 
 unsigned int Player::CreditsLeft()
 {
-    return credits;
+    return Credits;
 }
 
 bool Player::TryRemoveCredits(unsigned int Value)
 {
-    if (Value > credits)
+    if (Value > Credits)
         return false;
-    credits -= Value;
+    Credits -= Value;
     return true;
 }
 
 unsigned int Player::Collect()
 {
-    unsigned int win = credits;
-    credits = 0;
+    unsigned int win = Credits;
+    Credits = 0;
     return win;
 }
 
@@ -28,39 +28,39 @@ void Player::AddCredits(unsigned int Value)
 {
     if (Value == 0)
     {
-        throw std::invalid_argument("Trying to add 0 credits to a Player!");
+        throw std::invalid_argument("Trying to add 0 Credits to a Player!");
     }
-    credits += Value;
+    Credits += Value;
 }
 
-std::vector<Card*> Player::GetCards()
+std::vector<std::shared_ptr<Card>>& Player::GetCards()
 {
-    return cards;
+    return Cards;
 }
 
-Player::Player() : credits(0)
+Player::Player() : Credits(0)
 {
 
-    cards = std::vector<Card*>(4);
+    Cards = std::vector<std::shared_ptr<Card>>(4);
 
     for (int i = 0; i < 4; i++)
     {
-        cards[i] = new Card(5, 3, 60);
+        Cards[i] = std::make_shared<Card>(5, 3, 60);
     }
 }
 
 void Player::RerollCards()
 {
 
-    for (auto& card : cards)
+    for (auto& card : Cards)
     {
         assert(card != nullptr);
 
-        //auto newCard = new Card(card->Width, card->Height, card->DrumMaxNumber);
+        //auto newCard = new Card(CardInternal->Width, CardInternal->Height, CardInternal->MaxNumber);
 
-        //delete card;
+        //delete CardInternal;
 
-        //card = newCard;
+        //CardInternal = newCard;
 
         card->ReRoll();
     }
