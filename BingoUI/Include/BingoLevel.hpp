@@ -5,8 +5,6 @@
 
 
 #include <Player.hpp>
-#include <Game.hpp>
-
 #include "CustomWidgets/DrumUI.hpp"
 #include "CustomWidgets/CardUI.hpp"
 #include "Level.hpp"

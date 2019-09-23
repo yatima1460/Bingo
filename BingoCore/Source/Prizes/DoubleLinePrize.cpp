@@ -1,11 +1,12 @@
 
-#include <Config.hpp>
+#include <algorithm>
 #include "Prizes/DoubleLinePrize.hpp"
 
 unsigned int DoubleLinePrize::Check(Card& card, std::vector<unsigned int> extracted)
 {
-
-    std::vector<unsigned int> lookup(DRUM_SIZE);
+    unsigned int maxNExtracted = *std::max_element(std::begin(extracted), std::end(extracted));
+    unsigned int maxNCard = *std::max_element(std::begin(card.Numbers), std::end(card.Numbers));
+    std::vector<unsigned int> lookup(std::max(maxNExtracted, maxNCard) + 1);
     for (unsigned int j : extracted)
         lookup[j] = 1;
 
@@ -36,7 +37,7 @@ unsigned int DoubleLinePrize::Check(Card& card, std::vector<unsigned int> extrac
     }
     if (nlineswin == 2)
     {
-        return DOUBLELINE_PRIZE;
+        return value;
     }
 
     return 0;

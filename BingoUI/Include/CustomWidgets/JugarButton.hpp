@@ -2,7 +2,6 @@
 #pragma once
 
 #include <Player.hpp>
-#include <Game.hpp>
 #include "GUI/ButtonWidget.hpp"
 #include "DrumUI.hpp"
 

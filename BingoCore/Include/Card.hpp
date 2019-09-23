@@ -5,11 +5,10 @@
 class Card
 {
 
-private:
-
-    std::vector<unsigned int> CardInternal;
 
 public:
+
+    const std::vector<unsigned int> Numbers;
 
     /**
      * Number of columns
@@ -41,8 +40,9 @@ public:
 
     [[nodiscard]] const unsigned int& operator[](int index) const
     {
-        return CardInternal[index];
+        return Numbers[index];
     }
+
 
 };
 

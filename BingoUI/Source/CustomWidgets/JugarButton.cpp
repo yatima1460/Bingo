@@ -60,8 +60,12 @@ void JugarButton::Pressed()
 
         for (Prize* p : prizes)
         {
+            assert(p != nullptr);
             assert(card != nullptr);
-            auto prizeAmount = p->Check(*card, latestBalls);
+            assert(!latestBalls.empty());
+            unsigned int prizeAmount = p->Check(*card, latestBalls);
+            assert(prizeAmount == 0 || prizeAmount == LINE_PRIZE || prizeAmount == DOUBLELINE_PRIZE ||
+                   prizeAmount == BINGO_PRIZE);
 
             if (prizeAmount != 0)
             {

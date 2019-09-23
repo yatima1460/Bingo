@@ -3,7 +3,6 @@
 
 #include <stdexcept>
 #include <cassert>
-#include <Config.hpp>
 
 unsigned int Player::CreditsLeft() const
 {
@@ -42,18 +41,19 @@ const std::vector<std::shared_ptr<Card>>& Player::GetCards() const
 Player::Player() : Credits(0)
 {
 
-    Player::ChangeCards();
+
     //Cards = std::vector<std::shared_ptr<Card>>(CARTON_NUMBER);
 
 
 }
 
-void Player::ChangeCards()
+void
+Player::ChangeCards(const unsigned int n, const unsigned int width, const unsigned int height, const unsigned int maxN)
 {
 
     Cards.clear();
-    for (int i = 0; i < CARTON_NUMBER; i++)
-        Cards.push_back(std::make_shared<Card>(CARTON_WIDTH, CARTON_HEIGHT, DRUM_SIZE));
+    for (size_t i = 0; i < n; i++)
+        Cards.push_back(std::make_shared<Card>(width, height, maxN));
     /*for (auto& card : Cards)
     {
         assert(card != nullptr);

@@ -59,7 +59,7 @@ public:
     /**
      * Gets new Bingo cards, discarding the previous ones
      */
-    void ChangeCards();
+    void ChangeCards(unsigned int n, unsigned int width, unsigned int height, unsigned int maxN);
 
 };
 

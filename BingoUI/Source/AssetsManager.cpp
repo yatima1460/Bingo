@@ -71,6 +71,8 @@ void AssetsManager::Init(const std::string& assetsDirectory)
 
     }
 
+    closedir(dirp);
+
 }
 
 void AssetsManager::Clean()

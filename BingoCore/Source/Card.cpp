@@ -7,11 +7,14 @@
 
 Card::Card(const unsigned int Width, const unsigned int Height, const unsigned int MaxNumber) : Width(Width),
                                                                                                 Height(Height),
-                                                                                                MaxNumber(MaxNumber)
+                                                                                                MaxNumber(MaxNumber),
+                                                                                                Numbers(Drum(
+                                                                                                        MaxNumber).Extract(
+                                                                                                        Width * Height))
 {
-    Drum d(MaxNumber);
-    CardInternal = d.Extract(Width * Height);
+
 }
+
 
 /*
 void Card::ReRoll()
