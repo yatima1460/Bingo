@@ -2,39 +2,45 @@ cmake_minimum_required(VERSION 3.5.1)
 
 # Create project
 project(BingoUI)
-
-# Set the C++17 standard
 set(CMAKE_CXX_STANDARD 17)
-
-# Load BingoCore project
 include_directories(Include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../BingoCore/Include)
 file(GLOB_RECURSE SOURCES Source/*.cpp)
+add_executable(BingoUI ${SOURCES})
+
+# Load BingoCore
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../BingoCore/Include)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../BingoCore ${CMAKE_CURRENT_BINARY_DIR}/BingoCore)
+link_libraries(BingoCore)
 
 # Load SDL2
+find_program(LSB_RELEASE_EXEC lsb_release)
+execute_process(COMMAND ${LSB_RELEASE_EXEC} -is OUTPUT_VARIABLE LSB_RELEASE_ID_SHORT OUTPUT_STRIP_TRAILING_WHITESPACE)
+message("Your distro is ${LSB_RELEASE_ID_SHORT}")
 find_package(SDL2 REQUIRED)
-if (NOT DEFINED ${SDL2_INCLUDE_DIRS})
-    message(FATAL_ERROR "Can't find SDL2 include dirs")
+if ("${LSB_RELEASE_ID_SHORT}" STREQUAL "Arch")
+    message("Arch distro detected, using Arch CMake linkage")
+    target_link_libraries(BingoUI SDL2::SDL2)
+else ()
+    # Fix because CMake is stupid, remove trailing spaces
+    message("Non-Arch distro detected, using normal linkage")
+    string(STRIP ${SDL2_LIBRARIES} SDL2_LIBRARIES)
+    if (NOT DEFINED SDL2_INCLUDE_DIRS)
+        message(FATAL_ERROR "Can't find SDL2 include dirs")
+    endif ()
+    if (NOT DEFINED SDL2_LIBRARIES)
+        message(FATAL_ERROR "Can't find SDL2 libraries")
+    endif ()
+    include_directories(BingoUI ${SDL2_INCLUDE_DIRS})
+    target_link_libraries(BingoUI ${SDL2_LIBRARIES})
 endif ()
-if (NOT DEFINED ${SDL2_LIBRARIES})
-    message(FATAL_ERROR "Can't find SDL2 libraries")
-endif ()
-include_directories(BingoUI ${SDL2_INCLUDE_DIRS})
 
 # Load SDL2 extensions
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 find_package(SDL2TTF REQUIRED)
-if (NOT DEFINED ${SDL2TTF_LIBRARY})
+if (NOT DEFINED SDL2TTF_LIBRARY)
     message(FATAL_ERROR "Can't find SDL2_TTF include dirs")
 endif ()
 include_directories(BingoUI ${SDL2TTF_LIBRARY})
-
-# Link everything
-link_libraries(BingoCore)
-add_executable(BingoUI ${SOURCES})
-string(STRIP ${SDL2_LIBRARIES} SDL2_LIBRARIES) # Fix because CMake is stupid, remove trailing spaces
-target_link_libraries(BingoUI ${SDL2_LIBRARIES})
 target_link_libraries(BingoUI ${SDL2TTF_LIBRARY})
 
 # Copy Assets folder to build directory
