@@ -27,7 +27,7 @@ public:
      * Plays a game
      * @return true if the game was played, false if not enough money
      */
-    bool PlayOneGame();
+    bool TryPlayOneGame();
 
 
     void PlayNGames(unsigned int N);

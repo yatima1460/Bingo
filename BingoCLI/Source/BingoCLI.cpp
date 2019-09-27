@@ -10,6 +10,7 @@
 
 
 #include <unistd.h>
+#include <algorithm>
 
 
 void BingoCLI::ClearScreen()
@@ -60,6 +61,9 @@ void BingoCLI::PrintMenu()
             std::cout << "Game Settings" << std::endl;
             std::cout << std::endl;
             std::cout << "1.Set Prize patterns" << std::endl;
+            // input number of rows matching
+            // input number of columns matching
+            // input value of this prize
             std::cout << "2.Set Drum balls" << std::endl;
             std::cout << "3.Set Cards number" << std::endl;
             std::cout << "4.Set Cards size" << std::endl;
@@ -114,40 +118,12 @@ void BingoCLI::PrintMenu()
             // Play 1 Game
         case 5:
         {
-            if (!PlayOneGame())
+            if (!TryPlayOneGame())
             {
                 std::cout << std::endl << "You don't have enough money!" << std::endl << std::endl;
-                BingoCLI::Pause();
+                //BingoCLI::Pause();
             }
-            /*try
-            {
-                game->PlayOneGame();
-            }
-            catch (OutOfCreditsException &e)
-            {
-
-                std::cout << "ERROR: You don't have enough credits for cards" << std::endl;
-                return;
-            }*/
-
-
-            /* auto balls = game->ExtractedBalls();
-
-             std::cout << std::endl << balls.size() << " extracted balls: " << std::endl;
-
-             for (size_t i = 0; i < balls.size(); i++)
-             {
-                 if (balls[i] >= 10)
-                     std::cout << "(" << balls[i] << ")";
-                 else
-                     std::cout << "(0" << balls[i] << ")";
-                 if ((i + 1) % 10 == 0) std::cout << std::endl;
-             }*/
-            /*        std::cout << std::endl << "Cards: " << std::endl;
-                    PrintCards();
-        */
-
-
+            BingoCLI::Pause();
             break;
         }
 
@@ -215,8 +191,9 @@ void BingoCLI::PrintCards()
     }
 }
 
-bool BingoCLI::PlayOneGame()
+bool BingoCLI::TryPlayOneGame()
 {
+    // Try remove credits for cards
     if (!player.TryRemoveCredits(4))
         return false;
 
@@ -235,6 +212,43 @@ bool BingoCLI::PlayOneGame()
         if ((i + 1) % 10 == 0) std::cout << std::endl;
     }
 
+
+    std::vector<unsigned int> lookup(60 + 1);
+    for (unsigned int j : extractedBalls)
+        lookup[j] = 1;
+
+    // Show marked cards
+    const auto cards = player.GetCards();
+    for (size_t i = 0; i < cards.size(); i++)
+    {
+
+
+        std::cout << "Card #" << i + 1 << std::endl;
+        const auto card = cards[i];
+        assert(card != nullptr);
+
+
+        for (size_t j = 0; j < card->Width * card->Height; j++)
+        {
+            unsigned int n = (*card)[j];
+
+            if (lookup[n] == 1)
+            {
+                std::cout << "\tX";
+
+            } else
+            {
+
+                std::cout << "\t" << n;
+
+            }
+
+            if ((j + 1) % card->Width == 0) std::cout << std::endl;
+        }
+        std::cout << std::endl;
+
+    }
+
     // Show remaining credits
     std::cout << std::endl;
     std::cout << "Remaining credits: " << player.CreditsLeft() << std::endl;
@@ -250,7 +264,7 @@ void BingoCLI::PlayNGames(unsigned int N)
     while (true)
     {
         std::cout << "Game #" << i++ << std::endl;
-        if (!PlayOneGame()) return;
+        if (!TryPlayOneGame()) return;
     }
 
 }
