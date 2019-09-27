@@ -102,6 +102,6 @@ public:
 
     static std::string toString();
 
-    static bool ParseFile(const std::string& contents);
+    static bool ParseFile(std::string contents);
 };
 

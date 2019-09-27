@@ -1,9 +1,8 @@
+#include "Settings.hpp"
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <iostream>
-#include "Settings.hpp"
-
 
 std::map<std::string, std::string> Settings::config;
 
@@ -29,19 +28,25 @@ std::string Settings::toString()
     return ss.str();
 }
 
-bool Settings::ParseFile(const std::string& contents)
-{
-    const auto oldConfig = config;
+bool Settings::ParseFile(std::string contents) {
+  if (contents.length() == 0)
+    throw std::invalid_argument("Settings.ini content is empty!");
+  const auto oldConfig = config;
     config.clear();
 
     std::string line;
+
     std::istringstream input(contents);
     while (std::getline(input, line))
     {
+      // remove spaces
+      line.erase(remove_if(line.begin(), line.end(), isspace), line.end());
 
-        const std::string delimiter = "=";
+      const std::string delimiter = "=";
         const auto posEqual = line.find(delimiter);
-        if (posEqual == std::string::npos)
+
+      // can't find the delimiter
+      if (posEqual == std::string::npos)
         {
             config = oldConfig;
             return false;
