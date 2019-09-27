@@ -1,25 +1,17 @@
 #pragma once
 
-
 #include <Player.hpp>
 #include <Settings.hpp>
 
 class BingoCLI
 {
 
-
     Player player;
-
 
 
 public:
 
-
     BingoCLI();
-
-    static const char* LOGO;
-
-    static void PrintLogo();
 
     void PrintMenu();
 
@@ -31,16 +23,19 @@ public:
      */
     bool TryPlayOneGame();
 
-
     void PlayNGames(unsigned int N);
-
-    static void ClearScreen();
-
-
-    static void Pause();
 
     void PrintSettings();
 
+    static const char* LOGO;
+
+    static void PrintLogo();
+
+    static void ClearScreen();
+
+    static void Pause();
+
     static void ClearInputError();
+
 };
 

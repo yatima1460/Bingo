@@ -95,10 +95,13 @@ public:
     }*/
 
 
+    [[nodiscard]] static bool load();
 
 
     [[nodiscard]] static bool save();
 
     static std::string toString();
+
+    static bool ParseFile(const std::string& contents);
 };
 

@@ -41,7 +41,7 @@ void NumerosButton::Pressed()
     auto cardsUI = dynamic_cast<BingoLevel&>(level).GetCardsUI();
     auto& DrumUIRef = dynamic_cast<BingoLevel&>(level).GetDrumUI();
 
-    PlayerRef.ChangeCards(CARTON_NUMBER, CARTON_WIDTH, CARTON_HEIGHT, DRUM_SIZE);
+    PlayerRef.changeCards(/*CARTON_NUMBER, CARTON_WIDTH, CARTON_HEIGHT, DRUM_SIZE*/);
 
     auto cards = PlayerRef.GetCards();
     for (size_t i = 0; i < cards.size(); i++)

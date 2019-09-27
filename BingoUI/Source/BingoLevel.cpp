@@ -41,7 +41,7 @@ void BingoLevel::BeginLevel()
 #endif
 
 
-    player.ChangeCards(CARTON_NUMBER, CARTON_WIDTH, CARTON_HEIGHT, DRUM_SIZE);
+    player.changeCards(/*CARTON_NUMBER, CARTON_WIDTH, CARTON_HEIGHT, DRUM_SIZE*/);
     // Create game settings
     //game = new Game(player);
     //game.SetDrumSize(DRUM_SIZE);

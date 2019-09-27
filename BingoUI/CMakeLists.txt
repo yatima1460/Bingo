@@ -11,8 +11,11 @@ add_executable(BingoUI ${SOURCES})
 
 # Load BingoCore
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../BingoCore/Include)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../BingoCore ${CMAKE_CURRENT_BINARY_DIR}/BingoCore)
+if (NOT TARGET BingoCore)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../BingoCore ${CMAKE_CURRENT_BINARY_DIR}/BingoCore)
+endif ()
 target_link_libraries(BingoUI BingoCore)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../BingoCore/Settings.ini DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 
 # Load SDL2
@@ -42,5 +45,5 @@ target_link_libraries(BingoUI ${SDL2TTF_LIBRARY})
 
 
 # Copy Assets folder to build directory
-file(COPY Assets DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY Assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 

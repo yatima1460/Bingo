@@ -1,16 +1,10 @@
-//
-// Created by yatima1460 on 27/09/2019.
-//
-
-
 #include <iostream>
 #include <cassert>
-#include <Drum.hpp>
-#include "BingoCLI.hpp"
-
-
 #include <unistd.h>
-#include <algorithm>
+
+#include <Drum.hpp>
+
+#include "BingoCLI.hpp"
 
 
 void BingoCLI::ClearScreen()
@@ -25,13 +19,27 @@ void BingoCLI::ClearScreen()
 BingoCLI::BingoCLI()
 {
 
+/*
+   */
 
-    Settings::set<unsigned int>("cards_number", 4);
-    Settings::set<unsigned int>("card_width", 5);
-    Settings::set<unsigned int>("card_height", 3);
-    Settings::set<unsigned int>("drum_size", 60);
-    Settings::set<unsigned int>("drum_extract", 30);
-    Settings::set<std::string>("prizes", "1H0V8C,2H0V150C,B1500");
+    if (!Settings::load())
+    {
+        std::cout << "Could not load game settings from Settings.ini" << std::endl;
+        std::cout << "Default settings will be loaded and written to file!" << std::endl;
+        BingoCLI::Pause();
+        Settings::set<unsigned int>("cards_number", 4);
+        Settings::set<unsigned int>("card_width", 5);
+        Settings::set<unsigned int>("card_height", 3);
+        Settings::set<unsigned int>("drum_size", 60);
+        Settings::set<unsigned int>("drum_extract", 30);
+        Settings::set<std::string>("prizes", "1H0V8C,2H0V150C,B1500");
+        if (!Settings::save())
+        {
+            std::cout << "Could not save default game settings to Settings.ini" << std::endl;
+            BingoCLI::Pause();
+        }
+
+    }
 
     player.changeCards();
 }
@@ -163,11 +171,13 @@ void BingoCLI::PrintSettings()
             }
 
             // Save settings
-            Settings::set<int>("drum_total", drumBallsTotal);
+            Settings::set<int>("drum_size", drumBallsTotal);
             Settings::set<int>("drum_extract", drumBallsToExtract);
             Settings::set<int>("cards_number", cardsTotal);
             Settings::set<int>("card_width", cardWidth);
             Settings::set<int>("card_height", cardHeight);
+            player.changeCards();
+
             if (Settings::save())
             {
                 std::cout << "Settings OK" << std::endl;
@@ -324,6 +334,7 @@ void BingoCLI::PrintCards()
             if ((j + 1) % card->Width == 0) std::cout << std::endl;
         }
         std::cout << std::endl;
+        if ((i + 1) % 4 == 0) BingoCLI::Pause();
 
     }
 }
