@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include <cassert>
+#include <Settings.hpp>
 
 unsigned int Player::CreditsLeft() const
 {
@@ -48,9 +49,13 @@ Player::Player() : Credits(0)
 }
 
 void
-Player::ChangeCards(const unsigned int n, const unsigned int width, const unsigned int height, const unsigned int maxN)
+Player::changeCards()
 {
 
+    const auto n = Settings::get<unsigned int>("cards_number");
+    const auto width = Settings::get<unsigned int>("card_width");
+    const auto height = Settings::get<unsigned int>("card_height");
+    const auto maxN = Settings::get<unsigned int>("drum_size");
     Cards.clear();
     for (size_t i = 0; i < n; i++)
         Cards.push_back(std::make_shared<Card>(width, height, maxN));

@@ -2,12 +2,14 @@
 
 
 #include <Player.hpp>
+#include <Settings.hpp>
 
 class BingoCLI
 {
 
 
     Player player;
+
 
 
 public:
@@ -34,6 +36,11 @@ public:
 
     static void ClearScreen();
 
+
     static void Pause();
+
+    void PrintSettings();
+
+    static void ClearInputError();
 };
 

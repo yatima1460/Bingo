@@ -22,6 +22,19 @@ void BingoCLI::ClearScreen()
 #endif
 }
 
+BingoCLI::BingoCLI()
+{
+
+
+    Settings::set<unsigned int>("cards_number", 4);
+    Settings::set<unsigned int>("card_width", 5);
+    Settings::set<unsigned int>("card_height", 3);
+    Settings::set<unsigned int>("drum_size", 60);
+    Settings::set<unsigned int>("drum_extract", 30);
+    Settings::set<std::string>("prizes", "1H0V8C,2H0V150C,B1500");
+
+    player.changeCards();
+}
 
 const char* BingoCLI::LOGO = R"(______ _____ _   _ _____ _____
 | ___ \_   _| \ | |  __ \  _  |
@@ -35,14 +48,155 @@ void BingoCLI::PrintLogo()
     std::cout << BingoCLI::LOGO << std::endl << std::endl;
 }
 
+
+void BingoCLI::PrintSettings()
+{
+    std::cout << "Game Settings" << std::endl;
+    std::cout << std::endl;
+    std::cout << "1.Create prize pattern" << std::endl;
+    // input number of rows matching
+    // input number of columns matching
+    // input value of this prize
+    std::cout << "2.Delete prize pattern" << std::endl;
+    std::cout << "3.Show saved prize patterns" << std::endl;
+    std::cout << "4.Set Game settings" << std::endl;
+    //drum balls, cards number, size
+    std::cout << "5.Print current settings .ini file" << std::endl;
+    std::cout << "6.Back to Main Menu" << std::endl;
+    std::cout << std::endl;
+    std::cout << "Insert number: ";
+
+    int settingsCommand = -1;
+    std::cin >> settingsCommand;
+    if (settingsCommand <= 0 || settingsCommand >= 6)
+    {
+        BingoCLI::ClearInputError();
+        return;
+    }
+
+
+    switch (settingsCommand)
+    {
+        //Create prize pattern
+        case 1:
+        {
+            break;
+        }
+        case 2:
+        {
+            break;
+        }
+        case 3:
+        {
+            break;
+        }
+            // Set Game settings
+        case 4:
+        {
+            int drumBallsTotal = -1;
+            std::cout << "Set total Drum balls: ";
+            std::cin >> drumBallsTotal;
+            if (drumBallsTotal <= 0)
+            {
+                std::cout << "Wrong number of balls" << std::endl;
+                BingoCLI::Pause();
+                return;
+            }
+
+
+            int drumBallsToExtract = -1;
+            std::cout << "Set Drum balls to extract: ";
+            std::cin >> drumBallsToExtract;
+            if (drumBallsToExtract <= 0)
+            {
+                std::cout << "Invalid balls to extract" << std::endl;
+                BingoCLI::Pause();
+                return;
+            }
+            if (drumBallsToExtract > drumBallsTotal)
+            {
+                std::cout << "Number of balls can't exceed Drum size" << std::endl;
+                BingoCLI::Pause();
+                return;
+            }
+
+            int cardsTotal = -1;
+            std::cout << "Set total number of cards: ";
+            std::cin >> cardsTotal;
+            if (cardsTotal <= 0)
+            {
+                std::cout << "Wrong cards number" << std::endl;
+                BingoCLI::Pause();
+                return;
+            }
+
+            int cardWidth = -1;
+            std::cout << "Set card columns count: ";
+            std::cin >> cardWidth;
+            if (cardWidth <= 0)
+            {
+                std::cout << "Wrong cards columns count" << std::endl;
+                BingoCLI::Pause();
+                return;
+            }
+            if (cardWidth > drumBallsTotal)
+            {
+                std::cout << "Area exceeding Drum total size" << std::endl;
+                BingoCLI::Pause();
+                return;
+            }
+
+            int cardHeight = -1;
+            std::cout << "Set card rows count: ";
+            std::cin >> cardHeight;
+            if (cardHeight <= 0)
+            {
+                std::cout << "Wrong cards rows count" << std::endl;
+                BingoCLI::Pause();
+                return;
+            }
+            if (cardHeight > drumBallsTotal || cardHeight * cardWidth > drumBallsTotal)
+            {
+                std::cout << "Area exceeding Drum total size" << std::endl;
+                BingoCLI::Pause();
+                return;
+            }
+
+            // Save settings
+            Settings::set<int>("drum_total", drumBallsTotal);
+            Settings::set<int>("drum_extract", drumBallsToExtract);
+            Settings::set<int>("cards_number", cardsTotal);
+            Settings::set<int>("card_width", cardWidth);
+            Settings::set<int>("card_height", cardHeight);
+            if (Settings::save())
+            {
+                std::cout << "Settings OK" << std::endl;
+            } else
+            {
+                std::cout << "Can't save settings to file" << std::endl;
+            }
+
+            BingoCLI::Pause();
+            break;
+        }
+        case 5:
+        {
+            std::cout << Settings::toString();
+            BingoCLI::Pause();
+        }
+        default:
+            return;
+    }
+}
+
 void BingoCLI::PrintMenu()
 {
     std::cout << "Current Credits: " << player.CreditsLeft() << "$" << std::endl << std::endl;
     std::cout << "1.Dynamic Bingo Settings" << std::endl;
     std::cout << "2.Insert Credits" << std::endl;
-    std::cout << "3.Change the Card numbers" << std::endl;
+    std::cout << "3.Change the numbers on the Cards" << std::endl;
     std::cout << "4.Show current Cards" << std::endl;
-    std::cout << "5.Play One Game [ Cost: " << player.GetCards().size() << "$ ]" << std::endl;
+    std::cout << "5.Play One Game [ Cost: " << Settings::get<unsigned int>("cards_number") << "$ ]" << std::endl;
     std::cout << "6.Play X Games" << std::endl;
     std::cout << "7.Collect" << std::endl;
     std::cout << "8.Exit game" << std::endl;
@@ -50,34 +204,20 @@ void BingoCLI::PrintMenu()
     std::cout << "Insert number: ";
     int command = -1;
     std::cin >> command;
+    if (command <= 0 || command >= 9)
+    {
+        BingoCLI::ClearInputError();
+        return;
+    }
 
 
-    switch (command)
+    switch (command) // NOLINT(hicpp-multiway-paths-covered)
     {
 
         // Dynamic Bingo Settings
         case 1:
         {
-            std::cout << "Game Settings" << std::endl;
-            std::cout << std::endl;
-            std::cout << "1.Set Prize patterns" << std::endl;
-            // input number of rows matching
-            // input number of columns matching
-            // input value of this prize
-            std::cout << "2.Set Drum balls" << std::endl;
-            std::cout << "3.Set Cards number" << std::endl;
-            std::cout << "4.Set Cards size" << std::endl;
-            std::cout << std::endl;
-            std::cout << "Insert number: ";
-
-            int settingsCommand = -1;
-            std::cin >> settingsCommand;
-
-
-            switch (settingsCommand)
-            {
-
-            }
+            PrintSettings();
             break;
         }
 
@@ -85,12 +225,13 @@ void BingoCLI::PrintMenu()
         case 2:
         {
             std::cout << std::endl << "How many credits? ";
-            int credits = 0;
+            int credits = -1;
             std::cin >> credits;
             if (credits <= 0)
             {
-                std::cout << "ERROR: Invalid credits value" << std::endl;
-                std::cin.clear();
+                std::cout << "Invalid credits" << std::endl;
+                BingoCLI::ClearInputError();
+                BingoCLI::Pause();
                 return;
             }
             player.AddCredits(credits);
@@ -101,7 +242,7 @@ void BingoCLI::PrintMenu()
             // Change the Card numbers
         case 3:
         {
-            player.ChangeCards(4, 5, 3, 60);
+            player.changeCards();
             PrintCards();
             BingoCLI::Pause();
             break;
@@ -135,8 +276,8 @@ void BingoCLI::PrintMenu()
             std::cin >> games;
             if (games <= 0)
             {
-                std::cout << "ERROR: Invalid games value" << std::endl;
-                std::cin.clear();
+                std::cout << "Invalid value" << std::endl;
+                BingoCLI::ClearInputError();
                 return;
             }
             PlayNGames(games);
@@ -158,11 +299,7 @@ void BingoCLI::PrintMenu()
             std::exit(EXIT_SUCCESS);
         }
 
-            // Invalid Command
-        default:
-        {
-            return;
-        }
+
     }
 }
 
@@ -194,12 +331,12 @@ void BingoCLI::PrintCards()
 bool BingoCLI::TryPlayOneGame()
 {
     // Try remove credits for cards
-    if (!player.TryRemoveCredits(4))
+    if (!player.TryRemoveCredits(Settings::get<unsigned int>("cards_number")))
         return false;
 
     // Extract numbers
-    Drum drum(60);
-    const auto extractedBalls = drum.Extract(30);
+    Drum drum(Settings::get<unsigned int>("drum_size"));
+    const auto extractedBalls = drum.Extract(Settings::get<unsigned int>("drum_extract"));
 
     // Show extracted numbers
     std::cout << std::endl << extractedBalls.size() << " extracted balls: " << std::endl;
@@ -212,8 +349,10 @@ bool BingoCLI::TryPlayOneGame()
         if ((i + 1) % 10 == 0) std::cout << std::endl;
     }
 
+    BingoCLI::Pause();
 
-    std::vector<unsigned int> lookup(60 + 1);
+
+    std::vector<unsigned int> lookup(Settings::get<unsigned int>("drum_size") + 1);
     for (unsigned int j : extractedBalls)
         lookup[j] = 1;
 
@@ -278,7 +417,9 @@ void BingoCLI::Pause()
 #endif
 }
 
-BingoCLI::BingoCLI()
+
+void BingoCLI::ClearInputError()
 {
-    player.ChangeCards(4, 5, 3, 60);
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }

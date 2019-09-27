@@ -21,7 +21,7 @@ Game::Game(Player &player) : player(player)
 
 }
 
-void Game::PlayOneGame()
+void Game::TryPlayOneGame()
 {
 
     */
@@ -51,7 +51,7 @@ void Game::PlayNGames(unsigned int N)
 */
 /*    for (int i = 0; i < N; ++i)
     {
-        PlayOneGame();
+        TryPlayOneGame();
     }*//*
 
 }
