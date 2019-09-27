@@ -1,20 +1,8 @@
-# only for cmake --version >= 3.5.1
 cmake_minimum_required(VERSION 3.5.1)
 
-# project name
+# Create project
 project(BingoCore)
-
-# creates the variable EXEC and sets it to hello
-set(EXEC BingoCore)
-
-# set the C++14 standard
 set(CMAKE_CXX_STANDARD 17)
-
-# I../includes
 include_directories(Include)
-
-# puts all .cpp files inside Source to the SOURCES variable
 file(GLOB_RECURSE SOURCES Source/*.cpp)
-
-# compiles the files defined by SOURCES to generante the executable defined by EXEC
-add_library(${EXEC} ${SOURCES})
+add_library(BingoCore ${SOURCES})
