@@ -7,11 +7,9 @@
 | CLI | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/CLI/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
 | UI | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/UI/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
 
-![](screenshot.png)
-
-# TODO
-
 ## CLI
+
+![](screenshot_cli.png)
 
 - Dynamic Bingo settings
   - Prize patterns config
@@ -35,6 +33,8 @@
 - ~Exit game~
 
 ## UI
+
+![](screenshot_ui.png)
 
 - ~Background~
 - ~Balls ExtractedBalls~
