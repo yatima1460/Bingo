@@ -1,62 +1,47 @@
-#include <Drum.hpp>
+//
+// Created by yatima1460 on 27/09/2019.
+//
+
+
 #include <iostream>
-
-
-#include <cstdlib>
-
-#include <limits>
 #include <cassert>
-#include <ctime>
-#include <Player.hpp>
+#include <Drum.hpp>
+#include "BingoCLI.hpp"
 
-void ClearScreen()
+
+#include <unistd.h>
+
+
+void BingoCLI::ClearScreen()
 {
-    if (system("CLS")) system("clear");
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+    system("CLS");
+#else
+    printf("\033[H\033[J");
+#endif
 }
 
 
-Player *player;
-
-
-
-void PrintCards(Player &player) {
-    auto cards = player.GetCards();
-    for (size_t i = 0; i < cards.size(); i++) {
-        std::cout << std::endl << "Card #" << i + 1 << std::endl;
-        auto card = cards[i];
-        assert(card != nullptr);
-        for (size_t j = 0; j < card->Width * card->Height; j++) {
-            unsigned int n = (*card)[j];
-
-            if (n >= 10)
-                std::cout << n << " ";
-            else
-                std::cout << "0" << n << " ";
-            if ((j + 1) % card->Width == 0) std::cout << std::endl;
-        }
-
-    }
-}
-
-void PrintMenu()
-{
-
-
-    const std::string logo = R"(______ _____ _   _ _____ _____
+const char* BingoCLI::LOGO = R"(______ _____ _   _ _____ _____
 | ___ \_   _| \ | |  __ \  _  |
 | |_/ / | | |  \| | |  \/ | | |
 | ___ \ | | | . ` | | __| | | |
 | |_/ /_| |_| |\  | |_\ \ \_/ /
 \____/ \___/\_| \_/\____/\___/)";
 
+void BingoCLI::PrintLogo()
+{
+    std::cout << BingoCLI::LOGO << std::endl << std::endl;
+}
 
-    std::cout << logo << std::endl << std::endl;
-    std::cout << "Current Credits: " << player->CreditsLeft() << "$" << std::endl << std::endl;
+void BingoCLI::PrintMenu()
+{
+    std::cout << "Current Credits: " << player.CreditsLeft() << "$" << std::endl << std::endl;
     std::cout << "1.Dynamic Bingo Settings" << std::endl;
     std::cout << "2.Insert Credits" << std::endl;
     std::cout << "3.Change the Card numbers" << std::endl;
     std::cout << "4.Show current Cards" << std::endl;
-    std::cout << "5.Play One Game [ Cost: " << player->GetCards().size() << "$ ]" << std::endl;
+    std::cout << "5.Play One Game [ Cost: " << player.GetCards().size() << "$ ]" << std::endl;
     std::cout << "6.Play X Games" << std::endl;
     std::cout << "7.Collect" << std::endl;
     std::cout << "8.Exit game" << std::endl;
@@ -68,13 +53,31 @@ void PrintMenu()
 
     switch (command)
     {
+
         // Dynamic Bingo Settings
         case 1:
         {
-            std::cout << "TODO" << std::endl;
+            std::cout << "Game Settings" << std::endl;
+            std::cout << std::endl;
+            std::cout << "1.Set Prize patterns" << std::endl;
+            std::cout << "2.Set Drum balls" << std::endl;
+            std::cout << "3.Set Cards number" << std::endl;
+            std::cout << "4.Set Cards size" << std::endl;
+            std::cout << std::endl;
+            std::cout << "Insert number: ";
+
+            int settingsCommand = -1;
+            std::cin >> settingsCommand;
+
+
+            switch (settingsCommand)
+            {
+
+            }
             break;
         }
-        // Insert Credits
+
+            // Insert Credits
         case 2:
         {
             std::cout << std::endl << "How many credits? ";
@@ -86,35 +89,36 @@ void PrintMenu()
                 std::cin.clear();
                 return;
             }
-            player->AddCredits(credits);
-            std::cout << std::endl << "New credits: " << player->CreditsLeft() << std::endl;
+            player.AddCredits(credits);
+
             break;
         }
-            // Change number of Cards
+
+            // Change the Card numbers
         case 3:
         {
-            player->ChangeCards(4, 5, 3, 60);
-            std::cout << std::endl << "New cards: " << std::endl;
-            PrintCards(*player);
-            /*std::cout << std::endl << "How many cards? ";
-            int cards = -1;
-            std::cin >> cards;
-            game.SetCardsNumber(cards);*/
+            player.ChangeCards(4, 5, 3, 60);
+            PrintCards();
+            BingoCLI::Pause();
             break;
         }
+
             // Show Current Cards
-        case 4: {
-            assert(player != nullptr);
-            PrintCards(*player);
-            /*std::cout << std::endl << "How many cards? ";
-            int cards = -1;
-            std::cin >> cards;
-            game.SetCardsNumber(cards);*/
+        case 4:
+        {
+            PrintCards();
+            BingoCLI::Pause();
             break;
         }
-        // Play 1 Game
+
+            // Play 1 Game
         case 5:
         {
+            if (!PlayOneGame())
+            {
+                std::cout << std::endl << "You don't have enough money!" << std::endl << std::endl;
+                BingoCLI::Pause();
+            }
             /*try
             {
                 game->PlayOneGame();
@@ -139,71 +143,128 @@ void PrintMenu()
                      std::cout << "(0" << balls[i] << ")";
                  if ((i + 1) % 10 == 0) std::cout << std::endl;
              }*/
-            std::cout << std::endl << "Cards: " << std::endl;
-            PrintCards(*player);
-
-
-
-            std::cout << std::endl;
-            std::cout << "Remaining credits: " << player->CreditsLeft() << std::endl;
-
+            /*        std::cout << std::endl << "Cards: " << std::endl;
+                    PrintCards();
+        */
 
 
             break;
         }
-        // Play X Games
+
+            // Play X Games
         case 6:
         {
-
             std::cout << std::endl << "How many games? ";
             int games = -1;
             std::cin >> games;
-            //game->PlayNGames(games);
+            if (games <= 0)
+            {
+                std::cout << "ERROR: Invalid games value" << std::endl;
+                std::cin.clear();
+                return;
+            }
+            PlayNGames(games);
             break;
         }
-        // Collect
+
+            // Collect
         case 7:
         {
-            unsigned int collected = player->Collect();
+            unsigned int collected = player.Collect();
             std::cout << "Collected " << collected << " credits." << std::endl;
             break;
         }
+
             // Exit
         case 8:
         {
+            BingoCLI::ClearScreen();
             std::exit(EXIT_SUCCESS);
         }
-        // Invalid Command
+
+            // Invalid Command
         default:
         {
             return;
         }
     }
+}
+
+
+void BingoCLI::PrintCards()
+{
+    BingoCLI::ClearScreen();
+    const auto cards = player.GetCards();
+    for (size_t i = 0; i < cards.size(); i++)
+    {
+        std::cout << "Card #" << i + 1 << std::endl;
+        const auto card = cards[i];
+        assert(card != nullptr);
+        for (size_t j = 0; j < card->Width * card->Height; j++)
+        {
+            unsigned int n = (*card)[j];
+
+            if (n >= 10)
+                std::cout << n << " ";
+            else
+                std::cout << "0" << n << " ";
+            if ((j + 1) % card->Width == 0) std::cout << std::endl;
+        }
+        std::cout << std::endl;
+
+    }
+}
+
+bool BingoCLI::PlayOneGame()
+{
+    if (!player.TryRemoveCredits(4))
+        return false;
+
+    // Extract numbers
+    Drum drum(60);
+    const auto extractedBalls = drum.Extract(30);
+
+    // Show extracted numbers
+    std::cout << std::endl << extractedBalls.size() << " extracted balls: " << std::endl;
+    for (size_t i = 0; i < extractedBalls.size(); i++)
+    {
+        if (extractedBalls[i] >= 10)
+            std::cout << "(" << extractedBalls[i] << ")";
+        else
+            std::cout << "(0" << extractedBalls[i] << ")";
+        if ((i + 1) % 10 == 0) std::cout << std::endl;
+    }
+
+    // Show remaining credits
+    std::cout << std::endl;
+    std::cout << "Remaining credits: " << player.CreditsLeft() << std::endl;
+
+    return true;
+}
+
+
+void BingoCLI::PlayNGames(unsigned int N)
+{
+
+    unsigned int i = 1;
+    while (true)
+    {
+        std::cout << "Game #" << i++ << std::endl;
+        if (!PlayOneGame()) return;
+    }
 
 }
 
-int main(int argc, char *argv[])
+void BingoCLI::Pause()
 {
-    player = new Player();
-    //player->AddCredits(100);
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
+    system("pause");
+#else
+    system("read -rsp $'Press any key to continue...\\n' -n 1 key");
+#endif
+}
 
-    /*game = new Game(*player);
-    game->SetCardsSize(5, 3);
-    game->SetDrumSize(60);*/
-    // game.SetCardsNumber(4);
-
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wmissing-noreturn"
-    while (true)
-    {
-        PrintMenu();
-        std::cout << std::endl;
-        std::cout << "Press <Enter> to go back to the menu." << std::endl;
-        std::cin.ignore().get();
-
-
-    }
-
-#pragma clang diagnostic pop
+BingoCLI::BingoCLI()
+{
+    player.ChangeCards(4, 5, 3, 60);
 }
