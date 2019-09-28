@@ -13,9 +13,9 @@
 
 - Dynamic Bingo settings
   - Prize patterns config
-  - Number of balls
-  - Number of Cards
-  - Card size
+  - ~Number of balls~
+  - ~Number of Cards~
+  - ~Card size~
 - Game Statistics
   - Percentage Game
   - Pattern frequency
