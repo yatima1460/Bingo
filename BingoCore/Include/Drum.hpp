@@ -1,8 +1,18 @@
 #pragma once
 
 #include <vector>
-#include "EmptyDrumException.hpp"
+#include "BingoException.hpp"
 
+
+class EmptyDrumException : BingoException
+{
+
+public:
+    EmptyDrumException() : BingoException("You can't extract more balls than the ones left in the drum!")
+    {
+
+    }
+};
 
 /**
  * Object simulating a Drum with balls as unsigned ints
@@ -10,6 +20,9 @@
  */
 class Drum
 {
+
+private:
+
     /**
      * Balls held by this Drum
      */
