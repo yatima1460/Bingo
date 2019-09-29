@@ -3,12 +3,9 @@
 
 #include <AssetsManager.hpp>
 #include <CustomWidgets/CardUI.hpp>
-#include <Config.hpp.old>
 #include <Engine.hpp>
 #include <BingoLevel.hpp>
-#include <Prizes/LinePrize.hpp>
 #include <Prizes/DoubleLinePrize.hpp>
-#include <Prizes/BingoPrize.hpp>
 #include <cassert>
 #include <Settings.hpp>
 #include <PrizeSystem.hpp>
@@ -46,7 +43,7 @@ void JugarButton::Pressed()
     auto cards = dynamic_cast<BingoLevel&>(level).GetCardsUI();
 
     // Remove cost of cards
-    if (!PlayerRef.pay(PlayerRef.getCards().size()))
+    if (!PlayerRef.pay(static_cast<int>(PlayerRef.getCards().size())))
         throw std::runtime_error("Play button can be pressed when not enough money to play");
 
     // Update shown extracted numbers
@@ -56,33 +53,17 @@ void JugarButton::Pressed()
         card->SetExtractedNumbers(latestBalls);
 
     // Calculate prizes
-
-    //Prize* prizes[] = {new BingoPrize(BINGO_PRIZE), new DoubleLinePrize(DOUBLELINE_PRIZE), new LinePrize(LINE_PRIZE)};
     for (const std::shared_ptr<Card>& card: PlayerRef.getCards())
     {
 
         unsigned int prizeAmount = PrizeSystem::checkCard(*card, latestBalls);
 
-/*        for (Prize* p : prizes)
-        {
-            assert(p != nullptr);
-            assert(card != nullptr);
-            assert(!latestBalls.empty());
-            unsigned int prizeAmount = p->Check(*card, latestBalls);
-            assert(prizeAmount == 0 || prizeAmount == LINE_PRIZE || prizeAmount == DOUBLELINE_PRIZE ||
-                   prizeAmount == BINGO_PRIZE);
-*/
         if (prizeAmount != 0)
         {
             PlayerRef.addCredits(prizeAmount);
-
-            // A prize overrides the lower VALUE ones
             break;
         }
 
-        //}
 
     }
-
-
 }

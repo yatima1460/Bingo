@@ -1,6 +1,5 @@
 #include <Graphics.hpp>
 #include <AssetsManager.hpp>
-#include <Config.hpp.old>
 #include <BingoLevel.hpp>
 #include <cassert>
 #include <Settings.hpp>
@@ -78,6 +77,9 @@ void Engine::MainLoop()
                         // ESC closes
                         case SDLK_ESCAPE:
                             Engine::quit = true;
+                            break;
+
+                        default:
                             break;
 
                     }

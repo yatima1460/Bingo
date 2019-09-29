@@ -2,8 +2,6 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <cassert>
-#include <utility>
-#include <Config.hpp.old>
 #include <Settings.hpp>
 #include "Graphics.hpp"
 
@@ -98,7 +96,6 @@ void Graphics::DrawText(const std::string& Text, SDL_Point Position, SDL_Color C
 
         assert(creditsSurface != nullptr);
         SDL_FreeSurface(creditsSurface);
-        creditsSurface = nullptr;
 
         assert(SDLRenderer != nullptr);
         assert(creditsTexture != nullptr);
@@ -107,7 +104,6 @@ void Graphics::DrawText(const std::string& Text, SDL_Point Position, SDL_Color C
         assert(creditsTexture != nullptr);
         SDL_DestroyTexture(creditsTexture);
 
-        creditsTexture = nullptr;
     }
 }
 
@@ -127,7 +123,6 @@ SDL_Rect Graphics::MeasureText(const std::string& String, TTF_Font& Font)
         SDL_Rect r = creditsSurface->clip_rect;
         assert(creditsSurface != nullptr);
         SDL_FreeSurface(creditsSurface);
-        creditsSurface = nullptr;
         return r;
     }
     SDL_Rect empty = {0, 0, 0, 0};

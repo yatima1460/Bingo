@@ -4,6 +4,7 @@
 #include <sstream>
 #include "CustomWidgets/CardUI.hpp"
 #include <algorithm>
+#include <utility>
 
 
 #define DRAW_CELL_OFFSET_X 19
@@ -56,7 +57,7 @@ void CardUI::Draw()
 }
 
 CardUI::CardUI(std::shared_ptr<Card> card, Texture& background, Texture* cell, Texture* marked) : background(
-        background), card(card)
+        background), card(std::move(card))
 {
 
     this->cell = cell;
@@ -71,11 +72,11 @@ void CardUI::Update()
 
 void CardUI::SetExtractedNumbers(std::vector<unsigned int> e)
 {
-    this->extracted = e;
+    this->extracted = std::move(e);
 }
 
 void CardUI::ChangeCard(std::shared_ptr<Card> c)
 {
-    this->card = c;
+    this->card = std::move(c);
 }
 

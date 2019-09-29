@@ -28,12 +28,10 @@ void LabelWidget::Draw()
         Message_rect.h = fontSurface->h; // controls the height of the rect
 
         SDL_FreeSurface(fontSurface);
-        fontSurface = nullptr;
 
         assert(Graphics::GetSDLRenderer() != nullptr);
         SDL_RenderCopy(Graphics::GetSDLRenderer(), fontTexture, nullptr, &Message_rect);
         SDL_DestroyTexture(fontTexture);
-        fontTexture = nullptr;
 
     }
 }

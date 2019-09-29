@@ -2,8 +2,8 @@
 #include <string>
 
 #include <SDL.h>
-#include <Config.hpp.old>
 #include <cassert>
+#include <AssetsManager.hpp>
 #include <Settings.hpp>
 
 #include "BingoLevel.hpp"
@@ -12,7 +12,6 @@
 
 #include "Texture.hpp"
 #include "Graphics.hpp"
-#include "AssetsManager.hpp"
 
 #include "CustomWidgets/CobrarButton.hpp"
 #include "CustomWidgets/NumerosButton.hpp"

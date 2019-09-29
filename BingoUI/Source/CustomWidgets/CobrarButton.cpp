@@ -2,7 +2,6 @@
 
 
 #include <AssetsManager.hpp>
-#include <Config.hpp.old>
 #include <Level.hpp>
 #include <Engine.hpp>
 #include <BingoLevel.hpp>

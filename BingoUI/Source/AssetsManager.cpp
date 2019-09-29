@@ -45,9 +45,9 @@ void AssetsManager::Init(const std::string& assetsDirectory)
     while ((dp = readdir(dirp)) != nullptr)
     {
 
-        auto name = dp->d_name;
 
-        std::string nameStr(name);
+
+        std::string nameStr(dp->d_name);
 
         if (hasEnding(nameStr, "bmp"))
         {
