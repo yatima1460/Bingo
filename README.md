@@ -3,7 +3,7 @@
 |Project|Build|
 |-------|-----|
 | Core | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/Core/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
-| Core Test | TODO |
+| Core Test | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/Test/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
 | CLI | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/CLI/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
 | UI | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/UI/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
 
