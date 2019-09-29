@@ -1,4 +1,4 @@
-name: CLI
+name: CLILinux
 
 on: [push]
 
