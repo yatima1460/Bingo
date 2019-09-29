@@ -12,46 +12,49 @@
 ![](screenshot_cli.png)
 
 - Dynamic Bingo settings
-  - Prize patterns config
+  - Prize patterns add
+  - ~Prize patterns delete~
   - ~Number of balls~
-  - ~Number of Cards~
+  - ~Number of cards~
   - ~Card size~
 - Game Statistics
   - Percentage Game
   - Pattern frequency
   - Contribution patterns
-- ~Insert Credits~
+- ~Insert credits~
 - ~Change numbers~
-- ~Show current Cards~
-- Play One Game
+- ~Show current cards~
+- ~Play One Game~
   - ~Show ExtractedBalls balls~
-  - ~Show Cards status~
-  - Show prizes
-  - ~Remaining Credits~
-- Play X Games
-- ~Collect~
+  - ~Show cards status~
+  - ~Show prizes~
+  - ~Remaining credits~
+- ~Play X Games~
+- ~collect~
 - ~Exit game~
+- Functions to print cards should be merged into one
+- ncurses?
 
 ## UI
 
 ![](screenshot_ui.png)
 
 - ~Background~
-- ~Balls ExtractedBalls~
+- ~balls ExtractedBalls~
 - ~Cartons~
   - ~Marked~
 - Buttons
   - ~Enter money~
-  - ~Collect money~
+  - ~collect money~
     - ~Disable if no money~
   - ~Change Cardboard numbers~
   - ~Play Game~
-    - ~Remove Credits for Cards~
+    - ~Remove credits for cards~
     - ~Update screen~
     - ~Give prizes~
-    - ~Disable if no money for Cards~
+    - ~Disable if no money for cards~
   - Mute audio
-- ~Current Credits~
+- ~Current credits~
 - ~Exit with ESC~
 - SDL_Image support for .png?
 - Resize window buffer using renderToTexture
@@ -59,7 +62,7 @@
 - Font size
 - Sounds and effects
 - ~Assets loader with associative string->Texture map?~
-- Balls different colors
+- balls different colors
 
 ## Build
 
