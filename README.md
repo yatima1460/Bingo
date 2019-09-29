@@ -2,10 +2,10 @@
 
 |Project|Build|
 |-------|-----|
-| Core | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/Core/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
-| Core Test | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/BingoTestLinux/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
-| CLI | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/CLI/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
-| UI | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/UI/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
+| Core | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/CoreLinux/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
+| Core Test | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/TestLinux/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
+| CLI | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/CLILinux/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
+| UI | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/UILinux/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
 
 ## CLI
 
