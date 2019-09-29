@@ -115,7 +115,7 @@ void Graphics::DrawText(const std::string& Text, SDL_Point Position, SDL_Color C
 
 SDL_Rect Graphics::MeasureText(const std::string& String, TTF_Font& Font)
 {
-    SDL_Surface* creditsSurface = TTF_RenderText_Blended(&Font, String.c_str(), {255, 255, 255});
+    SDL_Surface* creditsSurface = TTF_RenderText_Blended(&Font, String.c_str(), {255, 255, 255, 255});
 
     // is null if string has length zero
     if (creditsSurface)

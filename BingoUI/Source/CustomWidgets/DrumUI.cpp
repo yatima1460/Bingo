@@ -41,7 +41,7 @@ void DrumUI::Draw()
             SDL_Rect text_size = Graphics::MeasureText(ss.str());
             p.x -= text_size.w / 2;
             p.y -= text_size.h / 2;
-            Graphics::DrawText(ss.str(), p, {0, 0, 0});
+            Graphics::DrawText(ss.str(), p, {0, 0, 0, 0});
         }
         for (int i = 0; i < Settings::get<int>("BALLS_N_ROW_1"); i++)
         {
@@ -59,7 +59,7 @@ void DrumUI::Draw()
             SDL_Rect text_size = Graphics::MeasureText(ss.str());
             p.x -= text_size.w / 2;
             p.y -= text_size.h / 2;
-            Graphics::DrawText(ss.str(), p, {0, 0, 0});
+            Graphics::DrawText(ss.str(), p, {0, 0, 0, 0});
         }
     }
 

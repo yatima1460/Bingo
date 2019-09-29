@@ -1,12 +1,11 @@
 #include <BingoCLI.hpp>
 
 
-int main(int argc, char* argv[])
+int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 {
     BingoCLI bingoCLI;
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wmissing-noreturn"
+
     while (true)
     {
         BingoCLI::ClearScreen();
@@ -14,5 +13,5 @@ int main(int argc, char* argv[])
 
         bingoCLI.PrintMenu();
     }
-#pragma clang diagnostic pop
+
 }

@@ -9,7 +9,7 @@ class Card
 
 public:
 
-    const std::vector<unsigned int> NUMBERS;
+
 
     /**
      * Number of columns
@@ -27,6 +27,9 @@ public:
      */
     const unsigned int MAX_NUMBER;
 
+
+    const std::vector<unsigned int> NUMBERS;
+
     /**
      * Creates a new Bingo Card
      * The card is shuffled at creation time
@@ -38,9 +41,9 @@ public:
     Card(unsigned int width, unsigned int height, unsigned int maxNumber);
 
 
-    [[nodiscard]] const unsigned int& operator[](int index) const
+    [[nodiscard]] const unsigned int& operator[](unsigned int index) const
     {
-        if (index < 0 || index >= NUMBERS.size())
+        if (index >= NUMBERS.size())
             throw std::invalid_argument("Card number index is invalid");
         return NUMBERS[index];
     }

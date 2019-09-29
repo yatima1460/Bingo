@@ -42,5 +42,5 @@ void MonedasButton::Pressed()
 {
     Level& level = Engine::GetCurrentLevel();
     auto& PlayerRef = dynamic_cast<BingoLevel&>(level).GetPlayer();
-    PlayerRef.collect();
+    [[maybe_unused]] const auto collected = PlayerRef.collect();
 }

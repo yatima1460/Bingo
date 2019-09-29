@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(Include)
 file(GLOB SOURCES Source/*.cpp)
 add_executable(BingoCLI ${SOURCES})
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Werror")
 
 # Load BingoCore
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../BingoCore/Include)

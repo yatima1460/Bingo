@@ -20,7 +20,7 @@ unsigned int PrizeSystem::checkCard(Card& card, const std::vector<unsigned int>&
 
     // First check special case of Bingo
     bool bingo = true;
-    for (int i = 0; i < card.WIDTH * card.HEIGHT; i++)
+    for (size_t i = 0; i < card.WIDTH * card.HEIGHT; i++)
     {
         if (lookup[card[i]] == 0)
         {

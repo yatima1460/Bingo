@@ -7,7 +7,7 @@
 
 #undef main
 
-int main(int argc, char* args[])
+int main([[maybe_unused]] int argc, [[maybe_unused]] char* args[])
 {
     Engine::Init();
     Engine::MainLoop();
@@ -15,3 +15,4 @@ int main(int argc, char* args[])
 
     return EXIT_SUCCESS;
 }
+

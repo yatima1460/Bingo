@@ -10,9 +10,10 @@ struct Prize
 
 public:
 
-    unsigned int VALUE;
+
     unsigned int MINIMUM_COLUMNS;
     unsigned int MINIMUM_ROWS;
+    unsigned int VALUE;
 
 
     explicit Prize(unsigned int minimumRows, unsigned int minimumColumns, unsigned int value) :

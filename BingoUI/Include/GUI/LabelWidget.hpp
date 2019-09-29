@@ -11,7 +11,7 @@ class LabelWidget : public Widget
 
 
     std::string text;
-    SDL_Color color = {255, 255, 255};
+    SDL_Color color = {255, 255, 255, 255};
 
 public:
     explicit LabelWidget(std::string text);

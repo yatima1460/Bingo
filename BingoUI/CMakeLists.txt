@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(Include)
 file(GLOB_RECURSE SOURCES Source/*.cpp)
 add_executable(BingoUI ${SOURCES})
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
 
 
 # Load BingoCore

@@ -87,7 +87,7 @@ void ButtonWidget::Draw()
     centered.y -= textSize.h / 2;
 
 
-    Graphics::DrawText(text, centered, {255, 255, 255});
+    Graphics::DrawText(text, centered, {255, 255, 255, 255});
 }
 
 

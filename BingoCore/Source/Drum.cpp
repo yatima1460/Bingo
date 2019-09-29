@@ -32,7 +32,7 @@ std::vector<unsigned int> Drum::extract(const unsigned int n)
         throw EmptyDrumException();
 
     std::vector<unsigned int> results;
-    for (int i = 0; i < n; ++i)
+    for (size_t i = 0; i < n; ++i)
     {
         results.push_back(balls.back());
         balls.pop_back();

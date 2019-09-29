@@ -49,7 +49,7 @@ void CardUI::Draw()
             cellTextLoc.x -= r.w / 2;
             cellTextLoc.y -= r.h / 2;
 
-            Graphics::DrawText(ss.str(), cellTextLoc, {0, 0, 0}, Graphics::GetBigFont());
+            Graphics::DrawText(ss.str(), cellTextLoc, {0, 0, 0, 0}, Graphics::GetBigFont());
         }
     }
 
