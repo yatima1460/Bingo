@@ -26,13 +26,15 @@ class Drum
      */
     std::vector<unsigned int> balls;
 
+
+
+
+public:
+
     /**
      * Original number of balls when this Drum was created
      */
     const unsigned int NUMBER_OF_BALLS_AT_CREATION;
-
-
-public:
 
     /**
      * Creates a new random Drum
