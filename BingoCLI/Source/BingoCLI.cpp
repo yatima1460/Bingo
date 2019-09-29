@@ -144,7 +144,11 @@ void BingoCLI::PrintSettings()
             if (index == i + 1)
             {
                 PrizeSystem::setBingo(0);
-                PrizeSystem::save();
+                if (!PrizeSystem::save())
+                {
+                    std::cout << "Can't save prize to Settings.ini" << std::endl;
+                    BingoCLI::Pause();
+                }
             } else
             {
                 if (index >= 1 && index <= i)
