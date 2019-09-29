@@ -1,4 +1,4 @@
-name: UI
+name: UILinux
 
 on: [push]
 
