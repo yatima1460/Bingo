@@ -1,4 +1,4 @@
-name: BingoTestLinux
+name: TestLinux
 
 on: [push]
 
