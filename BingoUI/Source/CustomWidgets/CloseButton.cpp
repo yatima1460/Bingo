@@ -35,4 +35,4 @@ void CloseButton::Pressed()
 }
 
 //callback
-//PlayerRef.Collect();
+//PlayerRef.collect();

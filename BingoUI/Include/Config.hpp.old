@@ -1,6 +1,6 @@
 #pragma once
 
-
+#ifdef false
 // Project
 #define ASSETS_PATH             "Assets"
 
@@ -8,7 +8,7 @@
 #define WINDOW_NAME             "Bingo"
 #define FONT_PATH               ASSETS_PATH"/Roboto-Regular.ttf"
 
-// Credits
+// credits
 #define INITIAL_CREDITS         0
 
 // Prizes
@@ -16,7 +16,7 @@
 #define DOUBLELINE_PRIZE        150
 #define BINGO_PRIZE             1500
 
-// Cards
+// cards
 #define CARTON_NUMBER           4
 #define CARTON_WIDTH            5
 #define CARTON_HEIGHT           3
@@ -41,3 +41,4 @@
 #define VERTICAL_PADDING        2
 #define BALLS_N_ROW_0           13
 #define BALLS_N_ROW_1           17
+#endif

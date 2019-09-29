@@ -3,17 +3,19 @@
 
 #include <AssetsManager.hpp>
 #include <CustomWidgets/CardUI.hpp>
-#include <Config.hpp>
+#include <Config.hpp.old>
 #include <Engine.hpp>
 #include <BingoLevel.hpp>
 #include <Prizes/LinePrize.hpp>
 #include <Prizes/DoubleLinePrize.hpp>
 #include <Prizes/BingoPrize.hpp>
 #include <cassert>
+#include <Settings.hpp>
+#include <PrizeSystem.hpp>
 #include "CustomWidgets/JugarButton.hpp"
 
 
-JugarButton::JugarButton() : ButtonWidget(PLAY_BUTTON_TEXT,
+JugarButton::JugarButton() : ButtonWidget(Settings::get<std::string>("PLAY_BUTTON_TEXT"),
                                           AssetsManager::Get<Texture>(
                                                   "botongrande01"),
                                           AssetsManager::Get<Texture>(
@@ -31,7 +33,7 @@ void JugarButton::Update()
 
     Level& level = Engine::GetCurrentLevel();
     auto PlayerRef = dynamic_cast<BingoLevel&>(level).GetPlayer();
-    SetEnabled(PlayerRef.CreditsLeft() >= PlayerRef.GetCards().size());
+    SetEnabled(PlayerRef.creditsLeft() >= PlayerRef.getCards().size());
 
 }
 
@@ -44,7 +46,7 @@ void JugarButton::Pressed()
     auto cards = dynamic_cast<BingoLevel&>(level).GetCardsUI();
 
     // Remove cost of cards
-    if (!PlayerRef.TryRemoveCredits(PlayerRef.GetCards().size()))
+    if (!PlayerRef.pay(PlayerRef.getCards().size()))
         throw std::runtime_error("Play button can be pressed when not enough money to play");
 
     // Update shown extracted numbers
@@ -54,11 +56,14 @@ void JugarButton::Pressed()
         card->SetExtractedNumbers(latestBalls);
 
     // Calculate prizes
-    Prize* prizes[] = {new BingoPrize(BINGO_PRIZE), new DoubleLinePrize(DOUBLELINE_PRIZE), new LinePrize(LINE_PRIZE)};
-    for (const std::shared_ptr<Card>& card: PlayerRef.GetCards())
+
+    //Prize* prizes[] = {new BingoPrize(BINGO_PRIZE), new DoubleLinePrize(DOUBLELINE_PRIZE), new LinePrize(LINE_PRIZE)};
+    for (const std::shared_ptr<Card>& card: PlayerRef.getCards())
     {
 
-        for (Prize* p : prizes)
+        unsigned int prizeAmount = PrizeSystem::checkCard(*card, latestBalls);
+
+/*        for (Prize* p : prizes)
         {
             assert(p != nullptr);
             assert(card != nullptr);
@@ -66,20 +71,18 @@ void JugarButton::Pressed()
             unsigned int prizeAmount = p->Check(*card, latestBalls);
             assert(prizeAmount == 0 || prizeAmount == LINE_PRIZE || prizeAmount == DOUBLELINE_PRIZE ||
                    prizeAmount == BINGO_PRIZE);
+*/
+        if (prizeAmount != 0)
+        {
+            PlayerRef.addCredits(prizeAmount);
 
-            if (prizeAmount != 0)
-            {
-                PlayerRef.AddCredits(prizeAmount);
-
-                // A prize overrides the lower value ones
-                break;
-            }
-
+            // A prize overrides the lower VALUE ones
+            break;
         }
+
+        //}
 
     }
 
-    // TODO: destructor
-    for (auto& prize : prizes)
-        delete prize;
+
 }

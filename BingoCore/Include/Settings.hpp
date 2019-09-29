@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <sstream>
+#include <algorithm>
 
 class Settings
 {
@@ -30,10 +31,14 @@ public:
     static std::string toString();
 
     template<typename T>
-    static void set(const std::string& key, T value)
+    static void set(std::string key, T value)
     {
         if (key.empty())
             throw std::invalid_argument("key can't be empty");
+
+        // to lowercase
+        std::transform(key.begin(), key.end(), key.begin(),
+                       [](unsigned char c) { return std::tolower(c); });
 
         std::stringstream iss;
         iss << value;
@@ -46,8 +51,15 @@ public:
     }
 
     template<typename T>
-    [[nodiscard]] static T get(const std::string& key)
+    [[nodiscard]] static T get(std::string key)
     {
+        if (key.empty())
+            throw std::invalid_argument("key can't be empty");
+
+        // to lowercase
+        std::transform(key.begin(), key.end(), key.begin(),
+                       [](unsigned char c) { return std::tolower(c); });
+
         auto it = config.find(key);
 
         if (it == config.end())

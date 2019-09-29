@@ -1,8 +1,11 @@
 #include <Graphics.hpp>
 #include <AssetsManager.hpp>
-#include <Config.hpp>
+#include <Config.hpp.old>
 #include <BingoLevel.hpp>
 #include <cassert>
+#include <Settings.hpp>
+#include <iostream>
+#include <PrizeSystem.hpp>
 #include "Engine.hpp"
 
 
@@ -20,11 +23,23 @@ void Engine::Clean()
 
 void Engine::Init()
 {
+    if (!Settings::load())
+    {
+        std::cout << "Can't load settings from .ini file" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    if (!PrizeSystem::load())
+    {
+        std::cout << "Can't load prize settings from .ini file" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     //The asset manager needs an OpenGL context to create the textures, so we initialize graphics first
     Graphics::Init();
 
     // Load all the files inside the input directory
-    AssetsManager::Init(ASSETS_PATH);
+    AssetsManager::Init(Settings::get<std::string>("assets_path"));
 
     SetLevel(new BingoLevel());
 }

@@ -30,8 +30,11 @@ std::string Settings::toString()
 
 bool Settings::parseFile(std::string contents)
 {
+
     if (contents.length() == 0)
         throw std::invalid_argument("Settings.ini content is empty!");
+
+
     const auto oldConfig = config;
     config.clear();
 
@@ -42,6 +45,9 @@ bool Settings::parseFile(std::string contents)
     {
         // remove spaces
         line.erase(remove_if(line.begin(), line.end(), isspace), line.end());
+
+        if (line.length() == 0)
+            continue;
 
         const std::string delimiter = "=";
         const auto posEqual = line.find(delimiter);
@@ -55,6 +61,10 @@ bool Settings::parseFile(std::string contents)
         std::string key = line.substr(0, posEqual);
         std::string value = line.substr(posEqual + delimiter.length());
 
+        // to lowercase
+        std::transform(key.begin(), key.end(), key.begin(),
+                       [](unsigned char c) { return std::tolower(c); });
+
         config[key] = value;
     }
 
@@ -64,7 +74,7 @@ bool Settings::parseFile(std::string contents)
 bool Settings::load()
 {
 
-    std::string settingsFile;
+
     std::ifstream file("Settings.ini");
 
     if (file)
@@ -74,6 +84,7 @@ bool Settings::load()
         buffer << file.rdbuf();
 
         file.close();
+
 
         return parseFile(buffer.str());
     } else

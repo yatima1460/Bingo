@@ -3,10 +3,11 @@
 
 #include <AssetsManager.hpp>
 #include <CustomWidgets/CardUI.hpp>
-#include <Config.hpp>
+#include <Config.hpp.old>
 #include <BingoLevel.hpp>
 #include <Engine.hpp>
 #include <cassert>
+#include <Settings.hpp>
 #include "CustomWidgets/NumerosButton.hpp"
 
 
@@ -14,9 +15,9 @@
 
 
 NumerosButton::NumerosButton() : ButtonWidget(
-        CARDS_BUTTON_TEXT,
+        Settings::get<std::string>("CARDS_BUTTON_TEXT"),
         AssetsManager::Get<Texture>(
-                                                                                                                "botonpeque01"),
+                "botonpeque01"),
         AssetsManager::Get<Texture>(
                 "botonpeque02"))
 {
@@ -43,7 +44,7 @@ void NumerosButton::Pressed()
 
     PlayerRef.changeCards(/*CARTON_NUMBER, CARTON_WIDTH, CARTON_HEIGHT, DRUM_SIZE*/);
 
-    auto cards = PlayerRef.GetCards();
+    auto cards = PlayerRef.getCards();
     for (size_t i = 0; i < cards.size(); i++)
     {
         assert(cardsUI[i] != nullptr);

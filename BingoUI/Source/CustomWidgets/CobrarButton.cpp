@@ -2,14 +2,15 @@
 
 
 #include <AssetsManager.hpp>
-#include <Config.hpp>
+#include <Config.hpp.old>
 #include <Level.hpp>
 #include <Engine.hpp>
 #include <BingoLevel.hpp>
+#include <Settings.hpp>
 #include "CustomWidgets/CobrarButton.hpp"
 
 
-CobrarButton::CobrarButton() : ButtonWidget(CHARGE_BUTTON_TEXT,
+CobrarButton::CobrarButton() : ButtonWidget(Settings::get<std::string>("charge_button_text"),
                                             AssetsManager::Get<Texture>("botongrande01"),
                                             AssetsManager::Get<Texture>("botongrande02"))
 {
@@ -24,5 +25,5 @@ void CobrarButton::Pressed()
 {
     Level& level = Engine::GetCurrentLevel();
     auto& PlayerRef = dynamic_cast<BingoLevel&>(level).GetPlayer();
-    PlayerRef.AddCredits(CHARGE_BUTTON_QUANTITY);
+    PlayerRef.addCredits(Settings::get<unsigned int>("charge_button_quantity"));
 }

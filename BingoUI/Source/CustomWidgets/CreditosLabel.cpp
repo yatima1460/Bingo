@@ -11,7 +11,7 @@ void CreditosLabel::Update()
     auto PlayerRef = dynamic_cast<BingoLevel&>(level).GetPlayer();
 
     std::stringstream player_credits;
-    player_credits << "$ " << PlayerRef.CreditsLeft();
+    player_credits << "$ " << PlayerRef.creditsLeft();
     std::string creditsString = player_credits.str();
     SDL_Rect size = Graphics::MeasureText(creditsString);
     SetPosition({static_cast<int>(1120 - size.w / 2), 20});

@@ -11,10 +11,10 @@ class ButtonWidget : public Widget
 private:
 
 
-    Texture *normal;
-    Texture *hover;
+    Texture* normal;
+    Texture* hover;
     std::string text;
-    Texture *active;
+    Texture* active;
     bool hovered = false;
     bool enabled = true;
 

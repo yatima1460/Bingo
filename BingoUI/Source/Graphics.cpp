@@ -3,7 +3,8 @@
 #include <SDL_ttf.h>
 #include <cassert>
 #include <utility>
-#include <Config.hpp>
+#include <Config.hpp.old>
+#include <Settings.hpp>
 #include "Graphics.hpp"
 
 SDL_Window* Graphics::SDLWindow;
@@ -23,7 +24,7 @@ void Graphics::Init()
     }
 
     SDLWindow = SDL_CreateWindow(
-            WINDOW_NAME,
+            Settings::get<std::string>("window_name").c_str(),
             SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
             -1, -1,
             SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP);
@@ -36,9 +37,16 @@ void Graphics::Init()
     SDLRenderer = SDL_CreateRenderer(SDLWindow, -1, SDL_RENDERER_ACCELERATED);
 
     TTF_Init();
-    SmallFont = TTF_OpenFont(FONT_PATH, 24);
-    NormalFont = TTF_OpenFont(FONT_PATH, 32);
-    BigFont = TTF_OpenFont(FONT_PATH, 48);
+    const auto fontPath =
+            Settings::get<std::string>("assets_path") + "/" + Settings::get<std::string>("asset_font_name");
+    SmallFont = TTF_OpenFont(fontPath.c_str(), 24);
+    NormalFont = TTF_OpenFont(fontPath.c_str(), 32);
+    BigFont = TTF_OpenFont(fontPath.c_str(), 48);
+    if (SmallFont == nullptr)
+    {
+        fprintf(stderr, "error: SmallFont not found\n");
+        exit(EXIT_FAILURE);
+    }
     if (NormalFont == nullptr)
     {
         fprintf(stderr, "error: NormalFont not found\n");
@@ -49,11 +57,7 @@ void Graphics::Init()
         fprintf(stderr, "error: BigFont not found\n");
         exit(EXIT_FAILURE);
     }
-    if (SmallFont == nullptr)
-    {
-        fprintf(stderr, "error: SmallFont not found\n");
-        exit(EXIT_FAILURE);
-    }
+
 
     // Get SDLWindow surface
     ScreenSurface = SDL_GetWindowSurface(SDLWindow);

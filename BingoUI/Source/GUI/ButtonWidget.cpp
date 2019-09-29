@@ -38,7 +38,6 @@ void ButtonWidget::Update()
     bool leftPressed = bitmask == 1;
 
 
-
     SDL_Rect size = active->GetSDLRect();
 
     hovered = x > location.x && y > location.y && x < location.x + size.w && y < location.y + size.h;
@@ -62,8 +61,6 @@ void ButtonWidget::Update()
 
 
         active = hover;
-
-
 
 
     }

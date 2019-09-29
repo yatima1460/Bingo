@@ -2,8 +2,9 @@
 #include <string>
 
 #include <SDL.h>
-#include <Config.hpp>
+#include <Config.hpp.old>
 #include <cassert>
+#include <Settings.hpp>
 
 #include "BingoLevel.hpp"
 
@@ -53,20 +54,33 @@ void BingoLevel::BeginLevel()
     // Add game background
     widgets.push_back(new ImageWidget(*AssetsManager::Get<Texture>("Fondo_Juego")));
 
-    // Add Credits label
+    // Add credits label
     widgets.push_back(new CreditosLabel());
 
-    // Add Cards
-    int CARD_LOCATIONS_X[4] = {CARTON_COLUMN_0_X, CARTON_COLUMN_1_X, CARTON_COLUMN_0_X, CARTON_COLUMN_1_X};
-    int CARD_LOCATIONS_Y[4] = {CARTON_COLUMN_0_Y, CARTON_COLUMN_0_Y, CARTON_COLUMN_1_Y, CARTON_COLUMN_1_Y};
+    // Add cards
+
+
+
+
+    int CARD_LOCATIONS_X[4] = {
+            Settings::get<int>("CARTON_COLUMN_0_X"),
+            Settings::get<int>("CARTON_COLUMN_1_X"),
+            Settings::get<int>("CARTON_COLUMN_0_X"),
+            Settings::get<int>("CARTON_COLUMN_1_X")};
+    int CARD_LOCATIONS_Y[4] = {
+            Settings::get<int>("CARTON_COLUMN_0_Y"),
+            Settings::get<int>("CARTON_COLUMN_0_Y"),
+            Settings::get<int>("CARTON_COLUMN_1_Y"),
+            Settings::get<int>("CARTON_COLUMN_1_Y")};
+
     auto cartonBackground = AssetsManager::Get<Texture>("carton");
     auto celdaBackground = AssetsManager::Get<Texture>("celda");
     auto marked = AssetsManager::Get<Texture>("sello1");
 
 
-    for (size_t i = 0; i < player.GetCards().size(); i++)
+    for (size_t i = 0; i < player.getCards().size(); i++)
     {
-        std::shared_ptr<Card> c = player.GetCards()[i];
+        std::shared_ptr<Card> c = player.getCards()[i];
         auto card = new CardUI(c, *cartonBackground, celdaBackground, marked);
         SDL_Point cardPosition{CARD_LOCATIONS_X[i], CARD_LOCATIONS_Y[i]};
         card->SetPosition(cardPosition);

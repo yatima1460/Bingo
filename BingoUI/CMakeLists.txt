@@ -15,7 +15,7 @@ if (NOT TARGET BingoCore)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../BingoCore ${CMAKE_CURRENT_BINARY_DIR}/BingoCore)
 endif ()
 target_link_libraries(BingoUI BingoCore)
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/../BingoCore/Settings.ini DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY Settings.ini DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 
 # Load SDL2
