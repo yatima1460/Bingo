@@ -341,7 +341,7 @@ void BingoCLI::PrintMenu()
             // Play 1 Game
         case 5:
         {
-            if (!TryPlayOneGame())
+            if (!TryPlayOneGame(true))
             {
                 std::cout << std::endl << "You don't have enough money!" << std::endl << std::endl;
                 //BingoCLI::Pause();
@@ -411,7 +411,7 @@ void BingoCLI::PrintCards()
     }
 }
 
-bool BingoCLI::TryPlayOneGame()
+bool BingoCLI::TryPlayOneGame(const bool interactive)
 {
     // Try remove credits for cards
     if (!player.pay(Settings::get<unsigned int>("cards_number")))
@@ -432,7 +432,8 @@ bool BingoCLI::TryPlayOneGame()
         if ((i + 1) % 10 == 0) std::cout << std::endl;
     }
 
-    BingoCLI::Pause();
+    if (interactive)
+        BingoCLI::Pause();
 
 
     // Create a lookup table for faster checks
@@ -497,12 +498,21 @@ bool BingoCLI::TryPlayOneGame()
 void BingoCLI::PlayNGames(unsigned int N)
 {
 
-    unsigned int i = 1;
-    while (true)
+    unsigned int i = 0;
+
+    const auto playerCreditsOld = player.creditsLeft();
+    while (i++ < N)
     {
-        std::cout << "Game #" << i++ << std::endl;
-        if (!TryPlayOneGame()) return;
+        std::cout << "Game " << i << "/" << N << std::endl;
+
+        auto flag = TryPlayOneGame(false);
+
+        if (!flag) break;
     }
+    std::cout << std::endl;
+    std::cout << "Total number of games played: " << (i - 1) << std::endl;
+    std::cout << "Difference in credits: " << ((long) player.creditsLeft() - (long) playerCreditsOld) << std::endl;
+    BingoCLI::Pause();
 
 }
 

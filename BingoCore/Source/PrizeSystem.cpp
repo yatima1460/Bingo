@@ -105,8 +105,9 @@ struct custom_prizes_sort
 {
     inline bool operator()(const Prize& struct1, const Prize& struct2)
     {
-        // TODO: should prizes be sorted by area or by value?
-        return (struct1.MINIMUM_COLUMNS * struct1.MINIMUM_ROWS < struct2.MINIMUM_COLUMNS * struct2.MINIMUM_COLUMNS);
+        // FIXME: should prizes be sorted by area or by value?
+        //return (struct1.MINIMUM_COLUMNS * struct1.MINIMUM_ROWS > struct2.MINIMUM_COLUMNS * struct2.MINIMUM_ROWS);
+        return struct1.VALUE > struct2.VALUE;
     }
 };
 
@@ -183,7 +184,8 @@ bool PrizeSystem::load()
                 std::stringstream hss(rowsString);
                 hss >> prizeRows;
 
-                addPrize(prizeRows, prizeColumns, prizeValue);
+
+                prizesRegistered.emplace_back(prizeRows, prizeColumns, prizeValue);
 
                 break;
             }
@@ -196,6 +198,7 @@ bool PrizeSystem::load()
     }
 
 
+    std::sort(prizesRegistered.begin(), prizesRegistered.end(), custom_prizes_sort());
     return true;
 }
 

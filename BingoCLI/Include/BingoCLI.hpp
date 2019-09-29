@@ -19,9 +19,10 @@ public:
 
     /**
      * Plays a game
+     * @param interactive pause to show all cards
      * @return true if the game was played, false if not enough money
      */
-    bool TryPlayOneGame();
+    bool TryPlayOneGame(bool interactive);
 
     void PlayNGames(unsigned int N);
 
