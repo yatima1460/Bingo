@@ -28,7 +28,7 @@ std::string Settings::toString()
     return ss.str();
 }
 
-bool Settings::ParseFile(std::string contents)
+bool Settings::parseFile(std::string contents)
 {
     if (contents.length() == 0)
         throw std::invalid_argument("Settings.ini content is empty!");
@@ -75,7 +75,7 @@ bool Settings::load()
 
         file.close();
 
-        return ParseFile(buffer.str());
+        return parseFile(buffer.str());
     } else
     {
         std::cout << "ERROR: can't load settings file" << std::endl << std::endl;

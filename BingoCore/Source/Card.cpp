@@ -1,32 +1,13 @@
-
-
-
 #include <Drum.hpp>
 #include "Card.hpp"
 
 
-Card::Card(const unsigned int Width, const unsigned int Height, const unsigned int MaxNumber) : Width(Width),
-                                                                                                Height(Height),
-                                                                                                MaxNumber(MaxNumber),
-                                                                                                Numbers(Drum(
-                                                                                                        MaxNumber).Extract(
-                                                                                                        Width * Height))
+Card::Card(const unsigned int width, const unsigned int height, const unsigned int maxNumber) : WIDTH(width),
+                                                                                                HEIGHT(height),
+                                                                                                MAX_NUMBER(maxNumber),
+                                                                                                NUMBERS(Drum(
+                                                                                                        maxNumber).extract(
+                                                                                                        width * height))
 {
 
 }
-
-
-/*
-void Card::ReRoll()
-{
-    Drum d(MaxNumber);
-    CardInternal = d.Extract(Width * Height);
-}
-*/
-
-/*
-unsigned int Card::operator[]( int index)
-{
-    return CardInternal[index];
-}
-*/

@@ -7,14 +7,12 @@
 class Player
 {
 
-private:
-
-    unsigned int Credits;
+    unsigned int credits;
 
     /**
      * Bingo Cards this player is holding
      */
-    std::vector<std::shared_ptr<Card>> Cards;
+    std::vector<std::shared_ptr<Card>> cards;
 
 public:
 
@@ -25,36 +23,36 @@ public:
      *
      * @return unsigned int of credits
      */
-    [[nodiscard]] unsigned int CreditsLeft() const;
+    [[nodiscard]] unsigned int creditsLeft() const;
 
     /**
      * Tries to remove the credits from the player, otherwise returns false
-     * @param Value
+     *
+     * @param value
      * @return true if removed, false if not enough
      */
-    [[nodiscard]] bool TryRemoveCredits(unsigned int Value);
+    [[nodiscard]] bool pay(unsigned int value);
 
     /**
      * Adds the number of credits to the Player
      *
-     * @param Value credits directly added
+     * @param value credits directly added
      */
-    void AddCredits(unsigned int Value);
+    void addCredits(unsigned int value);
 
     /**
      * Converts all the credits to real money, and sets the credits to 0
      *
      * @return the money to emit
      */
-    [[nodiscard]] unsigned int Collect();
-
+    [[nodiscard]] unsigned int collect();
 
     /**
      * The Bingo cards this player is holding
      *
      * @return
      */
-    [[nodiscard]] const std::vector<std::shared_ptr<Card>>& GetCards() const;
+    [[nodiscard]] const std::vector<std::shared_ptr<Card>>& getCards() const;
 
     /**
      * Gets new Bingo cards, discarding the previous ones

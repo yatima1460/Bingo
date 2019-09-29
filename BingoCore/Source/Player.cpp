@@ -2,48 +2,47 @@
 #include "Player.hpp"
 
 #include <stdexcept>
-#include <cassert>
 #include <Settings.hpp>
 
-unsigned int Player::CreditsLeft() const
+unsigned int Player::creditsLeft() const
 {
-    return Credits;
+    return credits;
 }
 
-bool Player::TryRemoveCredits(const unsigned int Value)
+bool Player::pay(const unsigned int value)
 {
-    if (Value > Credits)
+    if (value > credits)
         return false;
-    Credits -= Value;
+    credits -= value;
     return true;
 }
 
-unsigned int Player::Collect()
+unsigned int Player::collect()
 {
-    unsigned int win = Credits;
-    Credits = 0;
+    if (credits == 0)
+        throw std::invalid_argument("Trying to collect credits");
+    unsigned int win = credits;
+    credits = 0;
     return win;
 }
 
-void Player::AddCredits(unsigned int Value)
+void Player::addCredits(unsigned int value)
 {
-    if (Value == 0)
-    {
-        throw std::invalid_argument("Trying to add 0 Credits to a PlayerRef!");
-    }
-    Credits += Value;
+    if (value == 0)
+        throw std::invalid_argument("Trying to add 0 credits to a PlayerRef!");
+    credits += value;
 }
 
-const std::vector<std::shared_ptr<Card>>& Player::GetCards() const
+const std::vector<std::shared_ptr<Card>>& Player::getCards() const
 {
-    return Cards;
+    return cards;
 }
 
-Player::Player() : Credits(0)
+Player::Player() : credits(0)
 {
 
 
-    //Cards = std::vector<std::shared_ptr<Card>>(CARTON_NUMBER);
+    //cards = std::vector<std::shared_ptr<Card>>(CARTON_NUMBER);
 
 
 }
@@ -56,17 +55,17 @@ Player::changeCards()
     const auto width = Settings::get<unsigned int>("card_width");
     const auto height = Settings::get<unsigned int>("card_height");
     const auto maxN = Settings::get<unsigned int>("drum_size");
-    Cards.clear();
+    cards.clear();
     for (size_t i = 0; i < n; i++)
-        Cards.push_back(std::make_shared<Card>(width, height, maxN));
-    /*for (auto& card : Cards)
+        cards.push_back(std::make_shared<Card>(width, height, maxN));
+    /*for (auto& card : cards)
     {
         assert(card != nullptr);
 
 
 
 
-        //auto newCard = new Card(CardInternal->Width, CardInternal->Height, CardInternal->MaxNumber);
+        //auto newCard = new Card(CardInternal->WIDTH, CardInternal->HEIGHT, CardInternal->MAX_NUMBER);
 
         //delete CardInternal;
 

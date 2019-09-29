@@ -21,17 +21,15 @@ public:
 class Drum
 {
 
-private:
-
     /**
      * Balls held by this Drum
      */
-    std::vector<unsigned int> Balls;
+    std::vector<unsigned int> balls;
 
     /**
      * Original number of balls when this Drum was created
      */
-    const unsigned int NumberOfBalls;
+    const unsigned int NUMBER_OF_BALLS_AT_CREATION;
 
 
 public:
@@ -44,13 +42,15 @@ public:
 
     /**
      *  Extracts N balls from the drum
+     *
+     *  Complexity: theta(N)
     */
-    [[nodiscard]] std::vector<unsigned int> Extract(unsigned int N);
+    [[nodiscard]] std::vector<unsigned int> extract(unsigned int n);
 
 
     /**
      * Returns the number of balls left
      */
-    [[nodiscard]] unsigned int BallsLeft() const;
+    [[nodiscard]] unsigned int ballsLeft() const;
 
 };

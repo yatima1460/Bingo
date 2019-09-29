@@ -9,42 +9,41 @@
 #include <cassert>
 
 
-Drum::Drum(const unsigned int numberOfBalls) : NumberOfBalls(numberOfBalls)
+Drum::Drum(const unsigned int numberOfBalls) : NUMBER_OF_BALLS_AT_CREATION(numberOfBalls)
 {
     if (numberOfBalls == 0)
         throw std::invalid_argument("The number of balls in a Drum can't be 0!");
 
-    for (size_t i = 0; i < NumberOfBalls; i++)
-    {
-        Balls.push_back(i + 1);
-    }
+    for (size_t i = 0; i < NUMBER_OF_BALLS_AT_CREATION; i++)
+        balls.push_back(i + 1);
+
     // obtain a random number from hardware
     // seed the generator
+    // NOTE: it's BUGGED on Windows with MinGW!!!!!
     static std::random_device rng;
     static std::default_random_engine urng(rng());
-    std::shuffle(Balls.begin(), Balls.end(), urng);
+    std::shuffle(balls.begin(), balls.end(), urng);
 }
 
 
-
-std::vector<unsigned int> Drum::Extract(const unsigned int N)
+std::vector<unsigned int> Drum::extract(const unsigned int n)
 {
-    if (N > Balls.size())
+    if (n > balls.size())
         throw EmptyDrumException();
 
     std::vector<unsigned int> results;
-    for (int i = 0; i < N; ++i)
+    for (int i = 0; i < n; ++i)
     {
-        results.push_back(Balls.back());
-        Balls.pop_back();
+        results.push_back(balls.back());
+        balls.pop_back();
     }
 
     return results;
 }
 
-unsigned int Drum::BallsLeft() const
+unsigned int Drum::ballsLeft() const
 {
-    return Balls.size();
+    return balls.size();
 }
 
 

@@ -14,6 +14,6 @@ public:
      * Checks if the Prize is won, and will return the win credits amount
      * @return
      */
-    unsigned int Check(Card& card, std::vector<unsigned int> extracted) override;
+    //unsigned int Check(Card& card, std::vector<unsigned int> extracted) override;
 };
 
