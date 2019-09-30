@@ -5,7 +5,6 @@
 #include <CustomWidgets/CardUI.hpp>
 #include <Engine.hpp>
 #include <BingoLevel.hpp>
-#include <Prizes/DoubleLinePrize.hpp>
 #include <cassert>
 #include <Settings.hpp>
 #include <PrizeSystem.hpp>
