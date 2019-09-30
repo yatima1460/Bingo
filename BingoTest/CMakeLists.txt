@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.2)
 
 project(DP_Example)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Werror")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
 
 include(CTest)
 set(CMAKE_CXX_STANDARD 17)
@@ -50,3 +50,5 @@ target_link_libraries(BingoTest BingoCore)
 
 target_link_libraries(BingoTest gtest gmock_main)
 add_test(NAME test COMMAND BingoTest)
+
+file(COPY Settings.ini DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
