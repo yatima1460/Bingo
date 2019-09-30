@@ -47,7 +47,7 @@ public:
      *
      *  Complexity: theta(N)
     */
-    [[nodiscard]] std::vector<unsigned int> extract(unsigned int n);
+    [[nodiscard]] std::vector<unsigned int> extract(unsigned int n) noexcept(false);
 
 
     /**

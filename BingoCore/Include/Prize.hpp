@@ -11,6 +11,11 @@ struct Prize
 public:
 
 
+    Prize()
+    {
+
+    }
+
     unsigned int MINIMUM_COLUMNS;
     unsigned int MINIMUM_ROWS;
     unsigned int VALUE;
@@ -34,23 +39,6 @@ public:
         return ss.str();
     }
 
-
-/*    *//**
-     * Given a card and the extracted numbers checks if the Prize is won, and will return the win credits amount
-     *
-     * @param card
-     * @param extracted
-     * @return
-     *//*
-    [[nodiscard]] virtual unsigned int Check(Card& card, std::vector<unsigned int> extracted) = 0;
-
-
-    */
-
-
-
-/*
-    virtual ~Prize() = default;*/
 };
 
 

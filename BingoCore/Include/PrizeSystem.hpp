@@ -22,6 +22,9 @@ public:
      */
     static std::string toString();
 
+
+    [[nodiscard]] static bool addPrize(const std::string& code);
+
     /**
      * Adds a prize to the PrizeSystem
      * @param minRows

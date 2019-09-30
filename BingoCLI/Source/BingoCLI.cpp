@@ -106,13 +106,34 @@ void BingoCLI::PrintSettings()
             std::cout << "Cx = credits value if won" << std::endl;
             std::cout << "Bx = special Bingo case credits value" << std::endl;
             std::cout << std::endl;
+            std::cout << "Example: H0V1C2 = every column matched is 2 credits" << std::endl;
             std::cout << "Example: H1V0C8 = match only one line horizontally, 8 Credits value" << std::endl;
             std::cout << "Example: B1500 = match only Bingo, 1500 credits value" << std::endl;
             std::cout << std::endl;
             std::cout << "Insert prize code: ";
             std::cin >> code;
 
-            // error another same code
+
+            if (PrizeSystem::addPrize(code))
+            {
+
+                std::cout << "Prize code saved!" << std::endl;
+                if (!PrizeSystem::save())
+                {
+                    std::cout << "Can't save prize to Settings.ini" << std::endl;
+                    BingoCLI::Pause();
+                }
+
+            } else
+            {
+                std::cout << "Prize code is invalid or already exists" << std::endl;
+                BingoCLI::ClearInputError();
+
+            }
+
+
+            BingoCLI::Pause();
+
             break;
 
 
@@ -144,9 +165,10 @@ void BingoCLI::PrintSettings()
             if (index == i + 1)
             {
                 PrizeSystem::setBingo(0);
+                std::cout << "Bingo removed" << std::endl;
                 if (!PrizeSystem::save())
                 {
-                    std::cout << "Can't save prize to Settings.ini" << std::endl;
+                    std::cout << "Can't save bingo to Settings.ini" << std::endl;
                     BingoCLI::Pause();
                 }
             } else
@@ -154,15 +176,21 @@ void BingoCLI::PrintSettings()
                 if (index >= 1 && index <= i)
                 {
                     PrizeSystem::removePrize(index - 1);
+                    std::cout << "Prize removed" << std::endl;
+                    if (!PrizeSystem::save())
+                    {
+                        std::cout << "Can't save prize to Settings.ini" << std::endl;
+                        BingoCLI::Pause();
+                    }
                 } else
                 {
                     std::cout << "Invalid index" << std::endl;
                     BingoCLI::ClearInputError();
-                    BingoCLI::Pause();
+
                 }
             }
 
-
+            BingoCLI::Pause();
             break;
 
         }
@@ -410,7 +438,7 @@ void BingoCLI::PrintCards()
             if ((j + 1) % card->WIDTH == 0) std::cout << std::endl;
         }
         std::cout << std::endl;
-        if ((i + 1) % 4 == 0) BingoCLI::Pause();
+        if ((i + 1) % 5 == 0) BingoCLI::Pause();
 
     }
 }
@@ -421,7 +449,7 @@ bool BingoCLI::TryPlayOneGame(const bool interactive)
     if (!player.pay(Settings::get<unsigned int>("cards_number")))
         return false;
 
-    // extract numbers
+    // Extract numbers
     Drum drum(Settings::get<unsigned int>("drum_size"));
     const auto extractedBalls = drum.extract(Settings::get<unsigned int>("drum_extract"));
 
@@ -464,15 +492,9 @@ bool BingoCLI::TryPlayOneGame(const bool interactive)
             unsigned int n = (*card)[j];
 
             if (lookup[n] == 1)
-            {
                 std::cout << "\tX";
-
-            } else
-            {
-
+            else
                 std::cout << "\t" << n;
-
-            }
 
             if ((j + 1) % card->WIDTH == 0) std::cout << std::endl;
         }
@@ -499,7 +521,7 @@ bool BingoCLI::TryPlayOneGame(const bool interactive)
 }
 
 
-void BingoCLI::PlayNGames(unsigned int N)
+void BingoCLI::PlayNGames(const unsigned int N)
 {
 
     unsigned int i = 0;
