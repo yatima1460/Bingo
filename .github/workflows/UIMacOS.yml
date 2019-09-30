@@ -1,0 +1,20 @@
+name: UIMacOS
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: prerequisites
+        run: brew install sdl2 sdl2_ttf
+      - name: make BingoUI/build
+        run: mkdir BingoUI/build
+      - name: CMake BingoUI
+        run: cd BingoUI/build && cmake ..
+      - name: g++ BingoUI
+        run: cd BingoUI/build && make -j
+      

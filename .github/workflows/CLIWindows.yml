@@ -1,0 +1,16 @@
+name: CLIWindows
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: CMake BingoCLI
+        run: cd BingoCLI && cmake .
+      - name: g++ BingoCLI
+        run: cd BingoCLI && make -j
+      

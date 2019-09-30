@@ -1,0 +1,16 @@
+name: CLIMacOS
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: CMake BingoCLI
+        run: cd BingoCLI && cmake .
+      - name: g++ BingoCLI
+        run: cd BingoCLI && make -j
+      
