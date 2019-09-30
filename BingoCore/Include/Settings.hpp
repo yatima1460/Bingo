@@ -45,7 +45,7 @@ public:
         if (iss.str().empty())
             throw std::invalid_argument("VALUE can't be empty");
         if (iss.fail())
-            throw std::logic_error(value + " can't be converted to string");
+            throw std::logic_error("VALUE can't be converted to string");
         const auto s = iss.str();
         config[key] = s;
     }
