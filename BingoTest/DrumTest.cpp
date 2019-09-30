@@ -37,9 +37,25 @@ TEST(DrumTest, AllNumbersInRange)
 }
 
 
-
-/*TEST(DrumTest, AllNumbersAreDifferent)
+TEST(DrumTest, AllNumbersAreDifferent)
 {
-    //TODO
-}*/
+    const size_t testN = 1000;
+
+    for (size_t j = 0; j < testN; j++)
+    {
+        Drum d(testN);
+        std::vector<unsigned int> v(testN + 1);
+
+        for (auto i : d.extract(j))
+        {
+            v[i]++;
+        }
+
+        for (auto i : v)
+        {
+            EXPECT_GE(i, 0);
+            EXPECT_LE(i, 1);
+        }
+    }
+}
 

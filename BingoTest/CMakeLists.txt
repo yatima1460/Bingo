@@ -4,6 +4,7 @@ project(DP_Example)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -Werror")
 
 include(CTest)
+set(CMAKE_CXX_STANDARD 17)
 
 if (CMAKE_VERSION VERSION_LESS 3.2)
     set(UPDATE_DISCONNECTED_IF_AVAILABLE "")
