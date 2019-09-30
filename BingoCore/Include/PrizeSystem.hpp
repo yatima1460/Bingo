@@ -65,4 +65,6 @@ public:
 
 
     [[nodiscard]] static bool save();
+
+    static void clear();
 };

@@ -19,62 +19,75 @@ unsigned int PrizeSystem::checkCard(Card& card, const std::vector<unsigned int>&
 
 
     // First check special case of Bingo
-    bool bingo = true;
-    for (size_t i = 0; i < card.WIDTH * card.HEIGHT; i++)
+    if (bingoValue != 0)
     {
-        if (lookup[card[i]] == 0)
+        bool bingo = true;
+        for (size_t i = 0; i < card.WIDTH * card.HEIGHT; i++)
         {
-            bingo = false;
-            break;
+            if (lookup[card[i]] == 0)
+            {
+                bingo = false;
+                break;
+            }
         }
+        if (bingo)
+            return bingoValue;
     }
-    if (bingo)
-        return bingoValue;
+
 
     // TODO: fix this ugly code
     for (Prize& p : prizesRegistered)
     {
         unsigned int rowsMatched = 0;
-        for (size_t row = 0; row < card.HEIGHT; row++)
+        if (p.MINIMUM_ROWS != 0)
         {
-            bool rowMatch = true;
-            for (size_t column = 0; column < card.WIDTH; column++)
-            {
-                size_t index = row * card.WIDTH + column;
-
-                unsigned int cardNumber = card[index];
-                if (lookup[cardNumber] == 0)
-                {
-                    rowMatch = false;
-                    break;
-                }
-            }
-            if (rowMatch)
-            {
-                rowsMatched++;
-            }
-        }
-
-        unsigned int columnsMatched = 0;
-        for (size_t column = 0; column < card.WIDTH; column++)
-        {
-            bool columnMatch = true;
             for (size_t row = 0; row < card.HEIGHT; row++)
             {
-                size_t index = row * card.WIDTH + column;
-
-                unsigned int cardNumber = card[index];
-                if (lookup[cardNumber] == 0)
+                bool rowMatch = true;
+                for (size_t column = 0; column < card.WIDTH; column++)
                 {
-                    columnMatch = false;
-                    break;
+                    size_t index = row * card.WIDTH + column;
+
+                    unsigned int cardNumber = card[index];
+                    if (lookup[cardNumber] == 0)
+                    {
+                        rowMatch = false;
+                        break;
+                    }
+                }
+                if (rowMatch)
+                {
+                    rowsMatched++;
                 }
             }
-            if (columnMatch)
-            {
-                columnsMatched++;
-            }
         }
+
+
+        unsigned int columnsMatched = 0;
+        if (p.MINIMUM_COLUMNS != 0)
+        {
+            for (size_t column = 0; column < card.WIDTH; column++)
+            {
+                bool columnMatch = true;
+                for (size_t row = 0; row < card.HEIGHT; row++)
+                {
+                    size_t index = row * card.WIDTH + column;
+
+                    unsigned int cardNumber = card[index];
+                    if (lookup[cardNumber] == 0)
+                    {
+                        columnMatch = false;
+                        break;
+                    }
+                }
+                if (columnMatch)
+                {
+                    columnsMatched++;
+                }
+            }
+
+        }
+
 
         if (rowsMatched >= p.MINIMUM_ROWS && columnsMatched >= p.MINIMUM_COLUMNS)
             return p.VALUE * rowsMatched + p.VALUE * columnsMatched;
@@ -271,4 +284,10 @@ void PrizeSystem::addPrize(unsigned int minRows, unsigned int minColumns, unsign
 
 
     std::sort(prizesRegistered.begin(), prizesRegistered.end(), custom_prizes_sort());
+}
+
+void PrizeSystem::clear()
+{
+    prizesRegistered.clear();
+    bingoValue = 0;
 }
