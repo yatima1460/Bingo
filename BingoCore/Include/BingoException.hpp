@@ -6,7 +6,7 @@ class BingoException : std::runtime_error
 {
 
 protected:
-    explicit BingoException(const std::string& arg) : runtime_error(arg)
+    explicit BingoException(const char* arg) : runtime_error(arg)
     {
 
     }
