@@ -11,8 +11,8 @@
 
 ![](screenshot_cli.png)
 
-- Dynamic Bingo settings
-  - Prize patterns add
+- ~Dynamic Bingo settings~
+  - ~Prize patterns add~
   - ~Prize patterns delete~
   - ~Number of balls~
   - ~Number of cards~
