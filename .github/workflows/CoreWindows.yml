@@ -1,0 +1,16 @@
+name: CoreWindows
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: CMake BingoCore
+        run: cd BingoCore && cmake .
+      - name: g++ BingoCore
+        run: cd BingoCore && make -j
+      

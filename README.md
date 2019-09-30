@@ -1,11 +1,11 @@
 # Bingo
 
-|Project|Build|
-|-------|-----|
-| Core | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/CoreLinux/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
-| Core Test | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/TestLinux/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
-| CLI | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/CLILinux/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
-| UI | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/UILinux/badge.svg)](https://github.com/yatima1460/Bingo/actions) |
+|Project|Linux|Windows|MacOS|
+|-------|-----|-------|-----|
+| Core | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/CoreLinux/badge.svg)](https://github.com/yatima1460/Bingo/actions) | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/CoreWindows/badge.svg)](https://github.com/yatima1460/Bingo/actions) ||
+| Core Test | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/TestLinux/badge.svg)](https://github.com/yatima1460/Bingo/actions) |[![Actions Status](https://github.com/yatima1460/Bingo/workflows/TestWindows/badge.svg)](https://github.com/yatima1460/Bingo/actions) ||
+| CLI | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/CLILinux/badge.svg)](https://github.com/yatima1460/Bingo/actions) |||
+| UI | [![Actions Status](https://github.com/yatima1460/Bingo/workflows/UILinux/badge.svg)](https://github.com/yatima1460/Bingo/actions) |||
 
 ## CLI
 
