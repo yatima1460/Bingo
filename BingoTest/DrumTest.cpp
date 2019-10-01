@@ -59,3 +59,21 @@ TEST(DrumTest, AllNumbersAreDifferent)
     }
 }
 
+
+TEST(DrumTest, GoodRandomNumberGeneration)
+{
+    const size_t testN = 1000;
+
+    std::vector<unsigned int> oldArray;
+
+
+    for (size_t i = 0; i < testN; i++)
+    {
+        Drum d(testN);
+        auto newExtracted = d.extract(d.NUMBER_OF_BALLS_AT_CREATION);
+        EXPECT_EQ(oldArray == newExtracted, false);
+        oldArray = newExtracted;
+    }
+
+
+}
