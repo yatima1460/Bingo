@@ -11,9 +11,9 @@ TEST(CardTest, CardCreationWithInvalidValues)
     EXPECT_THROW(Card(0, 1, 0), std::invalid_argument);
     EXPECT_THROW(Card(0, 1, 1), std::invalid_argument);
     EXPECT_THROW(Card(1, 0, 0), std::invalid_argument);
-    EXPECT_THROW(Card(0, 0, 1), std::invalid_argument);
-    EXPECT_THROW(Card(0, 1, 0), std::invalid_argument);
-    EXPECT_THROW(Card(0, 1, 1), std::invalid_argument);
+    EXPECT_THROW(Card(1, 0, 1), std::invalid_argument);
+    EXPECT_THROW(Card(1, 1, 0), std::invalid_argument);
+    EXPECT_NO_THROW(Card(1, 1, 1));
 }
 
 TEST(CardTest, BigCardCreation)
