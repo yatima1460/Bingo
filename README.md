@@ -81,6 +81,12 @@
 sudo apt install -y libsdl2-dev libsdl2-ttf-dev
 ```
 
+If you have errors about not finding SDL_ttf.h try:
+
+```
+sudo ln -s /usr/include/SDL2/SDL_ttf.h /usr/local/include/SDL2/
+```
+
 ##### Arch
 ```
 sudo pacman -S sdl2 sdl2_ttf
