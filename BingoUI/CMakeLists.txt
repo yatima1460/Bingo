@@ -38,7 +38,7 @@ endif ()
 # Load SDL2 extensions
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 find_package(SDL2TTF REQUIRED)
-include_directories(BingoUI ${SDL2TTF_LIBRARY})
+include_directories(BingoUI ${SDL2TTF_INCLUDE_DIR})
 target_link_libraries(BingoUI ${SDL2TTF_LIBRARY})
 
 
