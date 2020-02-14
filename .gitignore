@@ -139,3 +139,6 @@ _deps
 
 .idea
 BingoUI/BingoUI
+BingoTest/googletest*
+BingoTest/BingoTest
+BingoTest/DartConfiguration.tcl
