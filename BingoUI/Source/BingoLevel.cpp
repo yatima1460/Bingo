@@ -54,13 +54,15 @@ void BingoLevel::BeginLevel()
     widgets.push_back(new ImageWidget(*AssetsManager::Get<Texture>("Fondo_Juego")));
 
     // Add credits label
-    widgets.push_back(new CreditosLabel());
+    CreditosLabel* creditosLabel = new CreditosLabel();
+    widgets.push_back(creditosLabel);
+    
+    LabelWidget* creditsLabelText = new LabelWidget("Credits:");
+
+    creditsLabelText->SetPosition({850, 20});
+    widgets.push_back(creditsLabelText);
 
     // Add cards
-
-
-
-
     int CARD_LOCATIONS_X[4] = {
             Settings::get<int>("CARTON_COLUMN_0_X"),
             Settings::get<int>("CARTON_COLUMN_1_X"),
