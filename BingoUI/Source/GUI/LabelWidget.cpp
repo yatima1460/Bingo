@@ -45,3 +45,8 @@ LabelWidget::LabelWidget()
 {
     this->text = "";
 }
+
+std::string LabelWidget::GetText() const
+{
+    return this->text;
+}

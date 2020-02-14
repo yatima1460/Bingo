@@ -27,4 +27,6 @@ public:
 
 
     void SetText(std::string basicString);
+
+    std::string GetText() const;
 };
