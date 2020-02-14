@@ -10,9 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: CMake BingoCLI
-        run: cd BingoTest && cmake .
+        run: cd BingoTest -and cmake .
       - name: g++ BingoTest
-        run: cd BingoTest && make -j
+        run: cd BingoTest -and make -j
       - name: Run test
-        run: cd BingoTest && ./BingoTest
+        run: cd BingoTest -and ./BingoTest
       
