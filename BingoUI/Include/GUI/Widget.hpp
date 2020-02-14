@@ -16,4 +16,6 @@ public:
     virtual void Draw() = 0;
 
     void SetPosition(SDL_Point location);
+
+    SDL_Point GetPosition() const;
 };
