@@ -12,7 +12,7 @@ jobs:
       - name: make BingoUI/build
         run: mkdir BingoUI/build
       - name: CMake BingoUI
-        run: cd BingoUI/build -and cmake ..
+        run: cd BingoUI/build  ; if ($?) {cmake ..}
       - name: g++ BingoUI
-        run: cd BingoUI/build -and make -j
+        run: cd BingoUI/build  ; if ($?) {make -j}
       

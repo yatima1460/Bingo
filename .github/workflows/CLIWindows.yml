@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: CMake BingoCLI
-        run: cd BingoCLI -and cmake .
+        run: cd BingoCLI  ; if ($?) { cmake . }
       - name: g++ BingoCLI
-        run: cd BingoCLI -and make -j
+        run: cd BingoCLI  ; if ($?) { make -j }
       

@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: CMake BingoCore
-        run: cd BingoCore -and cmake .
+        run: cd BingoCore  ; if ($?) { cmake . }
       - name: g++ BingoCore
-        run: cd BingoCore -and make -j
+        run: cd BingoCore  ; if ($?) { make -j }
       
